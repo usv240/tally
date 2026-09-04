@@ -1,0 +1,110 @@
+{
+  "version": "2026-09",
+  "effective": "2026-07-01",
+  "source": "USDA Food and Nutrition Administration, CACFP meal patterns for children and infants. https://www.fna.usda.gov/cacfp/nutrition-standards",
+  "note": "Component requirements only. Tally deliberately does not model portion sizes, because a photograph cannot establish them and because reimbursement turns on which components were served.",
+
+  "components": {
+    "milk": "Fluid milk",
+    "fruit": "Fruit",
+    "vegetable": "Vegetable",
+    "grain": "Grains, at least one whole grain-rich per day",
+    "meat_alt": "Meat or meat alternate"
+  },
+
+  "age_groups": ["1-2", "3-5", "6-12", "13-18"],
+
+  "meals": {
+    "breakfast": {
+      "required": ["milk", "grain", "fruit_or_vegetable"],
+      "substitutions": [
+        {
+          "replace": "grain",
+          "with": "meat_alt",
+          "limit_per_week": 3,
+          "note": "A meat or meat alternate may replace the grain at breakfast up to three times a week."
+        }
+      ]
+    },
+    "lunch": {
+      "required": ["milk", "fruit", "vegetable", "grain", "meat_alt"],
+      "substitutions": [
+        {
+          "replace": "vegetable",
+          "with": "fruit",
+          "note": "A second fruit may be served in place of the vegetable.",
+          "age_groups": ["1-2", "3-5", "6-12", "13-18"]
+        }
+      ]
+    },
+    "supper": {
+      "required": ["milk", "fruit", "vegetable", "grain", "meat_alt"],
+      "substitutions": [
+        {
+          "replace": "vegetable",
+          "with": "fruit",
+          "note": "A second fruit may be served in place of the vegetable."
+        }
+      ]
+    },
+    "snack": {
+      "choose_any": 2,
+      "from": ["milk", "fruit", "vegetable", "grain", "meat_alt"],
+      "forbidden_pairs": [
+        {
+          "pair": ["juice", "milk"],
+          "note": "Juice and milk cannot be the only two components at snack."
+        }
+      ]
+    }
+  },
+
+  "daily_rules": [
+    {
+      "id": "whole_grain_rich",
+      "description": "At least one grain served in a day must be whole grain-rich.",
+      "severity": "flag"
+    },
+    {
+      "id": "juice_limit",
+      "description": "Juice counts as a fruit or vegetable component only once a day.",
+      "severity": "block"
+    }
+  ],
+
+  "label_checks": [
+    {
+      "id": "cereal_sugar",
+      "applies_to": ["breakfast_cereal"],
+      "description": "Breakfast cereal must contain no more than 6 grams of sugar per dry ounce.",
+      "note": "A photograph cannot establish sugar content, so this is raised as a label check for the provider rather than decided by the agent."
+    },
+    {
+      "id": "yogurt_sugar",
+      "applies_to": ["yogurt"],
+      "description": "Yogurt must contain no more than 23 grams of sugar per 6 ounces.",
+      "note": "Raised as a label check, never decided from a photograph."
+    }
+  ],
+
+  "milk_by_age": {
+    "1-2": "Whole milk, unflavoured.",
+    "3-5": "Low fat or fat free, unflavoured.",
+    "6-12": "Low fat or fat free. Flavoured milk allowed for 6 and older.",
+    "13-18": "Low fat or fat free. Flavoured milk allowed."
+  },
+
+  "infants": {
+    "note": "Infants under one year follow a separate meal pattern based on age in months. Tally records infant meals and never applies the child meal pattern to them.",
+    "age_bands": ["0-5 months", "6-11 months"],
+    "handled": false
+  },
+
+  "daily_reimbursable_maximum": {
+    "note": "A child care home may claim at most two meals and one snack, or one meal and two snacks, per child per day.",
+    "combinations": [
+      { "meals": 2, "snacks": 1 },
+      { "meals": 1, "snacks": 2 }
+    ]
+  }
+}

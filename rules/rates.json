@@ -1,0 +1,22 @@
+{
+  "version": "2026-2027",
+  "effective_from": "2026-07-01",
+  "effective_to": "2027-06-30",
+  "source": "USDA Federal Register, Day Care Home Food Service Payment Rates for 1 July 2026 through 30 June 2027, as published by the National CACFP Association and KidKare.",
+  "currency": "USD",
+  "note": "Continental United States. Alaska and Hawaii have separate rates and are not modelled here.",
+  "day_care_home": {
+    "tier_1": {
+      "breakfast": 1.74,
+      "lunch": 3.31,
+      "supper": 3.31,
+      "snack": 0.98
+    },
+    "tier_2": {
+      "breakfast": 0.62,
+      "lunch": 1.99,
+      "supper": 1.99,
+      "snack": 0.27
+    }
+  }
+}

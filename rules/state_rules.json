@@ -1,0 +1,28 @@
+{
+  "version": "2026-09",
+  "note": "Ratio and group size limits for home based child care. Only the states Tally has been checked against are listed. Adding a state means adding its table here, not changing agent code.",
+  "states": {
+    "TX": {
+      "name": "Texas",
+      "source": "Texas Health and Human Services, Minimum Standards for Child Care Homes.",
+      "license_types": {
+        "registered": {
+          "label": "Registered child care home",
+          "max_group_size": 6,
+          "max_with_school_age": 12,
+          "note": "Up to six children under 14, plus up to six more school age children, with limits on how many are under two.",
+          "max_under_two": 6,
+          "caregivers_required": 1
+        },
+        "licensed": {
+          "label": "Licensed child care home",
+          "max_group_size": 12,
+          "max_with_school_age": 12,
+          "max_under_two": 4,
+          "note": "Up to 12 children, with a second caregiver required above certain counts.",
+          "second_caregiver_above": 7
+        }
+      }
+    }
+  }
+}
