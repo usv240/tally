@@ -7,8 +7,9 @@ meal record, the attendance, the ratio check, the notes home and the monthly cla
 correctly, before the food is cold.
 
 Built with the [Strands Agents SDK](https://strandsagents.com/) on
-[Amazon Bedrock](https://docs.aws.amazon.com/bedrock/) and
-[AgentCore](https://docs.aws.amazon.com/bedrock-agentcore/).
+[Amazon Bedrock](https://docs.aws.amazon.com/bedrock/), deployed on AWS App Runner.
+Designed for [AgentCore](https://docs.aws.amazon.com/bedrock-agentcore/), which is not wired in yet:
+see Honest notes.
 Submitted to the AWS Agents for Humans Hackathon, **Professional Agents** track.
 
 ---

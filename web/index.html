@@ -233,6 +233,14 @@
       Graph<button class="info" data-tip="nightly_graph" data-label="the nightly Graph"></button>.
     </p>
 
+    <div class="notice">
+      <strong>What is running right now, and what is not.</strong>
+      The Strands agents, the day orchestrator, the nightly Graph, the hooks and the Bedrock vision
+      model are all live on this deployment. It runs on AWS App Runner and calls Amazon Bedrock
+      directly. AgentCore is the deployment this is designed for and is not wired in yet.
+      <button class="info" data-tip="where_it_runs" data-label="where it runs"></button>
+    </div>
+
     <div class="card">
       <img src="architecture.svg" alt="Architecture diagram. During the day, a Day Orchestrator receives a photograph or a sentence and calls Plate, Rules, Roll or Provider Gate as a tool. In the evening, a Strands Graph runs Ledger, then Parent Notes, then Compliance, then the Digest. Both use AgentCore Runtime, Memory, Gateway, Code Interpreter and Observability, with versioned rules files behind the Gateway." style="width:100%;height:auto">
     </div>
@@ -244,7 +252,7 @@
       <div class="card"><h3>Provider Gate<button class="info" data-tip="agent_gate" data-label="Provider Gate"></button></h3><p class="muted small">The only agent allowed to ask her anything, with the budget enforced in code.</p></div>
       <div class="card"><h3>Ledger<button class="info" data-tip="agent_ledger" data-label="Ledger"></button></h3><p class="muted small">The daily maximum, the month's claim, and what the unpaid meals cost.</p></div>
       <div class="card"><h3>Parent Notes<button class="info" data-tip="agent_notes" data-label="Parent Notes"></button></h3><p class="muted small">One short note per child, in each family's language, from the record only.</p></div>
-      <div class="card"><h3>AgentCore<button class="info" data-tip="agentcore_runtime" data-label="AgentCore Runtime"></button></h3><p class="muted small">Runtime, Memory, Gateway, Code Interpreter and Observability, each for a stated reason.</p></div>
+      <div class="card"><h3>AgentCore, designed for<button class="info" data-tip="where_it_runs" data-label="where it runs"></button></h3><p class="muted small">Runtime, Memory, Gateway, Code Interpreter and Observability, each for a stated reason. Not wired in yet.</p></div>
       <div class="card"><h3>Published rules<button class="info" data-tip="agentcore_gateway" data-label="the Gateway"></button></h3><p class="muted small">The exact rules data is served at <code>/api/rules</code> so a sponsor can check it against USDA.</p></div>
     </div>
   </div>

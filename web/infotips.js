@@ -2,6 +2,7 @@
    Rule: at most three short sentences. What it is, why it exists, where to read more. */
 
 window.INFOTIPS = {
+  where_it_runs: "Both projects run on AWS App Runner and call Amazon Bedrock directly. The Strands agents, the Graph, the hooks and the Agent-to-Agent protocol are all live. The AgentCore services are the deployment this is designed for, each for a stated reason, and are not wired in yet.",
   /* Domain terms ------------------------------------------------------- */
   fcc: "Family child care: licensed or registered care for a small group of children in the provider's own home. It is the most common form of care for infants, rural families, and parents working nights and early mornings.",
   cacfp: "The Child and Adult Care Food Program. It reimburses providers for meals that meet USDA meal patterns. A meal is paid only if the required components were served and documented.",
