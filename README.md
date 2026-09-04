@@ -101,21 +101,32 @@ uvicorn tally.api:app --port 8001
 
 Open <http://localhost:8001> and press the steps in order.
 
-## The one endpoint worth integrating
+## Bring your own lunch
+
+This is not only a scripted demo. **`/try.html`** takes a photograph of any plate, from your camera or
+your files, and returns what the food programme would say about it: the components it found with the
+confidence behind each one, whether it would be paid, and the smallest change that would fix it.
+
+A meal pattern is defined per age group, so you choose who is eating. Nothing is stored: the
+photograph is read, the answer is returned, the file is deleted.
+
+Or from your own code:
 
 ```bash
 curl -X POST http://localhost:8001/api/meals \
   -H "x-api-key: tally-sandbox-2026" \
-  -F "photo=@lunch.jpg" -F "meal_type=lunch"
+  -F "photo=@lunch.jpg" -F "meal_type=lunch" -F "age_groups=1-2,3-5"
 ```
 
 Returns the components, whether the meal is reimbursable, the smallest fix if not, any questions, and
-the rule version. Bring your own photograph of a plate; it is not limited to the demo images.
+the rule version it was decided under. A meal pattern needs to know who is eating, so if nobody is
+signed in and you do not pass `age_groups`, it assumes a mixed group of one to two and three to five
+year olds and says so in the flags.
 
 ## Tests and evaluation
 
 ```bash
-pytest -q                                   # 58 tests, no model calls, under a second
+pytest -q                                   # 60 tests, no model calls, under a second
 python -m evals.vision_eval --trials 2      # calls Bedrock, about two minutes
 ```
 
