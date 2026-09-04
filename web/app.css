@@ -63,3 +63,16 @@
 table.claim { width: 100%; border-collapse: collapse; font-size: .9375rem; }
 table.claim th, table.claim td { text-align: left; padding: var(--s3); border-bottom: 1px solid var(--border); }
 table.claim td.num, table.claim th.num { text-align: right; font-variant-numeric: tabular-nums; }
+
+/* Connection banner. The demo runs against a live service, so losing it should be legible
+   rather than a spinner that never stops. */
+.conn {
+  position: fixed; left: 50%; transform: translateX(-50%); bottom: var(--s4);
+  z-index: 80; max-width: min(560px, calc(100vw - 32px));
+  padding: var(--s3) var(--s4); border-radius: var(--r-md);
+  font-size: .9375rem; box-shadow: var(--shadow);
+  display: flex; gap: var(--s3); align-items: center;
+  border: 1px solid var(--warning); background: var(--warning-soft); color: var(--text);
+}
+.conn.gone { border-color: var(--danger); background: var(--danger-soft); }
+.conn button { flex: none; }
