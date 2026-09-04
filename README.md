@@ -191,7 +191,8 @@ Code Interpreter. Without it the identical kernel runs locally, and the screen s
 
 Start at the deployed URL or `http://localhost:8001`.
 
-- **Play the day.** Eight steps, no login.
+- **Play the day.** Eight steps, no login, or press Play the rest of the day and watch it run
+  itself.
 - **Today** shows each meal with its photograph, the components with their confidences, the verdict,
   and the rule version.
 - **What Tally said out loud** is the spoken log, mirrored as text.

@@ -78,7 +78,9 @@ published 2026-2027 rates through the same arithmetic the tests check.
 ## 3. Judge walkthrough, about four minutes
 
 1. Open the live URL, read the hero, press **Open the live demo**.
-2. Press the eight steps in order. Vision calls take a few seconds each.
+2. Press the eight steps in order, or press **Play the rest of the day** and watch it run itself.
+   Vision calls take a few seconds each. A step that is not next is disabled: playing the evening
+   before lunch would ask the agents to close a day that has not happened.
 3. **Today**: every meal with its photograph, the components with the confidence behind each one,
    the verdict, the rule version, and any label check.
 4. **What Tally said out loud**: the spoken log, colour coded. Red is a safety alert, amber is a
