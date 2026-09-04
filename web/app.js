@@ -57,14 +57,26 @@
     host.innerHTML = "";
     var next = state.steps.filter(function (s) { return !s.done; })[0];
     state.steps.forEach(function (s) {
+      // A day happens in order. Playing the evening before lunch would ask the agents to close a
+      // day that has not happened, so a step that is not next is disabled and says why.
+      var isNext = next && next.id === s.id;
       var b = window.h("button", {
-        class: "btn" + (next && next.id === s.id ? " primary" : ""),
+        class: "btn" + (isNext ? " primary" : ""),
         type: "button",
+        title: s.done ? "Already played" : (isNext ? s.detail : "Play the steps before this first"),
         onclick: function () { runStep(s.id, s.detail); }
       }, [s.done ? "Done: " + s.title : s.title]);
-      if (s.done || busy) b.disabled = true;
+      if (s.done || busy || !isNext) b.disabled = true;
       host.appendChild(b);
     });
+    if (next && !playing) {
+      host.appendChild(window.h("button", {
+        class: "btn", type: "button", id: "play-all",
+        title: "Run every remaining step, one after another",
+        disabled: busy ? "" : null,
+        onclick: playThrough
+      }, ["Play the rest of the day"]));
+    }
 
     var doneCount = state.steps.filter(function (s) { return s.done; }).length;
     var shared = document.getElementById("shared-note");
@@ -405,6 +417,27 @@
       : "That step did not finish: " + e.message + ". Nothing was saved.";
     connection(offline ? "You are offline." : "The service did not answer.",
       "gone", "Try again", function () { location.reload(); });
+  }
+
+  /* Playing it through -----------------------------------------------------
+     Each step is a real agent run, so there is a pause between them. Someone watching, or
+     recording, should not have to sit with a finger over the button for that pause. */
+  var playing = false;
+
+  function playThrough() {
+    if (busy || playing) return;
+    playing = true;
+    (function nextOne() {
+      var left = state.steps.filter(function (s) { return !s.done; });
+      if (!left.length) { playing = false; renderAll(); return; }
+      var s = left[0];
+      setBusy(true, "Running: " + s.detail);
+      api("/api/step", { method: "POST", headers: { "content-type": "application/json" },
+        body: JSON.stringify({ step: s.id }) })
+        .then(after)
+        .then(function () { setTimeout(nextOne, 900); })
+        .catch(function (e) { playing = false; fail(e); });
+    })();
   }
 
   function runStep(id, detail) {
