@@ -61,7 +61,7 @@
         class: "btn" + (next && next.id === s.id ? " primary" : ""),
         type: "button",
         onclick: function () { runStep(s.id, s.detail); }
-      }, [s.done ? "✓ " + s.title : s.title]);
+      }, [s.done ? "Done: " + s.title : s.title]);
       if (s.done || busy) b.disabled = true;
       host.appendChild(b);
     });

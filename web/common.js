@@ -115,7 +115,7 @@
       "aria-label": "More about " + (label || key), "aria-expanded": "false", type: "button", text: "i" });
   };
 
-  window.SHAPES = { critical: "⬣", high: "◆", elevated: "▲", low: "●", covered: "✔" };
+  window.SHAPES = { critical: "⬣", high: "◆", elevated: "▲", low: "●", covered: "■" };
 
   window.levelBadge = function (level, word) {
     return window.h("span", { class: "badge " + level }, [
