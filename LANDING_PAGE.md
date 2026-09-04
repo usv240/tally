@@ -1,6 +1,6 @@
 # Tally: Landing Page Specification
 
-Follows `../DESIGN_SYSTEM.md`. Final copy. InfoTip text is given inline as `[i: ...]`.
+Follows `DESIGN_SYSTEM.md`. Final copy. InfoTip text is given inline as `[i: ...]`.
 
 Accent: deep green (`#0F6E56` light, `#4FC79E` dark). Hero imagery: a kitchen table with a child's plate (apple slices, crackers, a cup of milk), photographed from above, warm light. In dark mode, the same table in evening light.
 

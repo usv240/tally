@@ -1,6 +1,6 @@
 # Tally: UX Specification
 
-Screen-by-screen and line-by-line. Follows `../DESIGN_SYSTEM.md` sections 9 to 16. Spoken lines are final copy and are also shown as text.
+Screen-by-screen and line-by-line. Follows `DESIGN_SYSTEM.md` sections 9 to 16. Spoken lines are final copy and are also shown as text.
 
 ---
 
