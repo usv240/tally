@@ -171,3 +171,21 @@ def test_peanut_allergy_is_quiet_when_nothing_matches():
 def test_allergy_check_covers_every_present_child():
     hits = allergy_conflicts([MILK, CRACKERS], {"nia": ["dairy"], "sam": ["wheat"], "ava": []})
     assert set(hits) == {"nia", "sam"}
+
+
+# Bring your own photograph -----------------------------------------------------
+
+def test_no_children_signed_in_is_not_the_same_as_only_infants():
+    """A standalone API call has nobody signed in. Answering "only infants" would be wrong, and
+    answering "not reimbursable" with nothing missing and no fix is three claims that cannot all
+    be true at once."""
+    v = check_meal([MILK, BANANA, OATMEAL], MealType.BREAKFAST, set())
+    assert not v.reimbursable
+    assert v.missing == [] and v.smallest_fix == ""
+    assert "nobody to judge this meal for" in " ".join(v.flags)
+    assert "infant" not in " ".join(v.flags).lower()
+
+
+def test_an_explicit_age_group_gives_a_real_verdict_with_nobody_present():
+    v = check_meal([MILK, BANANA, OATMEAL], MealType.BREAKFAST, {AgeGroup.A3_5})
+    assert v.reimbursable

@@ -1,0 +1,263 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tally: try it with your own lunch</title>
+<meta name="description" content="Photograph any plate of food and see what the federal child care food programme would say about it. Real vision model, real versioned rules.">
+<script>
+  (function () {
+    try {
+      var m = localStorage.getItem("tally-theme");
+      if (m && m !== "system") document.documentElement.setAttribute("data-theme", m);
+    } catch (e) {}
+  })();
+</script>
+<link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="app.css">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='7' fill='%230F6E56'/></svg>">
+<style>
+  .drop {
+    border: 2px dashed var(--border); border-radius: var(--r-md);
+    padding: var(--s7) var(--s5); text-align: center; background: var(--surface);
+    transition: border-color .15s ease, background .15s ease;
+  }
+  .drop.over { border-color: var(--accent); background: var(--accent-soft); }
+  .drop input[type=file] { display: none; }
+  .preview { max-width: 340px; width: 100%; border-radius: var(--r-md); border: 1px solid var(--border); }
+  .controls { display: flex; flex-wrap: wrap; gap: var(--s4); align-items: flex-end; }
+  .field label { display: block; font-size: .875rem; font-weight: 600; margin-bottom: 6px; }
+  .field select {
+    font: inherit; padding: 10px var(--s3); min-height: 48px;
+    border-radius: var(--r-sm); border: 1px solid var(--border);
+    background: var(--surface); color: var(--text);
+  }
+  .verdict { border-left: 4px solid var(--border); }
+  .verdict.paid { border-left-color: var(--success); }
+  .verdict.unpaid { border-left-color: var(--warning); }
+  .verdict.none { border-left-color: var(--info); }
+</style>
+</head>
+<body class="app">
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="site">
+  <div class="bar">
+    <a class="brand" href="index.html"><span class="mark" aria-hidden="true"></span> Tally</a>
+    <div class="header-actions">
+      <div class="theme-toggle"></div>
+      <a class="btn small" href="app.html">Open the demo</a>
+    </div>
+  </div>
+</header>
+
+<main id="main" class="wrap" style="max-width:820px;padding-top:var(--s6);padding-bottom:var(--s8)">
+  <h1 style="font-size:1.75rem">Try it with your own lunch</h1>
+  <p class="muted">Photograph any plate of food, or upload a picture you already have. The same
+  vision model and the same versioned rulebook that run the demo will tell you which components are
+  on the plate and whether the federal child care food programme would pay for it.</p>
+
+  <div class="notice" style="margin-bottom:var(--s5)">
+    Nothing is stored. The photograph is read, the answer is returned, and the file is deleted.
+    <button class="info" data-tip="real_photos" data-label="the photographs"></button>
+  </div>
+
+  <section class="card stack" style="margin-bottom:var(--s5)">
+    <label class="drop" id="drop" for="file">
+      <input type="file" id="file" accept="image/*" capture="environment">
+      <strong style="display:block;font-size:1.0625rem;margin-bottom:var(--s2)">
+        Take a photo, or drop one here</strong>
+      <span class="muted small">On a phone this opens the camera. JPEG or PNG, up to about 5 MB.</span>
+    </label>
+    <div id="preview-wrap" hidden style="text-align:center">
+      <img id="preview" class="preview" alt="The plate you chose">
+    </div>
+    <div class="controls">
+      <div class="field">
+        <label for="meal">Which meal is it?</label>
+        <select id="meal">
+          <option value="">Work it out from the plate</option>
+          <option value="breakfast">Breakfast</option>
+          <option value="lunch" selected>Lunch</option>
+          <option value="supper">Supper</option>
+          <option value="snack">Snack</option>
+        </select>
+      </div>
+      <div class="field">
+        <label for="ages">Who is eating?
+          <button class="info" data-tip="meal_pattern" data-label="the meal pattern"></button>
+        </label>
+        <select id="ages">
+          <option value="1-2,3-5" selected>Toddlers and preschoolers</option>
+          <option value="1-2">One to two year olds</option>
+          <option value="3-5">Three to five year olds</option>
+          <option value="6-12">Six to twelve year olds</option>
+        </select>
+      </div>
+      <button class="btn primary" id="go" type="button" disabled>Check this plate</button>
+    </div>
+    <p class="small muted" style="margin:0">A meal pattern is defined per age group, so the verdict
+    depends on who is at the table. Lunch for a three year old needs milk, a fruit, a vegetable, a
+    grain and a meat or meat alternate.</p>
+  </section>
+
+  <div id="out"></div>
+
+  <section class="card stack" style="margin-top:var(--s6)">
+    <h2 style="font-size:1.125rem">Or call it from your own code</h2>
+    <pre class="formula">curl -X POST https://dtvxrkiam6.us-east-1.awsapprunner.com/api/meals \
+  -H "x-api-key: tally-sandbox-2026" \
+  -F "photo=@lunch.jpg" -F "meal_type=lunch" -F "age_groups=1-2,3-5"</pre>
+    <p class="small muted" style="margin:0">Same endpoint, same answer. The rules it used are
+    published at <a href="/api/rules">/api/rules</a>, so you can check them against the USDA tables
+    rather than taking the agent's word for it.</p>
+  </section>
+</main>
+
+<footer class="site">
+  <div class="wrap">
+    <div><a href="index.html">Back to the overview</a> &middot; <a href="app.html">The demo</a>
+      &middot; MIT licence</div>
+    <div class="theme-toggle"></div>
+  </div>
+</footer>
+
+<script src="infotips.js"></script>
+<script src="common.js"></script>
+<script>
+(function () {
+  "use strict";
+  var file = null;
+  var drop = document.getElementById("drop");
+  var input = document.getElementById("file");
+  var go = document.getElementById("go");
+  var out = document.getElementById("out");
+
+  function choose(f) {
+    if (!f) return;
+    if (!/^image\//.test(f.type)) {
+      message("That is not an image. JPEG or PNG, please.", "none");
+      return;
+    }
+    if (f.size > 8 * 1024 * 1024) {
+      message("That file is over 8 MB. A phone photo scaled down works fine.", "none");
+      return;
+    }
+    file = f;
+    go.disabled = false;
+    var img = document.getElementById("preview");
+    img.src = URL.createObjectURL(f);
+    document.getElementById("preview-wrap").hidden = false;
+    out.innerHTML = "";
+  }
+
+  input.addEventListener("change", function () { choose(input.files[0]); });
+  ["dragenter", "dragover"].forEach(function (e) {
+    drop.addEventListener(e, function (ev) { ev.preventDefault(); drop.classList.add("over"); });
+  });
+  ["dragleave", "drop"].forEach(function (e) {
+    drop.addEventListener(e, function (ev) { ev.preventDefault(); drop.classList.remove("over"); });
+  });
+  drop.addEventListener("drop", function (ev) {
+    if (ev.dataTransfer && ev.dataTransfer.files) choose(ev.dataTransfer.files[0]);
+  });
+
+  function message(text, kind) {
+    out.innerHTML = "";
+    out.appendChild(window.h("div", { class: "card verdict " + (kind || "none") }, [
+      window.h("p", { style: "margin:0", text: text })
+    ]));
+  }
+
+  function chip(item) {
+    var low = item.confidence < 0.75;
+    return window.h("span", { class: "chip" + (low ? " low" : "") }, [
+      window.h("span", { text: item.name }),
+      window.h("span", { class: "comp", text: item.component.replace("_", " ") }),
+      window.h("span", { class: "conf", text: Math.round(item.confidence * 100) + "%" })
+    ]);
+  }
+
+  function render(d) {
+    out.innerHTML = "";
+    var judged = d.explanation && d.explanation.indexOf("no verdict") === -1;
+    var kind = !judged ? "none" : (d.reimbursable ? "paid" : "unpaid");
+    var card = window.h("div", { class: "card verdict " + kind + " stack" });
+
+    card.appendChild(window.h("div", { class: "gap-head" }, [
+      window.h("span", { class: "gap-window",
+        text: d.meal_type.charAt(0).toUpperCase() + d.meal_type.slice(1) }),
+      judged
+        ? window.levelBadge(d.reimbursable ? "covered" : "high",
+            d.reimbursable ? "would be paid" : "would not be paid")
+        : window.levelBadge("elevated", "no verdict")
+    ]));
+
+    if (!d.items.length) {
+      card.appendChild(window.h("p", { style: "margin:0",
+        text: "No food was identified in that picture. Try one where the plate fills more of the frame." }));
+    } else {
+      card.appendChild(window.h("div", { class: "chips" }, d.items.map(chip)));
+    }
+
+    if (d.smallest_fix) {
+      card.appendChild(window.h("p", { style: "margin:0;font-weight:600;font-size:1.0625rem" },
+        [d.smallest_fix, window.infoBtn("smallest_fix", "the smallest fix")]));
+    }
+    if (d.explanation) {
+      card.appendChild(window.h("p", { class: "muted", style: "margin:0" }, [d.explanation]));
+    }
+    (d.flags || []).forEach(function (f) {
+      card.appendChild(window.h("p", { class: "small muted", style: "margin:0", text: f }));
+    });
+    (d.questions || []).forEach(function (q) {
+      card.appendChild(window.h("p", { class: "small", style: "margin:0" }, [
+        window.levelBadge("elevated", "it asked"), " ", q,
+        window.infoBtn("confidence", "the confidence gate")
+      ]));
+    });
+    (d.label_checks || []).forEach(function (c) {
+      card.appendChild(window.h("p", { class: "small", style: "margin:0" }, [
+        window.levelBadge("elevated", "check the label"), " ",
+        c === "yogurt_sugar"
+          ? "Yoghurt must be under 23g of sugar per 6oz, which a photograph cannot show."
+          : "Cereal must be under 6g of sugar per dry ounce, which a photograph cannot show.",
+        window.infoBtn("label_check", "label checks")
+      ]));
+    });
+    card.appendChild(window.h("p", { class: "small muted", style: "margin:0" },
+      ["Decided under rule version " + d.rule_version + ". No portion was estimated.",
+       window.infoBtn("rule_version", "the rule version")]));
+    out.appendChild(card);
+    window.MountInfo();
+  }
+
+  go.addEventListener("click", function () {
+    if (!file) return;
+    go.disabled = true;
+    var original = go.textContent;
+    go.textContent = "Reading the plate";
+    message("Reading the plate. This takes a few seconds, because a real vision model is looking at it.", "none");
+
+    var form = new FormData();
+    form.append("photo", file);
+    form.append("meal_type", document.getElementById("meal").value);
+    form.append("age_groups", document.getElementById("ages").value);
+
+    fetch("/api/meals", { method: "POST", body: form })
+      .then(function (r) {
+        if (!r.ok) throw new Error("the server returned " + r.status);
+        return r.json();
+      })
+      .then(render)
+      .catch(function (e) {
+        message(navigator.onLine
+          ? "That did not finish: " + e.message + ". Your picture is still selected, so try again."
+          : "You are offline, so the plate was not read. Nothing was lost.", "none");
+      })
+      .then(function () { go.disabled = false; go.textContent = original; });
+  });
+})();
+</script>
+</body>
+</html>

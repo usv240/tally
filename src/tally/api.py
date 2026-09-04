@@ -94,11 +94,16 @@ def get_trace(since: int = Query(default=0), x_api_key: str | None = Header(defa
 
 @app.post("/api/meals", tags=["write"])
 async def post_meal(photo: UploadFile = File(...), meal_type: str = Form(default=""),
+                    age_groups: str = Form(default=""),
                     x_api_key: str | None = Header(default=None)) -> dict:
     """Read a photograph of a plate and return a compliant meal record.
 
     This is the endpoint worth integrating: send the picture, get the components, whether it is
-    reimbursable, and the smallest fix if it is not.
+    reimbursable, and the smallest fix if it is not. Bring your own photograph.
+
+    A meal pattern is defined per age group, so a verdict needs to know who is eating. If nobody is
+    signed in and you do not say, this assumes a mixed group of one to two and three to five year
+    olds, which is the common case in a child care home, and says so in the flags.
     """
     check_key(x_api_key)
     suffix = Path(photo.filename or "plate.jpg").suffix or ".jpg"
@@ -110,7 +115,17 @@ async def post_meal(photo: UploadFile = File(...), meal_type: str = Form(default
         from tally.tools.day import log_plate
 
         runtime.configure(service.rt)
-        return log_plate(path, meal_type)
+        groups = age_groups
+        assumed = False
+        if not groups.strip() and not service.rt.store.present_ids(service.rt.now().date()):
+            groups, assumed = "1-2,3-5", True
+        out = log_plate(path, meal_type, "", groups)
+        if assumed:
+            out.setdefault("flags", []).append(
+                "Nobody is signed in, so this was judged for a mixed group of one to two and three "
+                "to five year olds. Pass age_groups to change that.")
+            out["assumed_age_groups"] = ["1-2", "3-5"]
+        return out
     finally:
         try:
             os.unlink(path)

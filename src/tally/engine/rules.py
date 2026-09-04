@@ -103,6 +103,16 @@ def check_meal(
         flags.append("Juice has already counted once today, so it does not count again.")
 
     child_groups = {g for g in age_groups if g != AgeGroup.INFANT}
+    if not age_groups:
+        # Nobody is signed in. A meal pattern is defined per age group, so there is no question to
+        # answer, and saying "not reimbursable" would be a verdict nobody asked for.
+        return Verdict(
+            reimbursable=False, missing=[], smallest_fix="",
+            flags=["No children are signed in, so there is nobody to judge this meal for. "
+                   "Take the roll first, or tell the API which age groups to check."],
+            label_checks=label_checks, rule_version=version,
+            explanation="Components identified. No age group was given, so no verdict was reached.",
+        )
     if not child_groups:
         return Verdict(
             reimbursable=False, missing=[], smallest_fix="",

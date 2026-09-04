@@ -17,7 +17,7 @@ from tally.agents.plate import meal_type_for_time, read_plate
 from tally.agents.roll import apply_correction, echo, parse_roll
 from tally.engine.ratio import check_ratio
 from tally.engine.rules import DayContext, allergy_conflicts, check_meal
-from tally.models import Component, Item, Meal, MealType
+from tally.models import AgeGroup, Component, Item, Meal, MealType
 
 
 def rt():
@@ -41,7 +41,8 @@ def _age_groups_present(on: date) -> set:
 
 
 @tool
-def log_plate(image_path: str, meal_type: str = "", replaces: str = "") -> dict:
+def log_plate(image_path: str, meal_type: str = "", replaces: str = "",
+              age_groups: str = "") -> dict:
     """Read a photograph of a plate and decide whether it is a reimbursable meal.
 
     Identifies the foods, maps them to CACFP components, checks the meal pattern for every age group
@@ -52,6 +53,8 @@ def log_plate(image_path: str, meal_type: str = "", replaces: str = "") -> dict:
         image_path: path to the photograph.
         meal_type: breakfast, lunch, supper or snack. Inferred from the time of day if omitted.
         replaces: the id of an earlier meal this photograph corrects, after a component was added.
+        age_groups: comma separated age groups such as "1-2,3-5", for judging a photograph when
+            nobody is signed in. Defaults to whoever is actually present.
     """
     r = rt()
     now = r.now()
@@ -66,7 +69,10 @@ def log_plate(image_path: str, meal_type: str = "", replaces: str = "") -> dict:
 
     mt = MealType(meal_type) if meal_type else (reading.meal_type_guess or meal_type_for_time(now.hour))
     present = sorted(r.store.present_ids(on))
-    groups = _age_groups_present(on)
+    if age_groups.strip():
+        groups = {AgeGroup(g.strip()) for g in age_groups.split(",") if g.strip()}
+    else:
+        groups = _age_groups_present(on)
 
     # Safety runs before anything is written.
     allergies = {cid: r.store.get_child(cid).allergies for cid in present}
