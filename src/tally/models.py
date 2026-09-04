@@ -194,3 +194,6 @@ class Claim(BaseModel):
     """What the non-reimbursable meals would have paid. This is the number that closes homes."""
     status: Literal["draft", "sent"] = "draft"
     sent_at: datetime | None = None
+    computed_in: str = "local"
+    """Where the arithmetic ran: agentcore_code_interpreter, local, or local_fallback. Shown on the
+    month view, because a claim about where money was computed should be checkable."""

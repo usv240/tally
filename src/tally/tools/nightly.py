@@ -9,7 +9,7 @@ from strands import tool
 from tally import runtime
 from tally.agents.gate import digest, new_question
 from tally.engine.claim import claim_day, load_rates, lost_value, month_lines, rate_for
-from tally.models import Claim, MealType, ParentNote
+from tally.models import Claim, ClaimLine, MealType, ParentNote
 
 
 def rt():
@@ -83,13 +83,31 @@ def build_month_claim(month: str = "") -> dict:
         if not ok and m.children_served:
             lost.append((m.meal_type, len(m.children_served)))
 
-    days = [claim_day(v, provider.tier) for per_child in by_day.values() for v in per_child.values()]
-    lines, total = month_lines(days, provider.tier)
+    # The money runs through kernel.compute, which is the file that also runs inside AgentCore Code
+    # Interpreter. Same arithmetic either way, and the result says which one answered.
+    import os
+
+    from tally.agentcore.code import compute as run_kernel
+    from tally.engine.claim import load_rates
+
+    rates = load_rates()["day_care_home"][provider.tier]
+    payload = {
+        "days": [list(v) for per_child in by_day.values() for v in per_child.values()],
+        "missed": [[m.value, n] for m, n in lost],
+        "tier_rates": {k: float(v) for k, v in rates.items()},
+    }
+    use_ac = os.environ.get("TALLY_USE_AGENTCORE", "").lower() in ("1", "true", "yes")
+    out = run_kernel(payload, use_agentcore=use_ac)
+    lines = [ClaimLine(meal_type=MealType(x["meal_type"]), count=x["count"],
+                       rate=x["rate"], amount=x["amount"]) for x in out["lines"]]
+    total = out["total"]
     claim = Claim(provider_id=provider.id, month=month, lines=lines, total=total,
-                  not_reimbursable=len(lost), lost_amount=lost_value(lost, provider.tier))
+                  not_reimbursable=len(lost), lost_amount=out["lost_amount"],
+                  computed_in=out["ran_in"])
     r.store.put_claim(claim)
     r.emit("claim_built", month=month, total=total, lines=len(lines),
-           not_reimbursable=claim.not_reimbursable, lost_amount=claim.lost_amount)
+           not_reimbursable=claim.not_reimbursable, lost_amount=claim.lost_amount,
+           computed_in=out["ran_in"])
     return claim.model_dump(mode="json")
 
 

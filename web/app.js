@@ -263,8 +263,14 @@
       window.h("h3", {}, ["Claim for " + (m.month || ""),
         window.infoBtn("daily_maximum", "the daily maximum")]),
       window.h("span", { class: "money", text: "$" + (m.total || 0).toFixed(2) }),
-      window.h("p", { class: "small muted", style: "margin:0",
-        text: "Computed as code from the rates in force, after the daily maximum is applied per child." })
+      window.h("p", { class: "small muted", style: "margin:0" }, [
+        (m.computed_in === "agentcore_code_interpreter"
+          ? "Computed inside Amazon Bedrock AgentCore Code Interpreter, from the rates in force, "
+            + "after the daily maximum is applied per child."
+          : m.computed_in === "local_fallback"
+            ? "Computed locally, because AgentCore did not answer. Same kernel either way."
+            : "Computed as code from the rates in force, after the daily maximum is applied per child."),
+        window.infoBtn("where_it_runs", "where it ran")])
     ]);
     var table = window.h("table", { class: "claim" }, [
       window.h("thead", {}, [window.h("tr", {}, [

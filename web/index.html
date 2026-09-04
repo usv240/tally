@@ -54,7 +54,7 @@
     <p class="credibility">
       <span>97,000 licensed child care homes closed in twelve years<button class="info" data-tip="fcc" data-label="family child care"></button></span>
       <span>Paperwork is the barrier state agencies name most<button class="info" data-tip="cacfp" data-label="the food program"></button></span>
-      <span>Runs on Amazon Bedrock<button class="info" data-tip="bedrock_vision" data-label="Amazon Bedrock"></button></span>
+      <span>Claims computed in AgentCore Code Interpreter<button class="info" data-tip="where_it_runs" data-label="where it runs"></button></span>
     </p>
   </div>
 </section>
@@ -235,9 +235,10 @@
 
     <div class="notice">
       <strong>What is running right now, and what is not.</strong>
-      The Strands agents, the day orchestrator, the nightly Graph, the hooks and the Bedrock vision
-      model are all live on this deployment. It runs on AWS App Runner and calls Amazon Bedrock
-      directly. AgentCore is the deployment this is designed for and is not wired in yet.
+      Live on this deployment: the Strands agents, the day orchestrator, the nightly Graph, the
+      hooks, the Bedrock vision model, and <strong>AgentCore Code Interpreter</strong> computing
+      every month's claim. Open the Month tab and the line under the total names where it ran.
+      Memory, Gateway and Runtime are designed in and not wired in. The web tier is App Runner.
       <button class="info" data-tip="where_it_runs" data-label="where it runs"></button>
     </div>
 
@@ -252,7 +253,7 @@
       <div class="card"><h3>Provider Gate<button class="info" data-tip="agent_gate" data-label="Provider Gate"></button></h3><p class="muted small">The only agent allowed to ask her anything, with the budget enforced in code.</p></div>
       <div class="card"><h3>Ledger<button class="info" data-tip="agent_ledger" data-label="Ledger"></button></h3><p class="muted small">The daily maximum, the month's claim, and what the unpaid meals cost.</p></div>
       <div class="card"><h3>Parent Notes<button class="info" data-tip="agent_notes" data-label="Parent Notes"></button></h3><p class="muted small">One short note per child, in each family's language, from the record only.</p></div>
-      <div class="card"><h3>AgentCore, designed for<button class="info" data-tip="where_it_runs" data-label="where it runs"></button></h3><p class="muted small">Runtime, Memory, Gateway, Code Interpreter and Observability, each for a stated reason. Not wired in yet.</p></div>
+      <div class="card"><h3>Code Interpreter, live<button class="info" data-tip="where_it_runs" data-label="where it runs"></button></h3><p class="muted small">The month's claim is computed there, by the same kernel.py the local path imports. Memory, Gateway and Runtime are designed in.</p></div>
       <div class="card"><h3>Published rules<button class="info" data-tip="agentcore_gateway" data-label="the Gateway"></button></h3><p class="muted small">The exact rules data is served at <code>/api/rules</code> so a sponsor can check it against USDA.</p></div>
     </div>
   </div>
