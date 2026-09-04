@@ -14,7 +14,6 @@ than being asked whether the cup is milk or juice.
 
 from __future__ import annotations
 
-import base64
 import mimetypes
 from pathlib import Path
 

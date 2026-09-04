@@ -124,7 +124,7 @@ def echo(events: list[AttendanceEvent], children: list[Child]) -> str:
 
     parts = []
     if here:
-        parts.append(", ".join(here) + (" here" if len(here) > 1 else " here"))
+        parts.append(", ".join(here) + " here")
     for name, at in later:
         parts.append(f"{name} at {at.hour % 12 or 12}:{at.minute:02d}")
     for name, reason in absent:

@@ -14,6 +14,7 @@ that degrades and tells you.
 
 from __future__ import annotations
 
+import contextlib
 import json
 import threading
 import time
@@ -120,11 +121,11 @@ class ClaimKernelSession:
 
     def close(self) -> None:
         if self._session_id and self._client:
-            try:
+            # Closing is best effort. The session times out on its own, and a failure to close one
+            # is never a reason to fail whatever the caller was doing.
+            with contextlib.suppress(Exception):
                 self._client.stop_code_interpreter_session(
                     codeInterpreterIdentifier=self.identifier, sessionId=self._session_id)
-            except Exception:
-                pass
         self._session_id = None
 
     # the one call --------------------------------------------------------------

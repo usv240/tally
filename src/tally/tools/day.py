@@ -7,7 +7,7 @@ happened, so the trace shows the vision reading, the rule verdict and the decisi
 from __future__ import annotations
 
 import uuid
-from datetime import date, datetime
+from datetime import date
 
 from strands import tool
 

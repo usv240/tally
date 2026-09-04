@@ -2,14 +2,15 @@
 
 from __future__ import annotations
 
+import contextlib
+from collections.abc import Callable
 from dataclasses import dataclass, field
 from datetime import datetime
-from typing import Any, Callable
+from typing import Any
 
 from tally.store import Clock, MemoryStore
 
 Listener = Callable[[str, dict], None]
-
 
 @dataclass
 class Runtime:
@@ -24,10 +25,10 @@ class Runtime:
         evt = {"kind": kind, "at": self.clock.now().isoformat(), **payload}
         self.trace.append(evt)
         for fn in list(self.listeners):
-            try:
+            # A listener is the web app or the trace viewer. Neither is allowed to break an agent
+            # mid decision, so a listener that raises is dropped rather than propagated.
+            with contextlib.suppress(Exception):
                 fn(kind, evt)
-            except Exception:  # a listener must never break the agent
-                pass
 
     def say(self, text: str, tone: str = "info") -> None:
         """Speak to the provider. Always mirrored as text, because a noisy room swallows audio."""
@@ -38,15 +39,12 @@ class Runtime:
     def now(self) -> datetime:
         return self.clock.now()
 
-
 ctx: Runtime | None = None
-
 
 def configure(rt: Runtime) -> Runtime:
     global ctx
     ctx = rt
     return rt
-
 
 def get() -> Runtime:
     if ctx is None:

@@ -1,0 +1,52 @@
+name: ci
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  tests:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install
+        run: |
+          python -m pip install --upgrade pip
+          pip install -e ".[dev]"
+      - name: House style
+        run: python tools/check_copy.py
+      - name: Lint
+        run: ruff check src tests tools
+      - name: Tests
+        # The whole suite is deterministic and needs no credentials: the rules are versioned data,
+        # and the vision model is exercised separately by evals/vision_eval.py, whose results are
+        # committed in docs/EVAL.md rather than re-run on every push.
+        run: pytest -q
+
+  accessibility:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install
+        run: |
+          python -m pip install --upgrade pip
+          pip install -e ".[dev]" playwright
+          playwright install --with-deps chromium
+      - name: Serve
+        run: |
+          uvicorn tally.api:app --port 8001 --log-level warning &
+          for i in $(seq 1 40); do
+            curl -sf http://127.0.0.1:8001/api/health > /dev/null && break
+            sleep 2
+          done
+      - name: axe-core, layout and target sizes
+        # Every page, both themes, three widths. Fails the build on any WCAG 2.2 AA violation,
+        # any sideways scroll, any undersized target, or any console error.
+        run: python tools/a11y_audit.py --base http://127.0.0.1:8001

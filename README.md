@@ -127,7 +127,7 @@ year olds and says so in the flags.
 ## Tests and evaluation
 
 ```bash
-pytest -q                                   # 60 tests, no model calls, under a second
+pytest -q                                   # 93 tests, no model calls, under a second
 python -m evals.vision_eval --trials 2      # calls Bedrock, about two minutes
 ```
 
@@ -147,6 +147,46 @@ working rather than a failure.
 | Roll call | The demo sentence, absences with reasons, later arrivals, corrections, unknown names |
 | Vision | Component recall and spurious components, per photograph, published |
 
+## Checks that run, not claims
+
+```bash
+pytest -q                                    # the suite
+ruff check src tests tools                   # lint
+python tools/check_copy.py                   # no emoji, no em or en dashes, anywhere
+uvicorn tally.api:app --port 8001 &
+python tools/a11y_audit.py --base http://127.0.0.1:8001     # axe-core, layout and target sizes
+```
+
+`tools/a11y_audit.py` loads every page in both themes at 390, 768 and 1280 pixels wide, which is 30
+page renders, and fails the build on any WCAG 2.2 A or AA violation, any page that scrolls sideways,
+any control under its target size, or any console error. It is currently clean. Both checks run in
+GitHub Actions on every push, in `.github/workflows/ci.yml`.
+
+## Deploy
+
+The live service is AWS App Runner, one long running container, because the demo holds shared
+in-memory state: with Lambda two judges pressing the same step would land on different instances
+holding different days.
+
+```bash
+python -m deploy.roles                       # the ECR access role and a Bedrock instance role
+aws ecr create-repository --repository-name tally --region us-east-1
+aws ecr get-login-password --region us-east-1   | docker login --username AWS --password-stdin <account>.dkr.ecr.us-east-1.amazonaws.com
+docker build -t tally . && docker tag tally <account>.dkr.ecr.us-east-1.amazonaws.com/tally:latest
+docker push <account>.dkr.ecr.us-east-1.amazonaws.com/tally:latest
+python -m deploy.apprunner                   # creates or updates the service, then waits
+```
+
+`deploy/apprunner.py` pins the service to the image **digest** currently in ECR rather than to the
+`:latest` tag. Pushing a new image to the same tag does not change App Runner's image identifier, so
+it treats the update as a no-op and quietly keeps serving the old build.
+
+The instance role is scoped to `InvokeModel` on the specific models and inference profiles this app
+uses, not a wildcard, because a demo credential that can call anything is a bad example to ship.
+
+`TALLY_USE_AGENTCORE=1` in the service environment sends the month's arithmetic through AgentCore
+Code Interpreter. Without it the identical kernel runs locally, and the screen says which answered.
+
 ## For judges
 
 Start at the deployed URL or `http://localhost:8001`.
@@ -159,6 +199,13 @@ Start at the deployed URL or `http://localhost:8001`.
 - **Evening** shows the questions, ranked, and the notes home.
 - **Month** shows the claim and what the unpaid meals cost.
 - **Agent trace** is every step, including the decision whether to interrupt.
+- **[The sponsor's month](web/sponsor.html)** (`/sponsor.html`) is the same month from the other
+  side of the desk: every meal with the photograph it was judged from and the rulebook version that
+  judged it. That is what makes a claim defensible to a state reviewer a year later, and the same
+  record is at `GET /api/sponsor/month`.
+- **[Set up your own home](web/start.html)** (`/start.html`) takes a paste of whatever list of
+  children you already have, in whatever shape you keep it, and shows what it understood plus a
+  ratio check before anything is saved. Lines it cannot read are reported, never dropped.
 
 ## Honest notes
 

@@ -8,7 +8,7 @@ from strands import tool
 
 from tally import runtime
 from tally.agents.gate import digest, new_question
-from tally.engine.claim import claim_day, load_rates, lost_value, month_lines, rate_for
+from tally.engine.claim import claim_day, load_rates, lost_value, rate_for
 from tally.models import Claim, ClaimLine, MealType, ParentNote
 
 

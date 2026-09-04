@@ -41,7 +41,7 @@ def test_a_later_arrival_records_the_time():
 
 def test_an_afternoon_arrival_without_a_meridiem_is_the_afternoon():
     """In a child care day, "coming at 3" is never three in the morning."""
-    events, _ = parse_roll("Priya is coming at 3", ROSTER + [child("priya", "Priya")], NOW)
+    events, _ = parse_roll("Priya is coming at 3", [*ROSTER, child("priya", "Priya")], NOW)
     assert events[0].at.hour == 15
 
 

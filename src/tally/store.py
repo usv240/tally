@@ -171,7 +171,7 @@ class MemoryStore:
         }, indent=1), encoding="utf-8")
 
     @classmethod
-    def load(cls, path: str) -> "MemoryStore":
+    def load(cls, path: str) -> MemoryStore:
         blob = json.loads(Path(path).read_text(encoding="utf-8"))
         s = cls()
         if blob.get("provider"):
