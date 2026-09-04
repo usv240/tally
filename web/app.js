@@ -288,6 +288,11 @@
     });
     table.appendChild(tbody);
     card.appendChild(table);
+    card.appendChild(window.h("div", { class: "btn-row" }, [
+      window.h("a", { class: "btn", href: "sponsor.html" }, ["Review it as the sponsor would"])]));
+    card.appendChild(window.h("p", { class: "small muted", style: "margin:0",
+      text: "The sponsor sees every meal with the photograph it was judged from and the rulebook "
+        + "version that judged it, which is what makes this claim defensible a year later." }));
     host.appendChild(card);
 
     if (m.not_reimbursable) {

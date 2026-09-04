@@ -8,6 +8,7 @@ Run: uvicorn tally.api:app --port 8001
 
 from __future__ import annotations
 
+import contextlib
 import os
 import tempfile
 from pathlib import Path
@@ -39,7 +40,6 @@ app = FastAPI(
 )
 app.add_middleware(CORSMiddleware, allow_origins=["*"], allow_methods=["*"], allow_headers=["*"])
 
-
 def check_key(x_api_key: str | None) -> None:
     if x_api_key and x_api_key != SANDBOX_KEY:
         raise HTTPException(status_code=401, detail={
@@ -47,20 +47,17 @@ def check_key(x_api_key: str | None) -> None:
             "hint": f"the public sandbox key is {SANDBOX_KEY}, or omit the header in judge mode",
         })
 
-
 @app.get("/api/health", tags=["ops"])
 def health() -> dict:
     s = service.state()
     return {"ok": True, "now": s["now"], "headline": s["headline"],
             "meals": s["counts"]["logged"], "steps_done": sum(1 for x in s["steps"] if x["done"])}
 
-
 @app.get("/api/state", tags=["read"])
 def get_state(x_api_key: str | None = Header(default=None)) -> dict:
     """Everything the provider app shows: headline, children, ratio, meals, questions, month."""
     check_key(x_api_key)
     return service.state()
-
 
 @app.get("/api/rules", tags=["read"])
 def get_rules(x_api_key: str | None = Header(default=None)) -> dict:
@@ -77,20 +74,17 @@ def get_rules(x_api_key: str | None = Header(default=None)) -> dict:
         "state_rules": json.loads((ROOT / "rules" / "state_rules.json").read_text(encoding="utf-8")),
     }
 
-
 @app.get("/api/month", tags=["read"])
 def get_month(x_api_key: str | None = Header(default=None)) -> dict:
     """The month's claim: lines, total, and what the unpaid meals would have been worth."""
     check_key(x_api_key)
     return service.month()
 
-
 @app.get("/api/trace", tags=["read"])
 def get_trace(since: int = Query(default=0), x_api_key: str | None = Header(default=None)) -> dict:
     """Agent trace events. Pass the previous `next` value to poll for new ones."""
     check_key(x_api_key)
     return service.trace(since)
-
 
 @app.post("/api/meals", tags=["write"])
 async def post_meal(photo: UploadFile = File(...), meal_type: str = Form(default=""),
@@ -127,17 +121,52 @@ async def post_meal(photo: UploadFile = File(...), meal_type: str = Form(default
             out["assumed_age_groups"] = ["1-2", "3-5"]
         return out
     finally:
-        try:
+        # The upload is a temp file. If the OS has already taken it, that is the outcome we wanted.
+        with contextlib.suppress(OSError):
             os.unlink(path)
-        except OSError:
-            pass
 
+@app.post("/api/children/parse", tags=["onboarding"])
+def parse_children_endpoint(body: dict = Body(...),
+                            x_api_key: str | None = Header(default=None)) -> dict:
+    """Read a pasted list of children and report what was understood, before anything is saved.
+
+    Accepts whatever the provider already has: an enrolment form, a note on the fridge, the
+    spreadsheet the sponsor sent. Birthdays in any of the shapes people write them, subsidy days,
+    allergies. Lines it cannot read come back in `unreadable` rather than being dropped, because a
+    child missing from the roster is a child whose allergy is never checked.
+
+    Body: {"text": "Maya, born 3 March 2025, subsidised Mon-Fri", "state": "TX",
+           "license_type": "licensed"}
+    """
+    check_key(x_api_key)
+    from tally.onboarding import parse_children, ratio_preview
+
+    parsed = parse_children(body.get("text") or "")
+    preview = ratio_preview(parsed.children, body.get("state", "TX"),
+                            body.get("license_type", "licensed"))
+    return {
+        "children": [c.model_dump(mode="json") for c in parsed.children],
+        "unreadable": parsed.unreadable,
+        "warnings": parsed.warnings,
+        "ratio": preview,
+    }
+
+@app.get("/api/sponsor/month", tags=["read"])
+def sponsor_month(month: str = Query(default=""),
+                  x_api_key: str | None = Header(default=None)) -> dict:
+    """Everything a sponsor needs to review a month, read only.
+
+    Every meal with its photograph, the components that were identified, the verdict, and the rule
+    version it was decided under. This is what makes a claim auditable a year later rather than a
+    number a provider has to be trusted on.
+    """
+    check_key(x_api_key)
+    return service.sponsor_month(month or None)
 
 @app.post("/api/step", tags=["demo"])
 def post_step(body: dict = Body(default={})) -> dict:
     """Run the next step of the demo day, or a named one."""
     return service.step(body.get("step"))
-
 
 @app.post("/api/answer", tags=["demo"])
 def post_answer(body: dict = Body(...)) -> dict:
@@ -147,7 +176,6 @@ def post_answer(body: dict = Body(...)) -> dict:
         raise HTTPException(status_code=400, detail="question_id and answer are required")
     return service.answer(qid, answer)
 
-
 @app.post("/api/substitute", tags=["demo"])
 def post_substitute(body: dict = Body(...)) -> dict:
     """Record what one child had instead. Body: {meal_id, child_id, food, component}"""
@@ -156,17 +184,14 @@ def post_substitute(body: dict = Body(...)) -> dict:
     except KeyError as exc:
         raise HTTPException(status_code=400, detail=f"missing {exc}") from exc
 
-
 @app.post("/api/reset", tags=["demo"])
 def post_reset() -> dict:
     """Put the day back to 07:38."""
     return service.reset()
 
-
 @app.get("/api/openapi.json", include_in_schema=False)
 def openapi_alias() -> JSONResponse:
     return JSONResponse(app.openapi())
-
 
 if PLATES_DIR.is_dir():
     app.mount("/plates", StaticFiles(directory=str(PLATES_DIR)), name="plates")

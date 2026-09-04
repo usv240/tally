@@ -1,0 +1,273 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tally: the sponsor's month</title>
+<meta name="description" content="A month as the sponsor sees it. Every meal, its photograph, its verdict and the rule version it was decided under.">
+<script>
+  (function () {
+    try {
+      var m = localStorage.getItem("tally-theme");
+      document.documentElement.setAttribute("data-theme", m && m !== "system" ? m : "light");
+    } catch (e) {}
+  })();
+</script>
+<link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="app.css">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='7' fill='%230F6E56'/></svg>">
+<style>
+  .figs { display: grid; gap: var(--s4); grid-template-columns: repeat(2, 1fr); }
+  @media (min-width: 760px) { .figs { grid-template-columns: repeat(4, 1fr); } }
+  .fig {
+    border: 1px solid var(--border); border-radius: var(--r-md); padding: var(--s4);
+    background: var(--surface); min-width: 0;
+  }
+  .fig b { display: block; font-size: 1.5rem; font-variant-numeric: tabular-nums; line-height: 1.2; }
+  .fig span { font-size: .8125rem; color: var(--text-muted); }
+  .daygroup { margin-top: var(--s6); }
+  .daygroup > h3 {
+    font-size: 1.0625rem; margin: 0 0 var(--s3); padding-bottom: var(--s2);
+    border-bottom: 1px solid var(--border);
+  }
+  .audit { display: grid; gap: var(--s4); }
+  @media (min-width: 720px) { .audit { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+  .audit .card { margin: 0; min-width: 0; }
+  .thumb {
+    width: 100%; aspect-ratio: 4 / 3; object-fit: contain;
+    background: var(--surface-2); border-radius: var(--r-sm);
+  }
+  .mhead { display: flex; justify-content: space-between; align-items: baseline; gap: var(--s3); flex-wrap: wrap; }
+  .comp { display: flex; flex-wrap: wrap; gap: 6px; margin: var(--s3) 0 0; padding: 0; list-style: none; }
+  .comp li {
+    font-size: .8125rem; border: 1px solid var(--border); border-radius: var(--r-pill);
+    padding: 3px 10px; color: var(--text-muted);
+  }
+  .stamp { font-family: var(--mono); font-size: .75rem; color: var(--text-muted); }
+</style>
+</head>
+<body class="app">
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="site">
+  <div class="bar">
+    <a class="brand" href="index.html"><span class="mark" aria-hidden="true"></span> Tally</a>
+    <div class="header-actions">
+      <span class="badge neutral" id="month-badge">loading</span>
+      <div class="theme-toggle"></div>
+      <a class="btn small" href="app.html">The provider's view</a>
+    </div>
+  </div>
+</header>
+
+<main id="main" class="wrap" style="padding-top:var(--s5);padding-bottom:var(--s8)">
+  <a class="backlink" href="index.html"><svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M10 3 L5 8 l5 5"/></svg>Back to the overview</a>
+
+  <h1 style="font-size:1.75rem">The sponsor's month</h1>
+  <p class="muted">A sponsoring organisation reviews the claims of every home it serves, and a state
+  reviewer can ask for any one of them years later. This is the same month the provider sees, from
+  the other side of the desk: read only, every meal with the photograph it was judged from, and the
+  version of the rulebook that judged it.
+  <button class="info" data-tip="rule_version" data-label="the rule version"></button></p>
+
+  <!-- Both blocks are written out at their final height, so nothing on the page moves when the
+       month arrives. Only the words and numbers inside them change. -->
+  <div id="who" class="notice" style="margin-bottom:var(--s5)">
+    <strong id="who-home">Loading the month.</strong>
+    <span id="who-detail"></span>
+    <div class="small" style="margin-top:var(--s2)" id="who-questions">&nbsp;</div>
+    <div class="small" style="margin-top:var(--s2)" id="who-rules">&nbsp;</div>
+  </div>
+
+  <section aria-labelledby="fig-h">
+    <h2 id="fig-h" style="font-size:1.25rem">The month in figures</h2>
+    <div class="figs" id="figs">
+      <div class="fig"><b id="fig-1">&nbsp;</b><span>claimed this month</span></div>
+      <div class="fig"><b id="fig-2">&nbsp;</b><span>meals reimbursable</span></div>
+      <div class="fig"><b id="fig-3">&nbsp;</b><span>meals with a photograph</span></div>
+      <div class="fig"><b id="fig-4">&nbsp;</b><span>lost to meals that did not qualify</span></div>
+    </div>
+  </section>
+
+  <section style="margin-top:var(--s6)" aria-labelledby="claim-h">
+    <h2 id="claim-h" style="font-size:1.25rem">The claim</h2>
+    <!-- Reserved at the height a claim table occupies, so the sections under it do not jump when
+         the month arrives. A page that reflows under a reader loses their place. -->
+    <div id="claim" style="min-height:270px"></div>
+  </section>
+
+  <section style="margin-top:var(--s6)" aria-labelledby="days-h">
+    <h2 id="days-h" style="font-size:1.25rem">Every meal, day by day</h2>
+    <p class="muted small" style="margin-top:0">Meals that were replaced by a later photograph are
+    not shown, because they are not claimed twice.</p>
+    <div id="days"></div>
+  </section>
+
+  <section class="card" style="margin-top:var(--s6)" aria-labelledby="api-h">
+    <h2 id="api-h" style="font-size:1.125rem;margin-top:0">The same month over the API</h2>
+    <p class="muted small">A sponsor with a hundred homes does not want a hundred web pages. The
+    identical record comes back as JSON.
+    <button class="info" data-tip="sandbox_key" data-label="the sandbox key"></button></p>
+    <pre class="formula"><code id="curl">loading</code></pre>
+    <div class="btn-row">
+      <a class="btn" href="/docs">Full API reference</a>
+      <a class="btn" href="/api/sponsor/month">Open this month as JSON</a>
+    </div>
+  </section>
+</main>
+
+<footer class="site">
+  <div class="wrap">
+    <div><a href="index.html">Overview</a> &middot; <a href="app.html">The provider's day</a>
+      &middot; <a href="start.html">Set up your own home</a> &middot; MIT licence</div>
+    <div class="theme-toggle"></div>
+  </div>
+</footer>
+
+<script src="infotips.js"></script>
+<script src="common.js"></script>
+<script>
+(function () {
+  "use strict";
+  var h = window.h;
+
+  function money(n) { return "$" + Number(n || 0).toFixed(2); }
+
+  function photoUrl(key) {
+    if (!key) return null;
+    var parts = String(key).replace(/\\/g, "/").split("/");
+    return "/plates/" + parts[parts.length - 1];
+  }
+
+  function fail(message) {
+    document.getElementById("who-home").textContent = "Could not load the month. ";
+    document.getElementById("who-detail").textContent =
+      message + ". This page only reads, so nothing has been changed. Refresh, or open the "
+      + "provider's view and play a step first.";
+  }
+
+  fetch("/api/sponsor/month").then(function (r) {
+    if (!r.ok) throw new Error("the server returned " + r.status);
+    return r.json();
+  }).then(render).catch(function (e) { fail(e.message); });
+
+  function render(d) {
+    var p = d.provider || {};
+    document.getElementById("month-badge").textContent = d.month;
+    document.getElementById("curl").textContent =
+      "curl -H \"x-api-key: tally-sandbox\" \\" + "\n  " + location.origin
+      + "/api/sponsor/month?month=" + d.month;
+
+    var t = d.totals || {}, c = d.claim || {};
+    document.getElementById("who-home").textContent = p.name + ", " + (p.state || "") + ". ";
+    document.getElementById("who-detail").textContent =
+      (p.license_type || "") + " home, " + String(p.tier || "").replace("_", " ")
+      + ". Claimed through " + (p.sponsor || "an unnamed sponsor") + ".";
+    document.getElementById("who-questions").textContent =
+      (t.questions_asked || 0) + " questions were put to the provider this month. Every one of "
+      + "them, and her answer, is in the record.";
+    document.getElementById("who-rules").textContent = (d.rule_versions || []).length
+      ? "Decided under rulebook " + d.rule_versions.join(", ") + ". A verdict from this month can "
+        + "be re-run against that exact version, which is what makes it defensible a year from now."
+      : "No rulebook version recorded yet, because no meal has been judged this month.";
+
+    document.getElementById("fig-1").textContent = money(c.total);
+    document.getElementById("fig-2").textContent =
+      String(t.reimbursable || 0) + " of " + (t.meals || 0);
+    document.getElementById("fig-3").textContent = String(t.photographed || 0);
+    document.getElementById("fig-4").textContent = money(c.lost_amount);
+
+    var claim = document.getElementById("claim");
+    claim.innerHTML = "";
+    if (!(c.lines || []).length) {
+      claim.appendChild(h("p", { class: "muted",
+        text: "No reimbursable meals recorded yet this month." }));
+    } else {
+      var rows = c.lines.map(function (l) {
+        return h("tr", {}, [
+          h("td", { text: l.meal_type }),
+          h("td", { class: "num", text: String(l.count) }),
+          h("td", { class: "num", text: money(l.rate) }),
+          h("td", { class: "num", text: money(l.amount) })]);
+      });
+      rows.push(h("tr", {}, [
+        h("th", { text: "Total" }), h("td", { class: "num", text: "" }),
+        h("td", { class: "num", text: "" }), h("th", { class: "num", text: money(c.total) })]));
+      var tbl = h("table", { class: "claim" }, [
+        h("thead", {}, [h("tr", {}, [
+          h("th", { text: "Meal" }), h("th", { class: "num", text: "Count" }),
+          h("th", { class: "num", text: "Rate" }), h("th", { class: "num", text: "Amount" })])]),
+        h("tbody", {}, rows)
+      ]);
+      claim.appendChild(h("div", { style: "overflow-x:auto" }, [tbl]));
+      var where = c.computed_in === "agentcore_code_interpreter"
+        ? "Computed inside Amazon Bedrock AgentCore Code Interpreter, from the rates in force."
+        : c.computed_in === "local_fallback"
+          ? "Computed locally, because AgentCore did not answer. Same kernel either way."
+          : "Computed as code from the rates in force.";
+      claim.appendChild(h("p", { class: "small muted" }, [
+        where + " ", window.infoBtn("where_it_runs", "where it runs")]));
+    }
+
+    var host = document.getElementById("days");
+    host.innerHTML = "";
+    if (!(d.days || []).length) {
+      host.appendChild(h("p", { class: "muted",
+        text: "No meals logged yet. Open the provider's view and play a step." }));
+      window.MountInfo();
+      return;
+    }
+    d.days.forEach(function (day) {
+      var group = h("div", { class: "daygroup" }, [
+        h("h3", { text: new Date(day.date + "T12:00:00").toDateString() })]);
+      var grid = h("div", { class: "audit" });
+      day.meals.forEach(function (m) { grid.appendChild(mealCard(m)); });
+      group.appendChild(grid);
+      host.appendChild(group);
+    });
+    window.MountInfo();
+  }
+
+  function mealCard(m) {
+    var body = h("div", {}, [
+      h("div", { class: "mhead" }, [
+        h("strong", { text: m.type + ", " + window.fmtTime(m.at) }),
+        h("span", { class: "badge " + (m.reimbursable ? "covered" : "high") }, [
+          h("span", { class: "shape", "aria-hidden": "true",
+            text: m.reimbursable ? window.SHAPES.covered : window.SHAPES.high }),
+          h("span", { text: m.reimbursable ? "reimbursable" : "not reimbursable" })])
+      ]),
+      h("p", { class: "small", style: "margin:var(--s2) 0 0", text: m.explanation })
+    ]);
+    if (!m.reimbursable && m.smallest_fix) {
+      body.appendChild(h("p", { class: "small muted", style: "margin:var(--s2) 0 0",
+        text: "Smallest fix: " + m.smallest_fix }));
+    }
+    if ((m.items || []).length) {
+      var comps = h("ul", { class: "comp" });
+      m.items.forEach(function (i) {
+        comps.appendChild(h("li", { text: i.name + " (" + i.component + ")" }));
+      });
+      body.appendChild(comps);
+    }
+    if (Object.keys(m.substitutions || {}).length) {
+      body.appendChild(h("p", { class: "small muted", style: "margin:var(--s2) 0 0",
+        text: "A substitution was recorded, so one child's record differs from the plate." }));
+    }
+    body.appendChild(h("p", { class: "stamp", style: "margin:var(--s3) 0 0",
+      text: m.children_served.length + " children, rulebook "
+        + (m.rule_version || "unversioned") }));
+
+    var kids = [];
+    var src = photoUrl(m.photo);
+    if (src) {
+      kids.push(h("img", { class: "thumb", src: src, loading: "lazy",
+        alt: "The plate photographed for " + m.type }));
+    }
+    kids.push(body);
+    return h("div", { class: "card" }, kids);
+  }
+})();
+</script>
+</body>
+</html>

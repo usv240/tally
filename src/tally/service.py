@@ -60,8 +60,8 @@ class DemoService:
         vision calls to fill a calendar would cost money and prove nothing. The demo day itself is
         entirely real.
         """
-        from tally.models import Item, Meal, Verdict
         from tally.engine.rules import load_rules
+        from tally.models import Item, Meal, Verdict
 
         version = load_rules()["version"]
         start = self.rt.now().date() - timedelta(days=self.sc.get("prior_days", 6))
@@ -251,6 +251,36 @@ class DemoService:
 
             return build_month_claim(month)
         return claim.model_dump(mode="json")
+
+    def sponsor_month(self, month: str | None = None) -> dict:
+        """A month as a sponsor sees it: every meal, its photograph, its verdict, its rule version."""
+        r = self.rt
+        month = month or r.now().strftime("%Y-%m")
+        p = r.store.get_provider()
+        superseded = r.store.superseded_ids()
+        meals = [m for m in r.store.list_meals()
+                 if m.at.strftime("%Y-%m") == month and m.id not in superseded]
+        by_day: dict[str, list] = {}
+        for m in sorted(meals, key=lambda x: x.at):
+            by_day.setdefault(m.at.date().isoformat(), []).append(self.meal_json(m))
+        questions = list(r.store.list_questions(unanswered_only=False))
+        return {
+            "month": month,
+            "provider": {"name": p.name, "state": p.state, "license_type": p.license_type,
+                         "tier": p.tier, "sponsor": p.sponsor_name},
+            "claim": self.month(),
+            "days": [{"date": d, "meals": ms} for d, ms in sorted(by_day.items())],
+            "totals": {
+                "meals": len(meals),
+                "reimbursable": sum(1 for m in meals if m.verdict and m.verdict.reimbursable),
+                "not_reimbursable": sum(1 for m in meals
+                                        if m.verdict and not m.verdict.reimbursable),
+                "photographed": sum(1 for m in meals if m.photo_key),
+                "questions_asked": len(questions),
+            },
+            "rule_versions": sorted({m.verdict.rule_version for m in meals
+                                     if m.verdict and m.verdict.rule_version}),
+        }
 
     def trace(self, since: int = 0) -> dict:
         return {"events": self.rt.trace[since:], "next": len(self.rt.trace)}

@@ -1,0 +1,371 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tally: set up your home</title>
+<meta name="description" content="Set up a home child care programme in under three minutes. Paste whatever list of children you already have.">
+<script>
+  (function () {
+    try {
+      var m = localStorage.getItem("tally-theme");
+      document.documentElement.setAttribute("data-theme", m && m !== "system" ? m : "light");
+    } catch (e) {}
+  })();
+</script>
+<link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="app.css">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='7' fill='%230F6E56'/></svg>">
+<style>
+  .wizard { max-width: 800px; }
+  .stepbar { display: flex; gap: var(--s2); margin-bottom: var(--s5); flex-wrap: wrap; }
+  .stepbar span {
+    padding: 6px 12px; border-radius: var(--r-pill); font-size: .875rem;
+    border: 1px solid var(--border); color: var(--text-muted); background: var(--surface);
+  }
+  .stepbar span[aria-current="step"] { border-color: var(--accent); color: var(--accent); font-weight: 650; }
+  .stepbar span.done { color: var(--success); border-color: var(--success); }
+  textarea {
+    width: 100%; min-height: 190px; font: inherit; font-size: 1rem; line-height: 1.5;
+    padding: var(--s4); border-radius: var(--r-md); border: 1px solid var(--border);
+    background: var(--surface); color: var(--text); resize: vertical;
+  }
+  .field label { display: block; font-size: .875rem; font-weight: 600; margin-bottom: 6px; }
+  .field input, .field select {
+    font: inherit; width: 100%; min-height: 48px; padding: 10px var(--s3);
+    border-radius: var(--r-sm); border: 1px solid var(--border);
+    background: var(--surface); color: var(--text);
+  }
+  .grid-form { display: grid; gap: var(--s4); }
+  @media (min-width: 700px) { .grid-form { grid-template-columns: 1fr 1fr; } }
+  .kid-row {
+    display: flex; flex-wrap: wrap; gap: var(--s3); align-items: center;
+    padding: var(--s3) 0; border-bottom: 1px solid var(--border);
+  }
+  .kid-row .nm { font-weight: 600; min-width: 110px; }
+  .kid-row .dob { color: var(--text-muted); font-variant-numeric: tabular-nums; min-width: 108px; }
+  .warn { background: var(--warning-soft); border: 1px solid var(--warning); border-radius: var(--r-md); padding: var(--s4); }
+  .good { background: var(--success-soft); border: 1px solid var(--success); border-radius: var(--r-md); padding: var(--s4); }
+</style>
+</head>
+<body class="app">
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="site">
+  <div class="bar">
+    <a class="brand" href="index.html"><span class="mark" aria-hidden="true"></span> Tally</a>
+    <div class="header-actions">
+      <div class="theme-toggle"></div>
+      <a class="btn small" href="app.html">Open the demo instead</a>
+    </div>
+  </div>
+</header>
+
+<main id="main" class="wrap wizard" style="padding-top:var(--s6);padding-bottom:var(--s8)">
+  <a class="backlink" href="index.html"><svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M10 3 L5 8 l5 5"/></svg>Back to the overview</a>
+
+  <h1 style="font-size:1.75rem">Set up your home</h1>
+  <p class="muted">Three steps, about three minutes. Nothing is saved until you finish, and no note
+  goes to any family until you approve it.</p>
+
+  <div class="stepbar" role="list" aria-label="Setup steps">
+    <span role="listitem" id="s1" aria-current="step">1. Your children</span>
+    <span role="listitem" id="s2">2. Your licence</span>
+    <span role="listitem" id="s3">3. Your sponsor</span>
+  </div>
+
+  <!-- Step 1 -->
+  <section class="card stack" id="step1">
+    <h2 style="font-size:1.25rem">Paste whatever list you already have</h2>
+    <p class="muted small" style="margin:0">An enrolment form, the note on the fridge, the
+    spreadsheet your sponsor sent. Names, birthdays, days, subsidy and allergies are read out of it.
+    Anything that cannot be read is shown to you rather than dropped, because a child missing from
+    the roster is a child whose allergy is never checked.
+    <button class="info" data-tip="allergy_check" data-label="the allergy check"></button></p>
+    <label for="kids" class="small" style="font-weight:600">Children</label>
+    <textarea id="kids" spellcheck="false" aria-describedby="kids-help"
+placeholder="Maya, born 3 March 2025, subsidised Mon-Fri
+Leo, 1 June 2022, peanut allergy, Mon to Fri, subsidised
+Ava, 09/01/2022, Mon Tue Wed Thu Fri
+Nia, 2024-11-05, Mon Wed Fri, dairy allergy, voucher"></textarea>
+    <p id="kids-help" class="small muted" style="margin:0">Birthdays in any shape: 3 March 2025,
+    March 3 2025, 2025-03-03 or 03/03/25. Only the word "allergy" or "allergic" makes something an
+    allergy, so "Maya loves milk" is not one.</p>
+    <div class="btn-row">
+      <button class="btn primary" id="read" type="button">Read my list</button>
+      <button class="btn" id="sample" type="button">Use a sample list</button>
+    </div>
+    <div id="parse-out"></div>
+  </section>
+
+  <!-- Step 2 -->
+  <section class="card stack" id="step2" hidden>
+    <h2 style="font-size:1.25rem">Your licence</h2>
+    <p class="muted small" style="margin:0">This decides the ratio and group size Tally holds you
+    to, and which meal patterns apply.
+    <button class="info" data-tip="ratio" data-label="the ratio"></button></p>
+    <div class="grid-form">
+      <div class="field">
+        <label for="state">State</label>
+        <select id="state"><option value="TX" selected>Texas</option></select>
+        <span class="small muted">Only Texas has a ratio table so far. Tally refuses to guess a
+        limit it does not have, because a wrong limit is worse than no answer.</span>
+      </div>
+      <div class="field">
+        <label for="licence">Licence type</label>
+        <select id="licence">
+          <option value="licensed" selected>Licensed child care home</option>
+          <option value="registered">Registered child care home</option>
+        </select>
+      </div>
+      <div class="field">
+        <label for="tier">Food programme tier
+          <button class="info" data-tip="tier" data-label="tier"></button>
+        </label>
+        <select id="tier">
+          <option value="tier_1" selected>Tier 1</option>
+          <option value="tier_2">Tier 2</option>
+        </select>
+      </div>
+      <div class="field">
+        <label for="budget">Questions a day, at most
+          <button class="info" data-tip="question_budget" data-label="the question budget"></button>
+        </label>
+        <input type="number" id="budget" value="2" min="1" max="6">
+      </div>
+    </div>
+    <div id="ratio-out"></div>
+    <div class="btn-row">
+      <button class="btn" id="back2" type="button">Back</button>
+      <button class="btn primary" id="next2" type="button">Next</button>
+    </div>
+  </section>
+
+  <!-- Step 3 -->
+  <section class="card stack" id="step3" hidden>
+    <h2 style="font-size:1.25rem">Who do you claim through?</h2>
+    <p class="muted small" style="margin:0">Your sponsor receives the monthly claim. Nothing is ever
+    sent until you review the month and press send.</p>
+    <div class="grid-form">
+      <div class="field">
+        <label for="sponsor">Sponsor name</label>
+        <input type="text" id="sponsor" placeholder="Hill Country Child Nutrition">
+      </div>
+      <div class="field">
+        <label for="sponsor-email">Where the claim goes</label>
+        <input type="email" id="sponsor-email" placeholder="claims@example.org">
+      </div>
+    </div>
+    <div class="btn-row">
+      <button class="btn" id="back3" type="button">Back</button>
+      <button class="btn primary" id="finish" type="button">Finish setup</button>
+    </div>
+  </section>
+
+  <!-- Done -->
+  <section class="card stack" id="done" hidden>
+    <h2 style="font-size:1.25rem">That is everything.</h2>
+    <div id="summary"></div>
+    <p style="margin:0">Tomorrow morning, say who is here and photograph the first plate. Tally will
+    speak after each one, and will ask you at most the number of questions you set.</p>
+    <div class="notice">
+      This is the setup flow, and it stops here on purpose. Saving a new home would write to the
+      shared demo, so nothing is written. Open the demo to see a home that is already running.
+    </div>
+    <div class="btn-row">
+      <a class="btn primary" href="app.html">Open the demo</a>
+      <a class="btn" href="try.html">Try a photograph of your own</a>
+    </div>
+  </section>
+</main>
+
+<footer class="site">
+  <div class="wrap">
+    <div><a href="index.html">Overview</a> &middot; <a href="app.html">The demo</a>
+      &middot; <a href="try.html">Try your own lunch</a>
+      &middot; <a href="sponsor.html">The sponsor's month</a> &middot; MIT licence</div>
+    <div class="theme-toggle"></div>
+  </div>
+</footer>
+
+<script src="infotips.js"></script>
+<script src="common.js"></script>
+<script>
+(function () {
+  "use strict";
+  var parsed = null;
+  var DAYS = ["Mon", "Tue", "Wed", "Thu", "Fri"];
+  var SAMPLE = "Maya, born 3 March 2025, subsidised Mon-Fri\n" +
+    "Leo, 1 June 2022, peanut allergy, Mon to Fri, subsidised\n" +
+    "Ava, 09/01/2022, Mon Tue Wed Thu Fri\n" +
+    "Nia, 2024-11-05, Mon Wed Fri, dairy allergy, voucher\n" +
+    "Eli, born 2 Feb 2026, Mon-Thu, subsidised\n" +
+    "a line about the fire drill that is not a child\n";
+
+  function show(id) {
+    ["step1", "step2", "step3", "done"].forEach(function (s) {
+      document.getElementById(s).hidden = s !== id;
+    });
+    var map = { step1: "s1", step2: "s2", step3: "s3" };
+    ["s1", "s2", "s3"].forEach(function (s) {
+      var el = document.getElementById(s);
+      el.removeAttribute("aria-current");
+      el.classList.remove("done");
+    });
+    if (map[id]) document.getElementById(map[id]).setAttribute("aria-current", "step");
+    if (id !== "step1") document.getElementById("s1").classList.add("done");
+    if (id === "step3" || id === "done") document.getElementById("s2").classList.add("done");
+    if (id === "done") document.getElementById("s3").classList.add("done");
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }
+
+  function daysLabel(list) {
+    if (!list || !list.length) return "no days";
+    if (list.length === 5) return "Mon to Fri";
+    return list.map(function (d) { return DAYS[d] || d; }).join(" ");
+  }
+
+  function read() {
+    var text = document.getElementById("kids").value;
+    var out = document.getElementById("parse-out");
+    out.innerHTML = "";
+    if (!text.trim()) {
+      out.appendChild(window.h("p", { class: "small muted",
+        text: "Paste something first, or press Use a sample list." }));
+      return;
+    }
+    out.appendChild(window.h("p", { class: "small muted", text: "Reading..." }));
+    fetch("/api/children/parse", {
+      method: "POST", headers: { "content-type": "application/json" },
+      body: JSON.stringify({ text: text, state: document.getElementById("state").value,
+                             license_type: document.getElementById("licence").value })
+    }).then(function (r) {
+      if (!r.ok) throw new Error("the server returned " + r.status);
+      return r.json();
+    }).then(function (d) {
+      parsed = d;
+      out.innerHTML = "";
+      if (!d.children.length) {
+        out.appendChild(window.h("div", { class: "warn" }, [
+          window.h("strong", { text: "No birthdays found. " }),
+          "Every child needs one, because the meal pattern depends on their age group."
+        ]));
+        return;
+      }
+      out.appendChild(window.h("h3", { style: "font-size:1.0625rem;margin-top:var(--s4)",
+        text: d.children.length + " children found" }));
+      d.children.forEach(function (c) {
+        var row = window.h("div", { class: "kid-row" }, [
+          window.h("span", { class: "nm", text: c.first_name }),
+          window.h("span", { class: "dob", text: c.birth_date }),
+          window.h("span", { class: "badge neutral", text: "age " + c.age_group }),
+          window.h("span", { class: "badge neutral", text: daysLabel(c.enrolled_days) })
+        ]);
+        if (c.subsidized) row.appendChild(window.h("span", { class: "badge neutral", text: "subsidised" }));
+        c.allergies.forEach(function (a) {
+          row.appendChild(window.h("span", { class: "badge critical" }, [
+            window.h("span", { class: "shape", "aria-hidden": "true", text: window.SHAPES.critical }),
+            window.h("span", { text: a + " allergy" })
+          ]));
+        });
+        out.appendChild(row);
+      });
+      (d.warnings || []).forEach(function (w) {
+        out.appendChild(window.h("p", { class: "small muted", style: "margin:var(--s3) 0 0", text: w }));
+      });
+      if (d.unreadable.length) {
+        out.appendChild(window.h("div", { class: "warn", style: "margin-top:var(--s4)" }, [
+          window.h("strong", { text: d.unreadable.length
+            + (d.unreadable.length === 1 ? " line had " : " lines had") + " no birthday. " }),
+          "They are not dropped in silence, because a child missing from the roster is a child "
+          + "whose allergy is never checked: ",
+          window.h("em", { text: d.unreadable.slice(0, 3).join(" | ") })
+        ]));
+      }
+      out.appendChild(window.h("div", { class: "btn-row", style: "margin-top:var(--s4)" }, [
+        window.h("button", { class: "btn primary", type: "button",
+          onclick: function () { showRatio(); show("step2"); } }, ["Looks right, next"])
+      ]));
+      window.MountInfo();
+    }).catch(function (e) {
+      out.innerHTML = "";
+      out.appendChild(window.h("div", { class: "warn" }, [
+        window.h("strong", { text: "Could not read the list. " }),
+        e.message + ". Your paste is still in the box, so nothing is lost. Try again."
+      ]));
+    });
+  }
+
+  function showRatio() {
+    var host = document.getElementById("ratio-out");
+    host.innerHTML = "";
+    if (!parsed) return;
+    fetch("/api/children/parse", {
+      method: "POST", headers: { "content-type": "application/json" },
+      body: JSON.stringify({ text: document.getElementById("kids").value,
+                             state: document.getElementById("state").value,
+                             license_type: document.getElementById("licence").value })
+    }).then(function (r) { return r.json(); }).then(function (d) {
+      parsed = d;
+      var p = d.ratio || {};
+      host.innerHTML = "";
+      if (p.error) {
+        host.appendChild(window.h("div", { class: "warn", text: p.error }));
+        return;
+      }
+      var cls = p.ok ? "good" : "warn";
+      var box = window.h("div", { class: cls }, [
+        window.h("strong", { text: p.enrolled + " enrolled, limit " + p.limit
+          + " for a " + (p.label || "").toLowerCase() + ". " }),
+        window.h("span", { text: p.under_two + " under two." })
+      ]);
+      (p.problems || []).forEach(function (x) {
+        box.appendChild(window.h("p", { class: "small", style: "margin:var(--s2) 0 0", text: x }));
+      });
+      if (p.ok) {
+        box.appendChild(window.h("p", { class: "small", style: "margin:var(--s2) 0 0",
+          text: "Tally will warn you in the morning if the afternoon arrivals would take you over." }));
+      }
+      host.appendChild(box);
+    });
+  }
+
+  document.getElementById("sample").addEventListener("click", function () {
+    document.getElementById("kids").value = SAMPLE;
+    read();
+  });
+  document.getElementById("read").addEventListener("click", read);
+  ["state", "licence"].forEach(function (id) {
+    document.getElementById(id).addEventListener("change", showRatio);
+  });
+  document.getElementById("back2").addEventListener("click", function () { show("step1"); });
+  document.getElementById("next2").addEventListener("click", function () { show("step3"); });
+  document.getElementById("back3").addEventListener("click", function () { show("step2"); });
+
+  document.getElementById("finish").addEventListener("click", function () {
+    var host = document.getElementById("summary");
+    host.innerHTML = "";
+    var allergies = parsed.children.filter(function (c) { return c.allergies.length; });
+    var subsidised = parsed.children.filter(function (c) { return c.subsidized; });
+    host.appendChild(window.h("dl", { class: "kv" }, [
+      window.h("dt", { text: "Children" }),
+      window.h("dd", { text: String(parsed.children.length) }),
+      window.h("dt", { text: "Allergies to watch" }),
+      window.h("dd", { text: allergies.length
+        ? allergies.map(function (c) { return c.first_name + " (" + c.allergies.join(", ") + ")"; }).join(", ")
+        : "none recorded" }),
+      window.h("dt", { text: "Subsidised" }),
+      window.h("dd", { text: subsidised.length + " of " + parsed.children.length }),
+      window.h("dt", { text: "Licence" }),
+      window.h("dd", { text: (parsed.ratio && parsed.ratio.label) || document.getElementById("licence").value }),
+      window.h("dt", { text: "Tier" }),
+      window.h("dd", { text: document.getElementById("tier").value.replace("_", " ") }),
+      window.h("dt", { text: "Sponsor" }),
+      window.h("dd", { text: document.getElementById("sponsor").value || "not set yet" })
+    ]));
+    show("done");
+  });
+})();
+</script>
+</body>
+</html>
