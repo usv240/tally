@@ -1,0 +1,123 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 600" role="img"
+     aria-labelledby="arch-title arch-desc" font-family="Inter, system-ui, sans-serif">
+  <title id="arch-title">Tally architecture</title>
+  <desc id="arch-desc">During the day a Day Orchestrator receives a photograph or a spoken sentence
+    and calls Plate, Rules, Roll or Provider Gate as a tool, answering in seconds. In the evening a
+    Strands Graph runs Ledger, then Parent Notes, then Compliance, then the Digest, in that fixed
+    order. Both use AgentCore Runtime, Memory, Gateway, Code Interpreter and Observability, with the
+    meal pattern, payment rates and state ratio tables served as versioned data behind the Gateway.</desc>
+
+  <style>
+    .box { fill: var(--surface, #fff); stroke: var(--border, #E4E2DC); stroke-width: 1.5; rx: 10; }
+    .agent { fill: var(--accent-soft, #E3F3ED); stroke: var(--accent, #0F6E56); stroke-width: 1.5; rx: 10; }
+    .svc { fill: var(--surface-2, #F3F2EE); stroke: var(--border, #E4E2DC); stroke-width: 1.5; rx: 10; }
+    .t { fill: var(--text, #1A1A1A); font-size: 14px; font-weight: 600; }
+    .s { fill: var(--text-muted, #5C5C57); font-size: 11.5px; }
+    .lbl { fill: var(--text-muted, #5C5C57); font-size: 11px; }
+    .hdr { fill: var(--text, #1A1A1A); font-size: 15px; font-weight: 700; }
+    .flow { stroke: var(--accent, #0F6E56); stroke-width: 2; fill: none; }
+    .thin { stroke: var(--border, #E4E2DC); stroke-width: 1.5; fill: none; }
+  </style>
+
+  <defs>
+    <marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="var(--accent, #0F6E56)"/>
+    </marker>
+    <marker id="b" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="var(--border, #E4E2DC)"/>
+    </marker>
+  </defs>
+
+  <!-- Provider -->
+  <rect class="box" x="20" y="120" width="150" height="80"/>
+  <text class="t" x="95" y="150" text-anchor="middle">A photograph</text>
+  <text class="s" x="95" y="170" text-anchor="middle">one hand, one press</text>
+  <text class="s" x="95" y="187" text-anchor="middle">no typing</text>
+
+  <rect class="box" x="20" y="230" width="150" height="80"/>
+  <text class="t" x="95" y="260" text-anchor="middle">A sentence</text>
+  <text class="s" x="95" y="280" text-anchor="middle">"Maya's here, Ava's</text>
+  <text class="s" x="95" y="297" text-anchor="middle">mom said she's sick"</text>
+
+  <!-- Day -->
+  <rect class="box" x="215" y="55" width="420" height="300"/>
+  <text class="hdr" x="235" y="83">The day: request driven, shallow</text>
+  <text class="s" x="235" y="102">She is standing there waiting, so it answers in seconds</text>
+
+  <rect class="agent" x="240" y="120" width="170" height="52"/>
+  <text class="t" x="325" y="142" text-anchor="middle">Day Orchestrator</text>
+  <text class="s" x="325" y="160" text-anchor="middle">one tool per event</text>
+
+  <rect class="agent" x="440" y="120" width="170" height="52"/>
+  <text class="t" x="525" y="142" text-anchor="middle">Plate</text>
+  <text class="s" x="525" y="160" text-anchor="middle">photo to components</text>
+
+  <rect class="agent" x="440" y="188" width="170" height="52"/>
+  <text class="t" x="525" y="210" text-anchor="middle">Rules</text>
+  <text class="s" x="525" y="228" text-anchor="middle">meal pattern, as data</text>
+
+  <rect class="agent" x="240" y="188" width="170" height="52"/>
+  <text class="t" x="325" y="210" text-anchor="middle">Roll</text>
+  <text class="s" x="325" y="228" text-anchor="middle">attendance and ratio</text>
+
+  <rect class="agent" x="240" y="256" width="370" height="66"/>
+  <text class="t" x="425" y="278" text-anchor="middle">Provider Gate</text>
+  <text class="s" x="425" y="296" text-anchor="middle">the only agent allowed to ask her anything</text>
+  <text class="s" x="425" y="313" text-anchor="middle">safety and meal go through, everything else waits for the evening</text>
+
+  <path class="flow" d="M410 146 L440 146" marker-end="url(#a)"/>
+  <path class="flow" d="M525 172 L525 188" marker-end="url(#a)"/>
+  <path class="flow" d="M325 172 L325 188" marker-end="url(#a)"/>
+  <path class="thin" d="M170 160 L240 146" marker-end="url(#b)"/>
+  <path class="thin" d="M170 270 L240 214" marker-end="url(#b)"/>
+  <path class="flow" d="M525 240 L525 256" marker-end="url(#a)"/>
+
+  <!-- Evening -->
+  <rect class="box" x="680" y="55" width="295" height="300"/>
+  <text class="hdr" x="700" y="83">The evening: a Strands Graph</text>
+  <text class="s" x="700" y="102">A fixed pipeline, each step feeding the next</text>
+
+  <rect class="agent" x="700" y="118" width="255" height="46"/>
+  <text class="t" x="827" y="146" text-anchor="middle">Ledger</text>
+
+  <rect class="agent" x="700" y="176" width="255" height="46"/>
+  <text class="t" x="827" y="204" text-anchor="middle">Parent Notes</text>
+
+  <rect class="agent" x="700" y="234" width="255" height="46"/>
+  <text class="t" x="827" y="262" text-anchor="middle">Compliance Clock</text>
+
+  <rect class="agent" x="700" y="292" width="255" height="46"/>
+  <text class="t" x="827" y="320" text-anchor="middle">Digest</text>
+
+  <path class="flow" d="M827 164 L827 176" marker-end="url(#a)"/>
+  <path class="flow" d="M827 222 L827 234" marker-end="url(#a)"/>
+  <path class="flow" d="M827 280 L827 292" marker-end="url(#a)"/>
+  <text class="lbl" x="657" y="200" text-anchor="middle">18:30</text>
+
+  <!-- Rules as data -->
+  <rect class="svc" x="215" y="380" width="420" height="86"/>
+  <text class="hdr" x="235" y="408">Rules as versioned data, not as code</text>
+  <text class="s" x="235" y="428">cacfp_rules.json: the meal pattern, by meal and age group</text>
+  <text class="s" x="235" y="445">rates.json: the 2026-2027 payment rates &#183; state_rules.json: ratio limits</text>
+  <text class="s" x="235" y="460">Published at /api/rules, so a sponsor can check them against USDA</text>
+
+  <rect class="svc" x="680" y="380" width="295" height="86"/>
+  <text class="hdr" x="700" y="408">What it will not do</text>
+  <text class="s" x="700" y="428">No portion, weight or calorie estimates</text>
+  <text class="s" x="700" y="445">Below its confidence threshold it asks</text>
+  <text class="s" x="700" y="460">No claim is sent without her</text>
+
+  <!-- Platform -->
+  <rect class="svc" x="215" y="490" width="760" height="86"/>
+  <text class="hdr" x="235" y="518">Amazon Bedrock and AgentCore</text>
+  <text class="s" x="235" y="540">Bedrock vision at temperature zero, so one photograph gives one record</text>
+  <text class="s" x="235" y="558">Runtime: the day agent and the nightly job &#183; Memory: children, allergies, her words for foods</text>
+  <text class="s" x="640" y="540">Gateway: the rules above, as tools</text>
+  <text class="s" x="640" y="558">Code Interpreter: the money &#183; Observability: every step</text>
+
+  <path class="thin" d="M425 355 L425 380" marker-end="url(#b)"/>
+  <path class="thin" d="M827 355 L827 380" marker-end="url(#b)"/>
+  <path class="thin" d="M425 466 L425 490" marker-end="url(#b)"/>
+
+  <text class="s" x="20" y="576">Every verdict records the rule version it was decided under, which is what makes an audit reproducible.</text>
+</svg>

@@ -1,0 +1,65 @@
+/* Tally product screens. Additions to the shared design system. */
+
+.row-2 { display: grid; gap: var(--s3); }
+@media (min-width: 700px) { .row-2 { grid-template-columns: 1fr 1fr; } }
+
+.status-line.alert { background: var(--danger-soft); border-color: var(--danger); color: var(--danger); }
+.status-line.fix { background: var(--warning-soft); border-color: var(--warning); color: var(--warning); }
+.status-line.ok { background: var(--success-soft); border-color: var(--success); color: var(--success); }
+
+/* A meal, with its photograph beside the verdict. */
+.meal { display: grid; gap: var(--s4); }
+@media (min-width: 700px) { .meal { grid-template-columns: 190px 1fr; } }
+.meal img {
+  /* Contain, not cover. A plate photographed after a component was added is a wide image, and
+     cropping it to a square hid everything except the middle food. */
+  width: 100%; border-radius: var(--r-md); border: 1px solid var(--border);
+  aspect-ratio: 4 / 3; object-fit: contain; background: var(--surface-2);
+}
+.meal-card { border-left: 4px solid var(--border); }
+.meal-card.paid { border-left-color: var(--success); }
+.meal-card.unpaid { border-left-color: var(--warning); }
+
+/* Components as chips, each carrying its confidence. */
+.chips { display: flex; flex-wrap: wrap; gap: var(--s2); margin: var(--s3) 0; }
+.chip {
+  display: inline-flex; align-items: baseline; gap: 6px;
+  padding: 4px 10px; border-radius: var(--r-pill);
+  background: var(--surface-2); border: 1px solid var(--border); font-size: .875rem;
+}
+.chip .comp { color: var(--text-muted); font-size: .8125rem; }
+.chip .conf { color: var(--text-muted); font-size: .75rem; font-variant-numeric: tabular-nums; }
+.chip.low { border-color: var(--warning); background: var(--warning-soft); }
+
+.said { display: flex; flex-direction: column; gap: var(--s2); }
+.said-line {
+  padding: var(--s3) var(--s4); border-radius: var(--r-md);
+  background: var(--surface); border: 1px solid var(--border); font-size: .9375rem;
+  display: flex; gap: var(--s3); align-items: baseline;
+}
+.said-line .t { color: var(--text-muted); font-size: .8125rem; font-variant-numeric: tabular-nums; flex: none; }
+.said-line.alert { border-color: var(--danger); background: var(--danger-soft); }
+.said-line.fix { border-color: var(--warning); background: var(--warning-soft); }
+.said-line.ask { border-color: var(--info); background: var(--info-soft); }
+
+/* A child card, with their allergy and subsidy state visible at a glance. */
+.child-card { display: flex; flex-direction: column; gap: var(--s2); }
+.child-card .name { font-weight: 650; font-size: 1.0625rem; }
+.child-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+
+.question {
+  border: 1px solid var(--border); border-radius: var(--r-md);
+  padding: var(--s4); background: var(--surface);
+}
+.question.safety { border-color: var(--danger); background: var(--danger-soft); }
+.question.meal { border-color: var(--warning); background: var(--warning-soft); }
+.question .q { font-weight: 550; margin-bottom: var(--s3); }
+
+.note-card { border-left: 3px solid var(--accent); padding-left: var(--s4); }
+
+.money { font-size: 2rem; font-weight: 700; letter-spacing: -.02em; font-variant-numeric: tabular-nums; }
+.money.lost { color: var(--warning); }
+
+table.claim { width: 100%; border-collapse: collapse; font-size: .9375rem; }
+table.claim th, table.claim td { text-align: left; padding: var(--s3); border-bottom: 1px solid var(--border); }
+table.claim td.num, table.claim th.num { text-align: right; font-variant-numeric: tabular-nums; }

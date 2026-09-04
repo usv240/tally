@@ -1,0 +1,177 @@
+{
+ "generated": "2026-09-04 14:32 UTC",
+ "trials_per_photo": 2,
+ "photos": 13,
+ "mean_component_recall": 1.0,
+ "total_spurious": 0,
+ "rows": [
+  {
+   "photo": "lunch_tray",
+   "note": "USDA MyPlate school lunch tray. Every component is present.",
+   "expected": [
+    "fruit",
+    "grain",
+    "meat_alt",
+    "milk",
+    "vegetable"
+   ],
+   "recall": 1.0,
+   "spurious": 0,
+   "asked_a_question": 2,
+   "errors": 0,
+   "trials": 2
+  },
+  {
+   "photo": "chicken_rice_veg",
+   "note": "Grilled chicken with rice and vegetables. No milk and no fruit.",
+   "expected": [
+    "grain",
+    "meat_alt",
+    "vegetable"
+   ],
+   "recall": 1.0,
+   "spurious": 0,
+   "asked_a_question": 0,
+   "errors": 0,
+   "trials": 2
+  },
+  {
+   "photo": "school_lunch_fi",
+   "note": "Finnish school lunch: soup and crispbread. The soup may read as containing meat.",
+   "expected": [
+    "grain",
+    "vegetable"
+   ],
+   "recall": 1.0,
+   "spurious": 0,
+   "asked_a_question": 2,
+   "errors": 0,
+   "trials": 2
+  },
+  {
+   "photo": "milk",
+   "note": "A glass of milk.",
+   "expected": [
+    "milk"
+   ],
+   "recall": 1.0,
+   "spurious": 0,
+   "asked_a_question": 2,
+   "errors": 0,
+   "trials": 2
+  },
+  {
+   "photo": "yogurt",
+   "note": "Yoghurt in a bowl. Yoghurt is a meat alternate under CACFP.",
+   "expected": [
+    "meat_alt"
+   ],
+   "recall": 1.0,
+   "spurious": 0,
+   "asked_a_question": 2,
+   "errors": 0,
+   "trials": 2
+  },
+  {
+   "photo": "banana",
+   "note": "A banana.",
+   "expected": [
+    "fruit"
+   ],
+   "recall": 1.0,
+   "spurious": 0,
+   "asked_a_question": 0,
+   "errors": 0,
+   "trials": 2
+  },
+  {
+   "photo": "oatmeal",
+   "note": "Porridge with toppings, so raisins and nut butter may also be seen.",
+   "expected": [
+    "grain"
+   ],
+   "recall": 1.0,
+   "spurious": 0,
+   "asked_a_question": 2,
+   "errors": 0,
+   "trials": 2
+  },
+  {
+   "photo": "crackers",
+   "note": "A wholewheat cracker.",
+   "expected": [
+    "grain"
+   ],
+   "recall": 1.0,
+   "spurious": 0,
+   "asked_a_question": 0,
+   "errors": 0,
+   "trials": 2
+  },
+  {
+   "photo": "orange_slices",
+   "note": "A blood orange slice.",
+   "expected": [
+    "fruit"
+   ],
+   "recall": 1.0,
+   "spurious": 0,
+   "asked_a_question": 0,
+   "errors": 0,
+   "trials": 2
+  },
+  {
+   "photo": "pear",
+   "note": "Pears.",
+   "expected": [
+    "fruit"
+   ],
+   "recall": 1.0,
+   "spurious": 0,
+   "asked_a_question": 0,
+   "errors": 0,
+   "trials": 2
+  },
+  {
+   "photo": "green_beans",
+   "note": "Green beans with onions, both vegetables.",
+   "expected": [
+    "vegetable"
+   ],
+   "recall": 1.0,
+   "spurious": 0,
+   "asked_a_question": 2,
+   "errors": 0,
+   "trials": 2
+  },
+  {
+   "photo": "oatmeal_with_milk",
+   "note": "Composite: the breakfast after the milk was added.",
+   "expected": [
+    "grain",
+    "milk"
+   ],
+   "recall": 1.0,
+   "spurious": 0,
+   "asked_a_question": 2,
+   "errors": 0,
+   "trials": 2
+  },
+  {
+   "photo": "chicken_rice_veg_fixed",
+   "note": "Composite: the lunch after milk and fruit were added.",
+   "expected": [
+    "fruit",
+    "grain",
+    "meat_alt",
+    "milk",
+    "vegetable"
+   ],
+   "recall": 1.0,
+   "spurious": 0,
+   "asked_a_question": 0,
+   "errors": 0,
+   "trials": 2
+  }
+ ]
+}

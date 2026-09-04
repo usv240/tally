@@ -1,0 +1,405 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tally: she feeds twelve kids and files paperwork for every bite</title>
+<meta name="description" content="A hands-free agent for home child care providers. Photograph the plate, say who is here, and the meal record, the attendance, the ratio check, the parent notes and the monthly claim are done before the food is cold.">
+<script>
+  (function () {
+    try {
+      var m = localStorage.getItem("tally-theme");
+      if (m && m !== "system") document.documentElement.setAttribute("data-theme", m);
+    } catch (e) {}
+  })();
+</script>
+<link rel="stylesheet" href="styles.css">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='7' fill='%230F6E56'/></svg>">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="site">
+  <div class="bar">
+    <a class="brand" href="index.html"><span class="mark" aria-hidden="true"></span> Tally</a>
+    <nav aria-label="Main">
+      <a href="#problem">The problem</a>
+      <a href="#how">How it works</a>
+      <a href="#different">What is different</a>
+      <a href="#built">How it is built</a>
+      <a href="#judges">For judges</a>
+      <a href="#developers">For developers</a>
+    </nav>
+    <div class="header-actions">
+      <div class="theme-toggle"></div>
+      <a class="btn primary" href="app.html">Open the live demo</a>
+    </div>
+  </div>
+</header>
+
+<main id="main">
+
+<section class="hero">
+  <div class="wrap">
+    <h1>She feeds twelve kids and files paperwork for every bite. Tally does the counting.</h1>
+    <p class="lede">
+      A hands-free agent for home child care providers. Photograph the plate, say who is here, and
+      the meal record, the attendance, the ratio check, the notes home and the monthly claim are
+      done, correctly, before the food is cold.
+    </p>
+    <div class="btn-row">
+      <a class="btn primary" href="app.html">Open the live demo</a>
+      <a class="btn" href="#how">See how it works</a>
+    </div>
+    <p class="credibility">
+      <span>97,000 licensed child care homes closed in twelve years<button class="info" data-tip="fcc" data-label="family child care"></button></span>
+      <span>Paperwork is the barrier state agencies name most<button class="info" data-tip="cacfp" data-label="the food program"></button></span>
+      <span>Runs on Amazon Bedrock<button class="info" data-tip="bedrock_vision" data-label="Amazon Bedrock"></button></span>
+    </p>
+  </div>
+</section>
+
+<section class="band" id="problem">
+  <div class="wrap stack">
+    <h2>The paperwork happens at nine at night, and that is why it goes wrong.</h2>
+    <p class="section-lede">
+      A licensed family child care provider looks after four to twelve children in her own home. To
+      be paid for the meals she serves, she must log every meal for every child by component under
+      the federal food program<button class="info" data-tip="cacfp" data-label="CACFP"></button>.
+      Since 2024 she must also document actual daily attendance for every subsidised child<button class="info" data-tip="subsidy_authorization" data-label="subsidy authorisation"></button>.
+      She does all of it after the last child goes home.
+    </p>
+
+    <div class="grid cols-3">
+      <div class="card">
+        <span class="stat">52% gone</span>
+        <span class="stat-label">Licensed homes</span>
+        <p class="muted small">Licensed family child care homes fell by half between 2005 and 2017,
+        more than 97,000 of them. Providers serving subsidised children fell 51 percent.<br><a href="#refs">Reference 1</a></p>
+      </div>
+      <div class="card">
+        <span class="stat">80% of states</span>
+        <span class="stat-label">Name paperwork first</span>
+        <p class="muted small">Almost 80 percent of state agencies name burdensome paperwork as the
+        top barrier to food program participation.<br><a href="#refs">Reference 2</a></p>
+      </div>
+      <div class="card">
+        <span class="stat">$436.92</span>
+        <span class="stat-label">A month, gone</span>
+        <p class="muted small">One lunch a day that fails the log, for six children, over 22 serving
+        days, at this year's tier 1 rate of 3.31 dollars.<button class="info" data-tip="lost_amount" data-label="the lost amount"></button><br><a href="#refs">Reference 6</a></p>
+      </div>
+    </div>
+
+    <p class="quote">
+      Rosa runs a licensed home in Texas with nine children on a normal day and twelve after school.
+      Last month a snack was rejected because the log showed one component. There were two. She
+      forgot to write the second one down at twenty to ten at night.
+    </p>
+
+    <p>
+      On 19 August 2026 the National CACFP Association published a report on this, called
+      <em>Stretched Thin: The Administrative Burden of the CACFP in Family Child Care Homes</em>.
+      <a href="#refs">Reference 4</a> Tally is built for the problem that report describes.
+    </p>
+  </div>
+</section>
+
+<section class="band" id="how">
+  <div class="wrap stack">
+    <h2>Her hands are full. So there is nothing to type.</h2>
+
+    <div class="steps">
+      <div class="step">
+        <h3>Say who is here<button class="info" data-tip="agent_roll" data-label="the Roll agent"></button></h3>
+        <p>"Maya's here, Leo's here, Ava's mom said she's sick, Mateo's coming at eight."
+        Attendance, the subsidy check and the ratio for the rest of the day, from one sentence.</p>
+      </div>
+      <div class="step">
+        <h3>Photograph the plate<button class="info" data-tip="agent_plate" data-label="the Plate agent"></button></h3>
+        <p>The agent names the foods, maps them to components, and checks the meal pattern for every
+        age group at the table. It never estimates portions.</p>
+      </div>
+      <div class="step">
+        <h3>Fix it while it is on the table<button class="info" data-tip="smallest_fix" data-label="the smallest fix"></button></h3>
+        <p>"Add milk and this breakfast qualifies." Not a rejection next month, when nothing can be
+        done about it.</p>
+      </div>
+      <div class="step">
+        <h3>Approve, do not type<button class="info" data-tip="question_budget" data-label="the question budget"></button></h3>
+        <p>In the evening the notes home are drafted from what she already said, the claim builds
+        itself, and she gets at most two questions.</p>
+      </div>
+    </div>
+
+    <div class="grid cols-2">
+      <div class="card">
+        <h3>When it is not sure, it asks<button class="info" data-tip="confidence" data-label="confidence"></button></h3>
+        <p class="muted">A pale liquid in a bowl could be milk or water, and the two are treated
+        differently. Below its confidence threshold the agent leaves the item out of the record and
+        asks one question, because guessing a component into compliance would create a false claim.</p>
+      </div>
+      <div class="card">
+        <h3>Allergies are checked before anything is written<button class="info" data-tip="allergy_check" data-label="the allergy check"></button></h3>
+        <p class="muted">Every food on the plate is checked against every present child's allergies
+        first. In the demo it catches peanut butter in a bowl of porridge, on a real photograph,
+        without anyone having planned it.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="band" id="demo">
+  <div class="wrap stack">
+    <h2>Play the day.</h2>
+    <p class="section-lede">
+      You are Rosa on a Tuesday in September. Press the steps in order and watch a real vision model
+      read real photographs and a versioned rulebook decide what gets paid.
+      <button class="info" data-tip="judge_mode" data-label="judge mode"></button>
+    </p>
+    <div class="btn-row">
+      <a class="btn primary" href="app.html">Open the live demo</a>
+      <a class="btn" href="app.html#trace">Go straight to the agent trace</a>
+    </div>
+    <p class="small muted">
+      Rosa and every child are fictional. The photographs are real, openly licensed pictures of real
+      food.<button class="info" data-tip="real_photos" data-label="the photographs"></button>
+    </p>
+  </div>
+</section>
+
+<section class="band" id="different">
+  <div class="wrap stack">
+    <h2>Three things a child care app does not do.</h2>
+
+    <div class="grid cols-3">
+      <div class="card">
+        <h3>It works without hands</h3>
+        <p class="muted">A camera and a voice. Two buttons for the moments a hand is free, and
+        everything else spoken. Existing tools are forms, and forms get filled at nine at night,
+        which is exactly when the mistakes happen.</p>
+      </div>
+      <div class="card">
+        <h3>It checks the rule before the meal ends</h3>
+        <p class="muted">Reimbursability is decided at the table, with the smallest fix named out
+        loud, rather than discovered at claim time when nothing can be done. Every verdict records
+        the rule version it was decided under.<button class="info" data-tip="rule_version" data-label="the rule version"></button></p>
+      </div>
+      <div class="card">
+        <h3>It uses the half of food vision that works</h3>
+        <p class="muted">Models are good at naming foods and poor at estimating grams. The food
+        program only needs components. So Tally identifies components, refuses to estimate portions,
+        and says so plainly rather than quietly overreaching.</p>
+      </div>
+    </div>
+
+    <h3>What about KidKare and the others?</h3>
+    <div class="scroll-x">
+      <table class="plain">
+        <thead><tr><th>Tool</th><th>What it does well</th><th>What it does not do</th></tr></thead>
+        <tbody>
+          <tr>
+            <td>KidKare by Minute Menu</td>
+            <td>The food program standard, used by tens of thousands of homes, with thorough claim edit checks.</td>
+            <td>Every meal is typed into a form, and its checks run at claim time, when a missing component can no longer be added.</td>
+          </tr>
+          <tr>
+            <td>brightwheel, Playground, Procare</td>
+            <td>Run centres well: billing, enrolment, ratio tracking, CACFP menus.</td>
+            <td>Assume somebody at a desk. A provider with a toddler on each hip is not that person.</td>
+          </tr>
+          <tr>
+            <td>Paper and a binder</td>
+            <td>What many home providers actually use.</td>
+            <td>Everything. This is the binder, filled in by a photograph and a sentence.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="small muted">Tally exports in a format a sponsor already using KidKare can accept.
+    That is deliberate: the aim is that her records are usable tonight, not that she switches
+    systems.</p>
+  </div>
+</section>
+
+<section class="band" id="built">
+  <div class="wrap stack">
+    <h2>Two shapes, because the day and the evening are different problems.</h2>
+    <p class="section-lede">
+      During the day the provider is standing there waiting, so the work is request driven and
+      shallow: one specialist agent called as a tool<button class="info" data-tip="day_orchestrator" data-label="the day orchestrator"></button>.
+      In the evening it is a fixed pipeline whose steps feed each other, so it is a Strands
+      Graph<button class="info" data-tip="nightly_graph" data-label="the nightly Graph"></button>.
+    </p>
+
+    <div class="card">
+      <img src="architecture.svg" alt="Architecture diagram. During the day, a Day Orchestrator receives a photograph or a sentence and calls Plate, Rules, Roll or Provider Gate as a tool. In the evening, a Strands Graph runs Ledger, then Parent Notes, then Compliance, then the Digest. Both use AgentCore Runtime, Memory, Gateway, Code Interpreter and Observability, with versioned rules files behind the Gateway." style="width:100%;height:auto">
+    </div>
+
+    <div class="grid cols-4">
+      <div class="card"><h3>Plate<button class="info" data-tip="agent_plate" data-label="Plate"></button></h3><p class="muted small">Photograph to components, with a confidence gate that asks rather than guesses.</p></div>
+      <div class="card"><h3>Rules<button class="info" data-tip="agent_rules" data-label="Rules"></button></h3><p class="muted small">The meal pattern as versioned data. Deterministic, so the same plate always gets the same answer.</p></div>
+      <div class="card"><h3>Roll<button class="info" data-tip="agent_roll" data-label="Roll"></button></h3><p class="muted small">A spoken sentence into attendance, a subsidy check and a ratio look ahead.</p></div>
+      <div class="card"><h3>Provider Gate<button class="info" data-tip="agent_gate" data-label="Provider Gate"></button></h3><p class="muted small">The only agent allowed to ask her anything, with the budget enforced in code.</p></div>
+      <div class="card"><h3>Ledger<button class="info" data-tip="agent_ledger" data-label="Ledger"></button></h3><p class="muted small">The daily maximum, the month's claim, and what the unpaid meals cost.</p></div>
+      <div class="card"><h3>Parent Notes<button class="info" data-tip="agent_notes" data-label="Parent Notes"></button></h3><p class="muted small">One short note per child, in each family's language, from the record only.</p></div>
+      <div class="card"><h3>AgentCore<button class="info" data-tip="agentcore_runtime" data-label="AgentCore Runtime"></button></h3><p class="muted small">Runtime, Memory, Gateway, Code Interpreter and Observability, each for a stated reason.</p></div>
+      <div class="card"><h3>Published rules<button class="info" data-tip="agentcore_gateway" data-label="the Gateway"></button></h3><p class="muted small">The exact rules data is served at <code>/api/rules</code> so a sponsor can check it against USDA.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="band" id="judges">
+  <div class="wrap stack">
+    <h2>For judges.</h2>
+    <p class="section-lede">Everything the rubric asks for, in rubric order, each linked to the evidence.</p>
+    <div class="scroll-x">
+      <table class="plain">
+        <thead><tr><th style="width:20%">Criterion</th><th>How Tally addresses it</th><th style="width:22%">Evidence</th></tr></thead>
+        <tbody>
+          <tr>
+            <td><strong>Technical implementation</strong></td>
+            <td>A Strands Graph for the evening pipeline and a shallow orchestrator for the live day,
+            because they are different problems. Bedrock vision at temperature zero with a confidence
+            gate. Rules and rates as versioned data behind a tool, not as code. 58 tests plus a
+            published vision eval.</td>
+            <td><a href="app.html#trace">Agent trace</a><br><a href="#developers">API and code</a></td>
+          </tr>
+          <tr>
+            <td><strong>Design</strong></td>
+            <td>A product built around one physical constraint: she has no free hands. Two large
+            buttons, spoken confirmation mirrored as text, an evening digest, a month view, a
+            sponsor export. Light and dark, phone first, an explanation button on every term.</td>
+            <td><a href="app.html">The product</a></td>
+          </tr>
+          <tr>
+            <td><strong>Potential impact</strong></td>
+            <td>Six cited sources including a federal report to Congress and a sector report from two
+            weeks before the deadline, and the impact in money at this year's published rates.</td>
+            <td><a href="#problem">The problem</a><br><a href="#refs">References</a></td>
+          </tr>
+          <tr>
+            <td><strong>Creativity and originality</strong></td>
+            <td>Fix at the table rather than reject at claim time. A deliberate refusal to estimate
+            portions, using only the half of food vision that is reliable. An agent measured by how
+            rarely it interrupts.</td>
+            <td><a href="#different">What is different</a></td>
+          </tr>
+          <tr>
+            <td><strong>Presentation</strong></td>
+            <td>A four minute video recorded from this deployment, following one Tuesday from the
+            morning roll call to the claim being sent at five past six instead of half past nine.</td>
+            <td><a href="#demo">Demo</a></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="small muted">
+      Licence: MIT, in the repository root and visible in the About panel. All code was written
+      during the submission period. Photograph credits are in <code>data/plates/ATTRIBUTION.md</code>.
+    </p>
+  </div>
+</section>
+
+<section class="band" id="developers">
+  <div class="wrap stack">
+    <h2>For developers.</h2>
+    <p class="section-lede">
+      The endpoint worth integrating is one line: send a photograph, get a compliant meal record.
+      <button class="info" data-tip="sandbox_key" data-label="the sandbox key"></button>
+    </p>
+
+    <div class="grid cols-2">
+      <div class="card">
+        <h3>Run it</h3>
+        <pre class="formula">git clone &lt;repo&gt; &amp;&amp; cd tally
+uv venv &amp;&amp; uv pip install -e ".[dev]"
+python -m tally.data.fetch_plates
+python -m tally.data.make_plates
+python -m tally.data.generate
+uvicorn tally.api:app --port 8001</pre>
+        <p class="muted small">Then open http://localhost:8001. AWS credentials with Amazon Bedrock
+        access are needed for the vision step.</p>
+      </div>
+      <div class="card">
+        <h3>Call it</h3>
+        <pre class="formula">curl -X POST http://localhost:8001/api/meals \
+  -H "x-api-key: tally-sandbox-2026" \
+  -F "photo=@lunch.jpg" -F "meal_type=lunch"
+
+# -> components, reimbursable, smallest_fix,
+#    rule_version, questions</pre>
+        <p class="muted small">Full schema at <a href="/docs">/docs</a>. The rules themselves are at
+        <a href="/api/rules">/api/rules</a>, so a sponsor can check them against the USDA tables.</p>
+      </div>
+    </div>
+
+    <div class="scroll-x">
+      <table class="plain">
+        <thead><tr><th>Endpoint</th><th>What it does</th></tr></thead>
+        <tbody>
+          <tr><td><code>POST /api/meals</code></td><td>Send a photograph. Returns the components, whether it is reimbursable, and the smallest fix.</td></tr>
+          <tr><td><code>GET /api/state</code></td><td>The whole day: children, ratio, meals, questions, notes, month.</td></tr>
+          <tr><td><code>GET /api/rules</code></td><td>The exact meal pattern data, payment rates and state ratio tables in force.</td></tr>
+          <tr><td><code>GET /api/month</code></td><td>The claim: lines, total, and what the unpaid meals would have paid.</td></tr>
+          <tr><td><code>GET /api/trace</code></td><td>Every agent step, including the decision whether to ask.</td></tr>
+          <tr><td><code>POST /api/answer</code></td><td>Answer a question Tally asked.</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<section class="band" id="safety">
+  <div class="wrap stack">
+    <h2>What it will never do.</h2>
+    <ul>
+      <li><strong>It never photographs children.</strong> The camera frames the plate. No picture of a child is stored.</li>
+      <li><strong>It never submits a claim by itself.</strong> The provider reviews the month and presses send.</li>
+      <li><strong>It never guesses a component into compliance.</strong> Below its confidence threshold it leaves the item out and asks.</li>
+      <li><strong>It never estimates portions or calories.</strong> It identifies components, which is what the food program requires.</li>
+      <li><strong>It never asks more than two questions a day</strong> outside a safety alert or a meal that can still be fixed. Enforced in code.</li>
+      <li><strong>It never invents a rule.</strong> If a state's ratio table is not in the rules file, it refuses rather than guessing, because a wrong limit is worse than no answer.</li>
+    </ul>
+  </div>
+</section>
+
+<section class="band" id="refs">
+  <div class="wrap stack">
+    <h2>References.</h2>
+    <ol class="refs">
+      <li>HHS Administration for Children and Families, Office of Child Care, "The Decreasing Number of Family Child Care Providers in the United States". <a href="https://acf.gov/occ/news/decreasing-number-family-child-care-providers-united-states">acf.gov</a></li>
+      <li>"Barriers to Participation in the Child and Adult Care Food Program for Early Childhood Care Providers", American Journal of Public Health, 2023. <a href="https://ajph.aphapublications.org/doi/10.2105/AJPH.2023.307473">ajph.aphapublications.org</a></li>
+      <li>"The Child and Adult Care Food Program: Nutritional Benefits and Barriers Hindering Participation by Home-Based Childcare Providers", 2023. <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC10733890/">PMC10733890</a></li>
+      <li>National CACFP Association, "Stretched Thin: The Administrative Burden of the CACFP in Family Child Care Homes", 19 August 2026. <a href="https://www.cacfp.org/2026/08/19/stretched-thin-the-administrative-burden-of-the-cacfp-in-family-child-care-homes/">cacfp.org</a></li>
+      <li>USDA Food and Nutrition Administration, "Report to Congress: Reducing Paperwork in the Child and Adult Care Food Program". <a href="https://www.fna.usda.gov/research/cacfp/reducing-paperwork">fna.usda.gov</a></li>
+      <li>USDA Federal Register, Day Care Home Food Service Payment Rates, 1 July 2026 to 30 June 2027. <a href="https://www.fna.usda.gov/cacfp/reimbursement-rates">fna.usda.gov</a></li>
+      <li>USDA Food and Nutrition Administration, "Nutrition Standards for CACFP Meals and Snacks". <a href="https://www.fna.usda.gov/cacfp/nutrition-standards">fna.usda.gov</a></li>
+      <li>"A comparative study of vision-language models for food ingredient recognition and nutrient estimation", 2026. <a href="https://www.sciencedirect.com/science/article/pii/S266592712600105X">sciencedirect.com</a></li>
+      <li>Texas Health and Human Services, minimum standards for licensed and registered child care homes.</li>
+      <li>Gloria Mark, University of California Irvine, research on the cost of interruption and recovery of focus.</li>
+      <li>Strands Agents SDK documentation. <a href="https://strandsagents.com/">strandsagents.com</a></li>
+      <li>Amazon Bedrock and AgentCore documentation. <a href="https://docs.aws.amazon.com/bedrock-agentcore/">docs.aws.amazon.com</a></li>
+    </ol>
+  </div>
+</section>
+
+</main>
+
+<footer class="site">
+  <div class="wrap">
+    <div>
+      <strong>Tally</strong> &middot; MIT licence &middot; Built for the AWS Agents for Humans
+      Hackathon, September 2026.
+      <br>
+      <span class="small">Rosa's Family Child Care and every child are fictional. Photograph credits
+      are in the repository.</span>
+    </div>
+    <div class="theme-toggle"></div>
+  </div>
+</footer>
+
+<script src="infotips.js"></script>
+<script src="common.js"></script>
+</body>
+</html>

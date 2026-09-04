@@ -1,0 +1,328 @@
+{
+ "clock_start": "2026-09-08T07:38:00",
+ "provider": {
+  "id": "rosa",
+  "name": "Rosa's Family Child Care",
+  "state": "TX",
+  "license_type": "licensed",
+  "tier": "tier_1",
+  "language": "en",
+  "sponsor_name": "Hill Country Child Nutrition",
+  "sponsor_email": "claims@example.invalid",
+  "assistant_from": "14:30",
+  "nap_start": "13:00",
+  "nap_end": "14:30",
+  "question_budget": 2
+ },
+ "children": [
+  {
+   "id": "maya",
+   "provider_id": "rosa",
+   "first_name": "Maya",
+   "birth_date": "2025-03-03",
+   "enrolled_days": [
+    0,
+    1,
+    2,
+    3,
+    4
+   ],
+   "usual_arrival": "07:30",
+   "subsidized": true,
+   "subsidy_days": [
+    0,
+    1,
+    2,
+    3,
+    4
+   ],
+   "allergies": [],
+   "family_contact": "",
+   "family_language": "en"
+  },
+  {
+   "id": "leo",
+   "provider_id": "rosa",
+   "first_name": "Leo",
+   "birth_date": "2022-06-01",
+   "enrolled_days": [
+    0,
+    1,
+    2,
+    3,
+    4
+   ],
+   "usual_arrival": "07:30",
+   "subsidized": true,
+   "subsidy_days": [
+    0,
+    1,
+    2,
+    3,
+    4
+   ],
+   "allergies": [
+    "peanut"
+   ],
+   "family_contact": "",
+   "family_language": "es"
+  },
+  {
+   "id": "ava",
+   "provider_id": "rosa",
+   "first_name": "Ava",
+   "birth_date": "2022-01-09",
+   "enrolled_days": [
+    0,
+    1,
+    2,
+    3,
+    4
+   ],
+   "usual_arrival": "07:45",
+   "subsidized": false,
+   "subsidy_days": [],
+   "allergies": [],
+   "family_contact": "",
+   "family_language": "en"
+  },
+  {
+   "id": "mateo",
+   "provider_id": "rosa",
+   "first_name": "Mateo",
+   "birth_date": "2022-04-02",
+   "enrolled_days": [
+    0,
+    1,
+    2,
+    3,
+    4
+   ],
+   "usual_arrival": "08:00",
+   "subsidized": true,
+   "subsidy_days": [
+    1,
+    2,
+    3,
+    4
+   ],
+   "allergies": [],
+   "family_contact": "",
+   "family_language": "es"
+  },
+  {
+   "id": "nia",
+   "provider_id": "rosa",
+   "first_name": "Nia",
+   "birth_date": "2024-11-05",
+   "enrolled_days": [
+    0,
+    2,
+    4
+   ],
+   "usual_arrival": "07:30",
+   "subsidized": true,
+   "subsidy_days": [
+    0,
+    2,
+    4
+   ],
+   "allergies": [
+    "dairy"
+   ],
+   "family_contact": "",
+   "family_language": "en"
+  },
+  {
+   "id": "sam",
+   "provider_id": "rosa",
+   "first_name": "Sam",
+   "birth_date": "2021-08-08",
+   "enrolled_days": [
+    0,
+    1,
+    2,
+    3,
+    4
+   ],
+   "usual_arrival": "07:30",
+   "subsidized": false,
+   "subsidy_days": [],
+   "allergies": [],
+   "family_contact": "",
+   "family_language": "en"
+  },
+  {
+   "id": "eli",
+   "provider_id": "rosa",
+   "first_name": "Eli",
+   "birth_date": "2026-02-02",
+   "enrolled_days": [
+    0,
+    1,
+    2,
+    3
+   ],
+   "usual_arrival": "07:30",
+   "subsidized": true,
+   "subsidy_days": [
+    0,
+    1,
+    2,
+    3
+   ],
+   "allergies": [],
+   "family_contact": "",
+   "family_language": "en"
+  },
+  {
+   "id": "priya",
+   "provider_id": "rosa",
+   "first_name": "Priya",
+   "birth_date": "2018-05-05",
+   "enrolled_days": [
+    0,
+    1,
+    2,
+    3,
+    4
+   ],
+   "usual_arrival": "15:10",
+   "subsidized": false,
+   "subsidy_days": [],
+   "allergies": [],
+   "family_contact": "",
+   "family_language": "en"
+  },
+  {
+   "id": "jordan",
+   "provider_id": "rosa",
+   "first_name": "Jordan",
+   "birth_date": "2017-09-09",
+   "enrolled_days": [
+    0,
+    1,
+    2,
+    3,
+    4
+   ],
+   "usual_arrival": "15:10",
+   "subsidized": true,
+   "subsidy_days": [
+    0,
+    1,
+    2,
+    3,
+    4
+   ],
+   "allergies": [],
+   "family_contact": "",
+   "family_language": "en"
+  }
+ ],
+ "compliance": [
+  {
+   "id": "drill-sep",
+   "provider_id": "rosa",
+   "kind": "fire_drill",
+   "label": "Monthly fire drill",
+   "due": "2026-09-30",
+   "last_done": "2026-08-12",
+   "status": "ok"
+  },
+  {
+   "id": "cpr",
+   "provider_id": "rosa",
+   "kind": "certification",
+   "label": "CPR and first aid renewal",
+   "due": "2026-11-14",
+   "last_done": null,
+   "status": "ok"
+  },
+  {
+   "id": "training",
+   "provider_id": "rosa",
+   "kind": "training",
+   "label": "Annual training hours, 6 of 24 done",
+   "due": "2026-12-31",
+   "last_done": null,
+   "status": "ok"
+  }
+ ],
+ "steps": [
+  {
+   "id": "roll",
+   "at": "2026-09-08T07:38",
+   "title": "Say who is here",
+   "kind": "roll",
+   "text": "Maya's here, Leo's here, Ava's mom said she's sick, Mateo's coming at 8",
+   "detail": "Attendance, the subsidy check and the ratio look ahead, from one sentence."
+  },
+  {
+   "id": "arrivals",
+   "at": "2026-09-08T08:02",
+   "title": "Mateo arrives",
+   "kind": "roll",
+   "text": "Mateo's here now, and Sam and Eli are here",
+   "detail": "Later arrivals, said the same way. The ratio look ahead updates."
+  },
+  {
+   "id": "breakfast",
+   "at": "2026-09-08T08:05",
+   "title": "Breakfast",
+   "kind": "plate",
+   "photo": "data/plates/oatmeal.jpg",
+   "meal_type": "breakfast",
+   "detail": "A bowl of porridge. Watch what the rules say is missing."
+  },
+  {
+   "id": "breakfast_fixed",
+   "at": "2026-09-08T08:09",
+   "title": "Add the milk",
+   "kind": "plate",
+   "photo": "data/plates/oatmeal_with_milk.jpg",
+   "meal_type": "breakfast",
+   "replaces": "breakfast",
+   "detail": "She adds milk and photographs it again. The first record is superseded, not doubled."
+  },
+  {
+   "id": "lunch",
+   "at": "2026-09-08T12:10",
+   "title": "Lunch",
+   "kind": "plate",
+   "photo": "data/plates/chicken_rice_veg.jpg",
+   "meal_type": "lunch",
+   "detail": "Chicken, rice and vegetables. Two components short."
+  },
+  {
+   "id": "lunch_fixed",
+   "at": "2026-09-08T12:16",
+   "title": "Add milk and fruit",
+   "kind": "plate",
+   "photo": "data/plates/chicken_rice_veg_fixed.jpg",
+   "meal_type": "lunch",
+   "replaces": "lunch",
+   "detail": "Fixed at the table, at ten past twelve, not discovered at claim time."
+  },
+  {
+   "id": "afternoon",
+   "at": "2026-09-08T15:20",
+   "title": "Afternoon snack",
+   "kind": "plate",
+   "photo": "data/plates/yogurt.jpg",
+   "meal_type": "snack",
+   "detail": "Yoghurt. Nia has a dairy allergy, and the check runs before anything is written."
+  },
+  {
+   "id": "evening",
+   "at": "2026-09-08T18:30",
+   "title": "Evening digest",
+   "kind": "evening",
+   "detail": "The nightly Graph: the day's value, the notes home, the compliance clock, one question."
+  }
+ ],
+ "vocabulary": {
+  "the usual crackers": "whole grain Ritz crackers"
+ },
+ "prior_days": 6
+}
