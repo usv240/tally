@@ -1,4 +1,4 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 600" role="img"
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 660" role="img"
      aria-labelledby="arch-title arch-desc" font-family="Inter, system-ui, sans-serif">
   <title id="arch-title">Tally architecture</title>
   <desc id="arch-desc">During the day a Day Orchestrator receives a photograph or a spoken sentence
@@ -8,25 +8,31 @@
     meal pattern, payment rates and state ratio tables served as versioned data behind the Gateway.</desc>
 
   <style>
-    .box { fill: var(--surface, #fff); stroke: var(--border, #E4E2DC); stroke-width: 1.5; rx: 10; }
-    .agent { fill: var(--accent-soft, #E3F3ED); stroke: var(--accent, #0F6E56); stroke-width: 1.5; rx: 10; }
-    .svc { fill: var(--surface-2, #F3F2EE); stroke: var(--border, #E4E2DC); stroke-width: 1.5; rx: 10; }
-    .t { fill: var(--text, #1A1A1A); font-size: 14px; font-weight: 600; }
-    .s { fill: var(--text-muted, #5C5C57); font-size: 11.5px; }
-    .lbl { fill: var(--text-muted, #5C5C57); font-size: 11px; }
-    .hdr { fill: var(--text, #1A1A1A); font-size: 15px; font-weight: 700; }
-    .flow { stroke: var(--accent, #0F6E56); stroke-width: 2; fill: none; }
-    .thin { stroke: var(--border, #E4E2DC); stroke-width: 1.5; fill: none; }
+    /* Rendered standalone in a README and inside an img tag, where the page's CSS variables never
+       reach it, so every colour has to stand on its own. */
+    .bg { fill: #FAFAF8; }
+    .box { fill: #fff; stroke: #E4E2DC; stroke-width: 1.5; rx: 10; }
+    .agent { fill: #E3F3ED; stroke: #0F6E56; stroke-width: 1.5; rx: 10; }
+    .svc { fill: #F3F2EE; stroke: #E4E2DC; stroke-width: 1.5; rx: 10; }
+    .t { fill: #1A1A1A; font-size: 14px; font-weight: 600; }
+    .s { fill: #5C5C57; font-size: 11.5px; }
+    .lbl { fill: #5C5C57; font-size: 11px; }
+    .hdr { fill: #1A1A1A; font-size: 15px; font-weight: 700; }
+    .tag { fill: #1A1A1A; font-size: 11.5px; font-weight: 700; }
+    .flow { stroke: #0F6E56; stroke-width: 2; fill: none; }
+    .thin { stroke: #C9C7C1; stroke-width: 1.5; fill: none; }
   </style>
 
   <defs>
     <marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
-      <path d="M 0 0 L 10 5 L 0 10 z" fill="var(--accent, #0F6E56)"/>
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#0F6E56"/>
     </marker>
     <marker id="b" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
-      <path d="M 0 0 L 10 5 L 0 10 z" fill="var(--border, #E4E2DC)"/>
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#C9C7C1"/>
     </marker>
   </defs>
+
+  <rect class="bg" x="0" y="0" width="1000" height="660"/>
 
   <!-- Provider -->
   <rect class="box" x="20" y="120" width="150" height="80"/>
@@ -108,16 +114,21 @@
   <text class="s" x="700" y="460">No claim is sent without her</text>
 
   <!-- Platform -->
-  <rect class="svc" x="215" y="490" width="760" height="86"/>
+  <rect class="svc" x="215" y="490" width="760" height="130"/>
   <text class="hdr" x="235" y="518">Amazon Bedrock and AgentCore</text>
   <text class="s" x="235" y="540">Bedrock vision at temperature zero, so one photograph gives one record</text>
-  <text class="s" x="235" y="558">Runtime: the day agent and the nightly job &#183; Memory: children, allergies, her words for foods</text>
-  <text class="s" x="640" y="540">Gateway: the rules above, as tools</text>
-  <text class="s" x="640" y="558">Code Interpreter: the money &#183; Observability: every step</text>
+
+  <text class="tag" x="235" y="568">Live on the deployment</text>
+  <text class="s" x="235" y="590">Code Interpreter: the month's money, in a sandbox</text>
+  <text class="s" x="235" y="608">from the same kernel file the local path imports</text>
+
+  <text class="tag" x="615" y="568">Designed in, not running</text>
+  <text class="s" x="615" y="590">Runtime: the day agent and the nightly job</text>
+  <text class="s" x="615" y="608">Memory &#183; Gateway &#183; Observability</text>
 
   <path class="thin" d="M425 355 L425 380" marker-end="url(#b)"/>
   <path class="thin" d="M827 355 L827 380" marker-end="url(#b)"/>
   <path class="thin" d="M425 466 L425 490" marker-end="url(#b)"/>
 
-  <text class="s" x="20" y="576">Every verdict records the rule version it was decided under, which is what makes an audit reproducible.</text>
+  <text class="s" x="20" y="646">Every verdict records the rule version it was decided under, which is what makes an audit reproducible. Web tier: AWS App Runner.</text>
 </svg>

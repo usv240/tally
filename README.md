@@ -8,8 +8,10 @@ correctly, before the food is cold.
 
 Built with the [Strands Agents SDK](https://strandsagents.com/) on
 [Amazon Bedrock](https://docs.aws.amazon.com/bedrock/), deployed on AWS App Runner.
-Designed for [AgentCore](https://docs.aws.amazon.com/bedrock-agentcore/), which is not wired in yet:
-see Honest notes.
+The month's claim is computed inside [Amazon Bedrock AgentCore](https://docs.aws.amazon.com/bedrock-agentcore/)
+Code Interpreter, from the same kernel file the local path imports, and the screen says which one
+answered. Memory, Gateway, Runtime and Observability are designed in and labelled as designed rather
+than running.
 Submitted to the AWS Agents for Humans Hackathon, **Professional Agents** track.
 
 ---
