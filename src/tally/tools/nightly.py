@@ -103,11 +103,11 @@ def build_month_claim(month: str = "") -> dict:
     total = out["total"]
     claim = Claim(provider_id=provider.id, month=month, lines=lines, total=total,
                   not_reimbursable=len(lost), lost_amount=out["lost_amount"],
-                  computed_in=out["ran_in"])
+                  computed_in=out["ran_in"], computed_reason=str(out.get("fallback_reason") or ""))
     r.store.put_claim(claim)
     r.emit("claim_built", month=month, total=total, lines=len(lines),
            not_reimbursable=claim.not_reimbursable, lost_amount=claim.lost_amount,
-           computed_in=out["ran_in"])
+           computed_in=out["ran_in"], computed_reason=claim.computed_reason)
     return claim.model_dump(mode="json")
 
 

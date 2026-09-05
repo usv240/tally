@@ -197,3 +197,5 @@ class Claim(BaseModel):
     computed_in: str = "local"
     """Where the arithmetic ran: agentcore_code_interpreter, local, or local_fallback. Shown on the
     month view, because a claim about where money was computed should be checkable."""
+    computed_reason: str = ""
+    """Why it fell back, when it did. Saying which one answered is only half of honest."""

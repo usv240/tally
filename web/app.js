@@ -280,7 +280,9 @@
           ? "Computed inside Amazon Bedrock AgentCore Code Interpreter, from the rates in force, "
             + "after the daily maximum is applied per child."
           : m.computed_in === "local_fallback"
-            ? "Computed locally, because AgentCore did not answer. Same kernel either way."
+            ? "Computed locally, because AgentCore did not answer"
+              + (m.computed_reason ? " (" + m.computed_reason + ")" : "")
+              + ". Same kernel either way."
             : "Computed as code from the rates in force, after the daily maximum is applied per child."),
         window.infoBtn("where_it_runs", "where it ran")])
     ]);

@@ -127,7 +127,7 @@ year olds and says so in the flags.
 ## Tests and evaluation
 
 ```bash
-pytest -q                                   # 93 tests, no model calls, under a second
+pytest -q                                   # 97 tests, no model calls, under a second
 python -m evals.vision_eval --trials 2      # calls Bedrock, about two minutes
 ```
 
