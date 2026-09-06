@@ -2,11 +2,13 @@
 
 from __future__ import annotations
 
+import os
 from datetime import date, timedelta
 
 from strands import tool
 
 from tally import runtime
+from tally.agentcore.memory import already_answered, topic_for_subsidy
 from tally.agents.gate import digest, new_question
 from tally.engine.claim import claim_day, load_rates, lost_value, rate_for
 from tally.models import Claim, ClaimLine, MealType, ParentNote
@@ -85,7 +87,6 @@ def build_month_claim(month: str = "") -> dict:
 
     # The money runs through kernel.compute, which is the file that also runs inside AgentCore Code
     # Interpreter. Same arithmetic either way, and the result says which one answered.
-    import os
 
     from tally.agentcore.code import compute as run_kernel
     from tally.engine.claim import load_rates
@@ -96,7 +97,7 @@ def build_month_claim(month: str = "") -> dict:
         "missed": [[m.value, n] for m, n in lost],
         "tier_rates": {k: float(v) for k, v in rates.items()},
     }
-    use_ac = os.environ.get("TALLY_USE_AGENTCORE", "").lower() in ("1", "true", "yes")
+    use_ac = _use_agentcore()
     out = run_kernel(payload, use_agentcore=use_ac)
     lines = [ClaimLine(meal_type=MealType(x["meal_type"]), count=x["count"],
                        rate=x["rate"], amount=x["amount"]) for x in out["lines"]]
@@ -183,6 +184,7 @@ def reconcile_subsidy() -> dict:
     on = now.date()
     provider = r.store.get_provider()
     mismatches = []
+    recalled = []
     for cid in sorted(r.store.present_ids(on)):
         child = r.store.get_child(cid)
         if not child.subsidized:
@@ -192,11 +194,30 @@ def reconcile_subsidy() -> dict:
                              for d in child.subsidy_days)
             text = (f"{child.first_name} was here today, but the subsidy authorisation says "
                     f"{days}. Was {child.first_name} here?")
-            q = new_question(provider.id, text, now, "reconciliation", options=["Yes", "No", "Not sure"])
+
+            # A family whose Tuesday is not on the paperwork has an unlisted Tuesday every week, so
+            # without this she is asked the same question every Tuesday and it costs her one of the
+            # two she was going to get that night.
+            topic = topic_for_subsidy(cid, on.weekday())
+            standing = already_answered(provider.id, topic, now, use_agentcore=_use_agentcore())
+            if standing:
+                r.emit("question_not_repeated", child_id=cid, topic=topic,
+                       answer=standing["answer"], days_ago=standing["days_ago"],
+                       source=standing["source"])
+                recalled.append({"child_id": cid, "text": text, **standing})
+                continue
+
+            q = new_question(provider.id, text, now, "reconciliation",
+                             options=["Yes", "No", "Not sure"], topic=topic)
             r.store.put_question(q)
             mismatches.append({"child_id": cid, "question_id": q.id, "text": text})
-    r.emit("subsidy_reconciled", mismatches=len(mismatches))
-    return {"mismatches": mismatches}
+    r.emit("subsidy_reconciled", mismatches=len(mismatches), not_repeated=len(recalled))
+    return {"mismatches": mismatches, "already_answered": recalled}
+
+
+def _use_agentcore() -> bool:
+    """One reading of the toggle, so the sandbox and the memory cannot disagree about it."""
+    return os.environ.get("TALLY_USE_AGENTCORE", "").lower() in ("1", "true", "yes")
 
 
 @tool

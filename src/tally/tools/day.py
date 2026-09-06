@@ -6,12 +6,14 @@ happened, so the trace shows the vision reading, the rule verdict and the decisi
 
 from __future__ import annotations
 
+import os
 import uuid
 from datetime import date
 
 from strands import tool
 
 from tally import runtime
+from tally.agentcore.memory import record_answer
 from tally.agents.gate import may_ask_now, new_question
 from tally.agents.plate import meal_type_for_time, read_plate
 from tally.agents.roll import apply_correction, echo, parse_roll
@@ -200,6 +202,11 @@ def record_substitution(meal_id: str, child_id: str, food: str, component: str) 
     return {"meal_id": meal_id, "child_id": child_id, "food": food, "component": component}
 
 
+def _use_agentcore() -> bool:
+    """Read the same toggle the nightly kernel reads, so the two cannot disagree."""
+    return os.environ.get("TALLY_USE_AGENTCORE", "").lower() in ("1", "true", "yes")
+
+
 @tool
 def answer_open_question(question_id: str, answer: str) -> dict:
     """Record the provider's answer to a question Tally asked.
@@ -211,7 +218,16 @@ def answer_open_question(question_id: str, answer: str) -> dict:
     r = rt()
     q = r.store.answer_question(question_id, answer)
     r.emit("question_answered", question_id=question_id, answer=answer, priority=q.priority)
-    return {"question_id": question_id, "answer": answer, "priority": q.priority}
+
+    out = {"question_id": question_id, "answer": answer, "priority": q.priority}
+    # Only questions with a topic can recur. A plate that is short a component tonight is not a
+    # thing to remember; a child whose Tuesday is not on the paperwork is.
+    if q.topic:
+        stored = record_answer(r.store.get_provider().id, q.topic, answer, r.now(),
+                               use_agentcore=_use_agentcore())
+        r.emit("answer_remembered", topic=q.topic, stored_in=stored.get("stored_in"))
+        out["remembered"] = stored
+    return out
 
 
 @tool

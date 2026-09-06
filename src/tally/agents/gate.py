@@ -26,9 +26,9 @@ BUDGETED = ("reconciliation", "compliance")
 
 
 def new_question(provider_id: str, text: str, at: datetime, priority: str,
-                 options: list[str] | None = None) -> Question:
+                 options: list[str] | None = None, topic: str = "") -> Question:
     return Question(id=f"q-{uuid.uuid4().hex[:8]}", provider_id=provider_id, at=at, text=text,
-                    options=options or [], priority=priority)
+                    options=options or [], priority=priority, topic=topic)
 
 
 def may_ask_now(priority: str, asked_today: int, budget: int) -> tuple[bool, str]:

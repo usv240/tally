@@ -12,6 +12,7 @@ from pathlib import Path
 from typing import Any
 
 from tally import runtime
+from tally.agentcore.memory import status as memory_status
 from tally.models import Child, ComplianceItem, MealType, Provider
 from tally.runtime import Runtime
 from tally.store import Clock, MemoryStore
@@ -199,6 +200,13 @@ class DemoService:
             "questions": [{"id": q.id, "text": q.text, "options": q.options,
                            "priority": q.priority, "answered": q.answered} for q in questions],
             "asked_today": r.store.questions_asked_today(on),
+            # Questions the gate did not spend, because she settled the same thing before. Read off
+            # the trace rather than recomputed, so the page cannot claim a recall that never ran.
+            "not_repeated": [{"child": r.store.get_child(e["child_id"]).first_name,
+                              "answer": e.get("answer", ""), "days_ago": e.get("days_ago", 0),
+                              "source": e.get("source", "")}
+                             for e in r.trace if e["kind"] == "question_not_repeated"],
+            "memory": memory_status(r.store.get_provider().id),
             "notes": [{"child_id": n.child_id,
                        "name": r.store.get_child(n.child_id).first_name,
                        "text": n.text, "language": n.language}

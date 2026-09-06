@@ -1,11 +1,14 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 660" role="img"
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 690" role="img"
      aria-labelledby="arch-title arch-desc" font-family="Inter, system-ui, sans-serif">
   <title id="arch-title">Tally architecture</title>
   <desc id="arch-desc">During the day a Day Orchestrator receives a photograph or a spoken sentence
     and calls Plate, Rules, Roll or Provider Gate as a tool, answering in seconds. In the evening a
     Strands Graph runs Ledger, then Parent Notes, then Compliance, then the Digest, in that fixed
-    order. Both use AgentCore Runtime, Memory, Gateway, Code Interpreter and Observability, with the
-    meal pattern, payment rates and state ratio tables served as versioned data behind the Gateway.</desc>
+    order. Two Amazon Bedrock AgentCore services are live: Code Interpreter computes the month's
+    claim in a sandbox, and Memory holds the answers she has already given so the nightly question
+    budget is not spent asking the same thing twice. Runtime, Gateway and Observability are designed
+    in and labelled as designed rather than running. The meal pattern, payment rates and state ratio
+    tables are versioned data published at an endpoint.</desc>
 
   <style>
     /* Rendered standalone in a README and inside an img tag, where the page's CSS variables never
@@ -32,7 +35,7 @@
     </marker>
   </defs>
 
-  <rect class="bg" x="0" y="0" width="1000" height="660"/>
+  <rect class="bg" x="0" y="0" width="1000" height="690"/>
 
   <!-- Provider -->
   <rect class="box" x="20" y="120" width="150" height="80"/>
@@ -114,21 +117,23 @@
   <text class="s" x="700" y="460">No claim is sent without her</text>
 
   <!-- Platform -->
-  <rect class="svc" x="215" y="490" width="760" height="130"/>
+  <rect class="svc" x="215" y="490" width="760" height="152"/>
   <text class="hdr" x="235" y="518">Amazon Bedrock and AgentCore</text>
   <text class="s" x="235" y="540">Bedrock vision at temperature zero, so one photograph gives one record</text>
 
   <text class="tag" x="235" y="568">Live on the deployment</text>
   <text class="s" x="235" y="590">Code Interpreter: the month's money, in a sandbox</text>
-  <text class="s" x="235" y="608">from the same kernel file the local path imports</text>
+  <text class="s" x="235" y="608">Memory: what she has already answered, so the</text>
+  <text class="s" x="235" y="626">nightly budget is not spent asking it twice</text>
 
   <text class="tag" x="615" y="568">Designed in, not running</text>
   <text class="s" x="615" y="590">Runtime: the day agent and the nightly job</text>
-  <text class="s" x="615" y="608">Memory &#183; Gateway &#183; Observability</text>
+  <text class="s" x="615" y="608">Gateway: rules and rates as tools</text>
+  <text class="s" x="615" y="626">Observability: the Trace tab reads the stream</text>
 
   <path class="thin" d="M425 355 L425 380" marker-end="url(#b)"/>
   <path class="thin" d="M827 355 L827 380" marker-end="url(#b)"/>
   <path class="thin" d="M425 466 L425 490" marker-end="url(#b)"/>
 
-  <text class="s" x="20" y="646">Every verdict records the rule version it was decided under, which is what makes an audit reproducible. Web tier: AWS App Runner.</text>
+  <text class="s" x="20" y="672">Every verdict records the rule version it was decided under, which is what makes an audit reproducible. Web tier: AWS App Runner.</text>
 </svg>

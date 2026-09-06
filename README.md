@@ -8,10 +8,11 @@ correctly, before the food is cold.
 
 Built with the [Strands Agents SDK](https://strandsagents.com/) on
 [Amazon Bedrock](https://docs.aws.amazon.com/bedrock/), deployed on AWS App Runner.
-The month's claim is computed inside [Amazon Bedrock AgentCore](https://docs.aws.amazon.com/bedrock-agentcore/)
-Code Interpreter, from the same kernel file the local path imports, and the screen says which one
-answered. Memory, Gateway, Runtime and Observability are designed in and labelled as designed rather
-than running.
+Two [Amazon Bedrock AgentCore](https://docs.aws.amazon.com/bedrock-agentcore/) services are live.
+Code Interpreter computes the month's claim from the same kernel file the local path imports, and
+the screen says which one answered. Memory holds the answers she has already given, so the two
+questions she gets each night are not spent asking the same thing twice. Gateway, Runtime and
+Observability are designed in and labelled as designed rather than running.
 Submitted to the AWS Agents for Humans Hackathon, **Professional Agents** track.
 
 ---
@@ -129,7 +130,7 @@ year olds and says so in the flags.
 ## Tests and evaluation
 
 ```bash
-pytest -q                                   # 97 tests, no model calls, under a second
+pytest -q                                   # 108 tests, no model calls, under a second
 python -m evals.vision_eval --trials 2      # calls Bedrock, about two minutes
 ```
 
@@ -187,7 +188,36 @@ The instance role is scoped to `InvokeModel` on the specific models and inferenc
 uses, not a wildcard, because a demo credential that can call anything is a bad example to ship.
 
 `TALLY_USE_AGENTCORE=1` in the service environment sends the month's arithmetic through AgentCore
-Code Interpreter. Without it the identical kernel runs locally, and the screen says which answered.
+Code Interpreter and her answers through AgentCore Memory. Without it the identical kernel runs
+locally, nothing is remembered between evenings, and the screen says which answered.
+
+### What it remembers, and why that is the whole point
+
+The Provider Gate rations her to two questions a night, enforced in code, because her attention is
+the thing this product exists to protect. That budget only means anything if both questions are new.
+
+The subsidy reconciliation question is what breaks without memory. It fires when a subsidised child
+is present on a day their authorisation does not cover, and that is almost never a one-off: a family
+whose Tuesday is not on the paperwork has an unlisted Tuesday every week. So she answers "yes, Leo
+was here" on Tuesday, and the same question arrives the next Tuesday, and the one after, each time
+spending one of the two things she was going to be asked that night.
+
+So an answer is stored against its topic, the child and the weekday, which is the thing that
+recurs, rather than against a question id that is new every evening. Ask again inside 45 days and
+the evening view says it already knows and when it last heard it, instead of silently dropping the
+question. After that the answer ages out, because a family's schedule does change and an answer from
+three months ago is not evidence about this week.
+
+A lookup that fails asks her anyway. Failing safe here means a question repeated, not a subsidy day
+she is owed and never claims.
+
+Create the memory once before deploying, because provisioning takes minutes and she is standing at a
+table:
+
+```bash
+python -m tally.agentcore.provision          # creates it
+python -m tally.agentcore.provision --list   # shows what exists
+```
 
 ## For judges
 

@@ -156,6 +156,9 @@ class Question(BaseModel):
     priority: Literal["safety", "meal", "reconciliation", "compliance"] = "reconciliation"
     answered: bool = False
     answer: str = ""
+    # What this question is about, in terms that recur: "subsidy-leo-1" is Leo on a Tuesday. Empty
+    # for questions that cannot repeat, like a plate that is short a component right now.
+    topic: str = ""
 
 
 class ParentNote(BaseModel):

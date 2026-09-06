@@ -57,6 +57,15 @@
 
 .note-card { border-left: 3px solid var(--accent); padding-left: var(--s4); }
 
+/* A question the gate did not have to spend. Quieter than a note home on purpose: this is
+   the absence of an interruption, and it should not look like one. */
+.recall {
+  border-left: 3px solid var(--border);
+  padding-left: var(--s4);
+  margin-top: var(--s4);
+  color: var(--text-muted);
+}
+
 .money { font-size: 2rem; font-weight: 700; letter-spacing: -.02em; font-variant-numeric: tabular-nums; }
 .money.lost { color: var(--warning); }
 

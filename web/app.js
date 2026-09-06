@@ -236,6 +236,21 @@
     } else {
       open.forEach(function (q) { qcard.appendChild(questionCard(q)); });
     }
+
+    // Questions the gate chose not to spend. Her budget is two a night, so a question it did not
+    // have to ask is the same as one it got to ask about something new.
+    var skipped = state.not_repeated || [];
+    if (skipped.length) {
+      qcard.appendChild(window.h("div", { class: "recall" }, [
+        window.h("strong", { class: "small",
+          text: "Not asked again, because you already answered:" })
+      ].concat(skipped.map(function (s) {
+        return window.h("p", { class: "small", style: "margin:4px 0 0",
+          text: s.child + ", " + s.days_ago + " day" + (s.days_ago === 1 ? "" : "s")
+                + " ago, you said " + s.answer + "."
+                + (s.source === "agentcore_memory" ? " Held in AgentCore Memory." : "") });
+      }))));
+    }
     host.appendChild(qcard);
 
     var ncard = window.h("div", { class: "card stack" }, [
