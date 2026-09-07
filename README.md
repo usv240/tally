@@ -130,7 +130,7 @@ year olds and says so in the flags.
 ## Tests and evaluation
 
 ```bash
-pytest -q                                   # 108 tests, no model calls, under a second
+pytest -q                                   # 117 tests, no model calls, under a second
 python -m evals.vision_eval --trials 2      # calls Bedrock, about two minutes
 ```
 
@@ -218,6 +218,16 @@ table:
 python -m tally.agentcore.provision          # creates it
 python -m tally.agentcore.provision --list   # shows what exists
 ```
+
+### The house rule applies to what the model writes, not just to what we write
+
+`tools/check_copy.py` holds every file here to one rule: no emoji, no em or en dashes. It runs in CI
+on every push, and for a long time it never looked at the text that actually reaches a person, which
+is mostly written by a model at request time. That gap was not theoretical: the sibling project
+shipped two questions to its deployed service with em dashes in them.
+
+`src/tally/house.py` closes it. Model output passes through `plain()` on its way to a screen.
+Punctuation only, nothing truncated or reworded, and it is idempotent so it is safe to apply twice.
 
 ## For judges
 

@@ -19,6 +19,7 @@ from __future__ import annotations
 import uuid
 from datetime import datetime
 
+from tally.house import plain, plain_all
 from tally.models import Question
 
 PRIORITY_ORDER = {"safety": 0, "meal": 1, "reconciliation": 2, "compliance": 3}
@@ -27,8 +28,10 @@ BUDGETED = ("reconciliation", "compliance")
 
 def new_question(provider_id: str, text: str, at: datetime, priority: str,
                  options: list[str] | None = None, topic: str = "") -> Question:
-    return Question(id=f"q-{uuid.uuid4().hex[:8]}", provider_id=provider_id, at=at, text=text,
-                    options=options or [], priority=priority, topic=topic)
+    # Question text is usually a model's words, and it goes on a screen, so it is held to the same
+    # rule as everything in the repository. See tally.house.
+    return Question(id=f"q-{uuid.uuid4().hex[:8]}", provider_id=provider_id, at=at, text=plain(text),
+                    options=plain_all(options or []), priority=priority, topic=topic)
 
 
 def may_ask_now(priority: str, asked_today: int, budget: int) -> tuple[bool, str]:

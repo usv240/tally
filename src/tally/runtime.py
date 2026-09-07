@@ -31,8 +31,14 @@ class Runtime:
                 fn(kind, evt)
 
     def say(self, text: str, tone: str = "info") -> None:
-        """Speak to the provider. Always mirrored as text, because a noisy room swallows audio."""
-        entry = {"at": self.clock.now().isoformat(), "text": text, "tone": tone}
+        """Speak to the provider. Always mirrored as text, because a noisy room swallows audio.
+
+        Most of what is said here was written by a model a moment ago, so it goes through the house
+        style on the way out. See tally.house.
+        """
+        from tally.house import plain
+
+        entry = {"at": self.clock.now().isoformat(), "text": plain(text), "tone": tone}
         self.spoken.append(entry)
         self.emit("spoken", **entry)
 

@@ -19,6 +19,7 @@ from pathlib import Path
 
 from strands import Agent
 
+from tally.house import plain_all
 from tally.models import Component, Item, MealType, PlateReading
 
 ASK_BELOW = 0.75
@@ -93,7 +94,7 @@ def apply_confidence_gate(reading: PlateReading) -> PlateReading:
     that survives an audit and one that does not.
     """
     kept: list[Item] = []
-    questions = list(reading.questions)
+    questions = plain_all(list(reading.questions))
     for item in reading.items:
         if item.component == Component.NONE:
             continue
