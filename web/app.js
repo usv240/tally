@@ -245,8 +245,14 @@
     var qcard = window.h("div", { class: "card stack" }, [
       window.h("h3", {}, ["Questions", window.infoBtn("agent_gate", "the Provider Gate")])]);
     if (!open.length) {
-      qcard.appendChild(window.h("p", { class: "muted", style: "margin:0",
-        text: "Nothing needs her. That is the goal." }));
+      // "Nothing needs her" is a real and deliberate outcome once the evening digest has closed the
+      // day. Before that it is just an empty list, and reporting it as the goal claims a result the
+      // agents have not produced yet.
+      var closed = state.steps.some(function (s) { return s.id === "evening" && s.done; });
+      qcard.appendChild(window.h("p", { class: "muted", style: "margin:0", text: closed
+        ? "Nothing needs her. That is the goal."
+        : "The day has not been closed yet. Questions appear here as the agents find things worth "
+          + "her time, and the evening digest decides which two are worth asking." }));
     } else {
       open.forEach(function (q) { qcard.appendChild(questionCard(q)); });
     }
