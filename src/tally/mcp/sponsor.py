@@ -22,6 +22,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import os
 import sys
 from pathlib import Path
 
@@ -60,10 +61,16 @@ def rulebook() -> MCPClient:
     Deliberately the same entry point anybody else would use. Nothing here reaches into Tally.
     """
     root = Path(__file__).resolve().parents[2]
+    # Merged into the inherited environment rather than replacing it. Passing a bare dict to
+    # StdioServerParameters hands the child that dict as its whole environment, which drops PATH,
+    # HOME and the rest. It survives on Windows because the interpreter path is absolute, and it is
+    # not something to rely on. PYTHONPATH is only needed when the package is not installed.
+    env = dict(os.environ)
+    env["PYTHONPATH"] = str(root) + os.pathsep + env.get("PYTHONPATH", "")
     return MCPClient(lambda: stdio_client(StdioServerParameters(
         command=sys.executable,
         args=["-m", "tally.mcp.server"],
-        env={"PYTHONPATH": str(root)},
+        env=env,
     )))
 
 

@@ -8,6 +8,12 @@ requires-python = ">=3.12"
 dependencies = [
     "strands-agents",
     "strands-agents-tools",
+    # The rulebook server targets the FastMCP API from mcp 1.x. mcp 2.0 renamed it to
+    # MCPServer and changed other surfaces with it. strands-agents allows both majors, so
+    # an unpinned install silently picked 2.x in CI and not locally, and the same clone
+    # gave two different results. Pinned to the major this code is written and tested
+    # against, so a fresh clone reproduces the demo.
+    "mcp>=1.23,<2",
     "bedrock-agentcore",
     "pydantic>=2",
     "pyyaml",
