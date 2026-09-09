@@ -101,6 +101,28 @@ Rules and rates live in `rules/*.json` and are published at `/api/rules`, so a s
 against the USDA tables instead of trusting the agent. Every verdict records the rule version it was
 decided under.
 
+### The sponsor does not have to trust any of that
+
+`/api/rules` is JSON for a person to read. The organisation that actually questions a claim is the
+sponsoring agency, and what reviews a claim on their side is increasingly an agent rather than a
+person with a browser.
+
+So the same rulebook is served over the Model Context Protocol by `mcp/server.py`, and
+`mcp/sponsor.py` is a Strands agent that consumes it. That reviewer holds no Tally code. Its whole
+toolset is discovered at runtime over stdio, and every answer carries the rule version it came from.
+
+```bash
+python -m tally.mcp.sponsor --check     # every tool over the real protocol, no model, no cost
+```
+
+It is read only by construction: nothing exposed can log a meal, change a rule or touch a claim.
+`tests/test_mcp_rulebook.py` runs five component combinations through the MCP boundary and through
+`engine/rules.py` directly and asserts the verdicts are identical, because a reviewer who disagrees
+with the provider's software over the same facts is the failure this design exists to prevent.
+
+The full inventory of which Strands surfaces are used, which were rejected and why, is in
+[docs/STRANDS_SURFACES.md](docs/STRANDS_SURFACES.md).
+
 ## Run it
 
 Needs Python 3.12 and AWS credentials with Amazon Bedrock access in `us-east-1`.

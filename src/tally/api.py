@@ -18,6 +18,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import FileResponse, JSONResponse
 from fastapi.staticfiles import StaticFiles
 
+from tally import observability
 from tally.service import service
 
 SANDBOX_KEY = os.environ.get("TALLY_SANDBOX_KEY", "tally-sandbox-2026")
@@ -40,6 +41,9 @@ app = FastAPI(
 )
 app.add_middleware(CORSMiddleware, allow_origins=["*"], allow_methods=["*"], allow_headers=["*"])
 
+# Off unless an OTLP endpoint is configured. See tally/observability.py for why.
+observability.setup()
+
 def check_key(x_api_key: str | None) -> None:
     if x_api_key and x_api_key != SANDBOX_KEY:
         raise HTTPException(status_code=401, detail={
@@ -51,7 +55,8 @@ def check_key(x_api_key: str | None) -> None:
 def health() -> dict:
     s = service.state()
     return {"ok": True, "now": s["now"], "headline": s["headline"],
-            "meals": s["counts"]["logged"], "steps_done": sum(1 for x in s["steps"] if x["done"])}
+            "meals": s["counts"]["logged"], "steps_done": sum(1 for x in s["steps"] if x["done"]),
+            "tracing": observability.status()}
 
 @app.get("/api/state", tags=["read"])
 def get_state(x_api_key: str | None = Header(default=None)) -> dict:
