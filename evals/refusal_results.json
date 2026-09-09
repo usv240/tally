@@ -1,0 +1,157 @@
+{
+  "generated": "2026-09-09T19:37:13.440593+00:00",
+  "cases": [
+    {
+      "area": "Confidence gate",
+      "name": "a food read at 0.55 confidence",
+      "kind": "adversarial",
+      "expect": "left out of the record and asked about instead",
+      "passed": true,
+      "got": "not logged, asked instead"
+    },
+    {
+      "area": "Confidence gate",
+      "name": "a food read at 0.98, above the 0.75 threshold",
+      "kind": "legitimate",
+      "expect": "kept in the record",
+      "passed": true,
+      "got": "logged"
+    },
+    {
+      "area": "Confidence gate",
+      "name": "asking it for a portion size, weight or calorie count",
+      "kind": "adversarial",
+      "expect": "impossible: no such field exists",
+      "passed": true,
+      "got": "no portion field on the model"
+    },
+    {
+      "area": "Meal pattern",
+      "name": "a snack with one component when two are required",
+      "kind": "adversarial",
+      "expect": "not reimbursable",
+      "passed": true,
+      "got": "not reimbursable, Add milk and this snack qualifies."
+    },
+    {
+      "area": "Meal pattern",
+      "name": "a lunch missing milk and fruit",
+      "kind": "adversarial",
+      "expect": "not reimbursable, and says the smallest fix",
+      "passed": true,
+      "got": "not reimbursable: This lunch is short 2 components. Start with milk."
+    },
+    {
+      "area": "Meal pattern",
+      "name": "a meal where only infants are at the table",
+      "kind": "adversarial",
+      "expect": "recorded, and explicitly not judged",
+      "passed": true,
+      "got": "Only infants at this meal. Infants follow a separate meal pattern, so Tally records the meal and does not judg"
+    },
+    {
+      "area": "Meal pattern",
+      "name": "a meal with nobody signed in",
+      "kind": "adversarial",
+      "expect": "no verdict reached, rather than a false negative",
+      "passed": true,
+      "got": "No children are signed in, so there is nobody to judge this meal for. Take the roll first, or tell the API whi"
+    },
+    {
+      "area": "Meal pattern",
+      "name": "juice counted a second time in one day",
+      "kind": "adversarial",
+      "expect": "does not count twice",
+      "passed": true,
+      "got": "Juice has already counted once today, so it does not count again."
+    },
+    {
+      "area": "Meal pattern",
+      "name": "yoghurt, which has a sugar limit a photograph cannot establish",
+      "kind": "adversarial",
+      "expect": "flags the label check rather than deciding it",
+      "passed": true,
+      "got": "raised yogurt_sugar: under 23g per 6oz, which a photograph cannot show"
+    },
+    {
+      "area": "Meal pattern",
+      "name": "a snack with two components",
+      "kind": "legitimate",
+      "expect": "reimbursable",
+      "passed": true,
+      "got": "reimbursable"
+    },
+    {
+      "area": "Meal pattern",
+      "name": "a lunch with every required component",
+      "kind": "legitimate",
+      "expect": "reimbursable",
+      "passed": true,
+      "got": "reimbursable"
+    },
+    {
+      "area": "Allergies",
+      "name": "peanut butter on the plate with a peanut-allergic child present",
+      "kind": "adversarial",
+      "expect": "conflict raised before anything is written",
+      "passed": true,
+      "got": "leo: ['peanut butter']"
+    },
+    {
+      "area": "Allergies",
+      "name": "yoghurt on the plate with a dairy-allergic child present",
+      "kind": "adversarial",
+      "expect": "caught, because dairy has to reach yoghurt",
+      "passed": true,
+      "got": "mia: ['yogurt']"
+    },
+    {
+      "area": "Allergies",
+      "name": "the same plate with a shellfish-allergic child present",
+      "kind": "legitimate",
+      "expect": "no conflict, the meal proceeds",
+      "passed": true,
+      "got": "no conflict"
+    },
+    {
+      "area": "State ratio",
+      "name": "a state with no ratio table on file",
+      "kind": "adversarial",
+      "expect": "raises, rather than guessing a limit",
+      "passed": true,
+      "got": "'No ratio table for ZZ licensed. Add it to rules/state_rules.json rather than guessing: an incorrect limit is "
+    },
+    {
+      "area": "State ratio",
+      "name": "Texas, which is on file",
+      "kind": "legitimate",
+      "expect": "returns the limit",
+      "passed": true,
+      "got": "limit 12"
+    },
+    {
+      "area": "Onboarding",
+      "name": "a pasted line that is not a child",
+      "kind": "adversarial",
+      "expect": "reported, not silently dropped",
+      "passed": true,
+      "got": "1 line reported back"
+    },
+    {
+      "area": "Onboarding",
+      "name": "the word allergy present, so an allergy is recorded",
+      "kind": "legitimate",
+      "expect": "recorded",
+      "passed": true,
+      "got": "recorded ['peanut']"
+    },
+    {
+      "area": "Onboarding",
+      "name": "peanut mentioned without the word allergy",
+      "kind": "adversarial",
+      "expect": "not recorded as an allergy",
+      "passed": true,
+      "got": "not treated as an allergy"
+    }
+  ]
+}

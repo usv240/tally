@@ -12,7 +12,7 @@ from __future__ import annotations
 import argparse
 import json
 import time
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from pathlib import Path
 
 from tally.agents.plate import read_plate
@@ -99,7 +99,7 @@ def run(trials: int = 1) -> dict:
 
     total_recall = sum(r["recall"] for r in rows) / len(rows) if rows else 0.0
     return {
-        "generated": datetime.now(timezone.utc).strftime("%Y-%m-%d %H:%M UTC"),
+        "generated": datetime.now(UTC).strftime("%Y-%m-%d %H:%M UTC"),
         "trials_per_photo": trials,
         "photos": len(rows),
         "mean_component_recall": round(total_recall, 3),

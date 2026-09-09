@@ -1,6 +1,15 @@
 # Tally
 
-**She feeds twelve kids and files paperwork for every bite. Tally does the counting.**
+**Reads the plate from one photograph, checks every present child's allergies before anything is
+written, names the missing component while the food is still on the table, and files the month's
+claim at the published rates.**
+
+She feeds twelve kids and files paperwork for every bite. Tally does the counting.
+
+**Measured:** 100 percent component recall across 13 real photographs, with **0 spurious components
+in 26 readings**. 13 of 13 adversarial cases refused, and 0 of 6 legitimate ones wrongly refused.
+Both in [docs/EVAL.md](docs/EVAL.md). A spurious component is a false claim against a federal food
+programme, so that zero is the number the product rests on.
 
 A hands-free agent for home child care providers. Photograph the plate, say who is here, and the
 meal record, the attendance, the ratio check, the notes home and the monthly claim are done,
@@ -130,7 +139,7 @@ year olds and says so in the flags.
 ## Tests and evaluation
 
 ```bash
-pytest -q                                   # 117 tests, no model calls, under a second
+pytest -q                                   # 123 tests, no model calls, under a second
 python -m evals.vision_eval --trials 2      # calls Bedrock, about two minutes
 ```
 
