@@ -5,7 +5,12 @@ invites a certain kind of dishonesty, where you reach for every module in the SD
 long. This is the list, including the parts deliberately left alone and why, because a feature used
 without a reason is worse evidence of understanding than a feature rejected with one.
 
-Strands Agents SDK 1.18.0. Every row was checked against the installed package, not the docs.
+Strands Agents SDK 1.55.1, which is what a fresh `pip install -e ".[dev]"` resolves today.
+Every row was checked against the installed package rather than the documentation.
+
+An earlier version of this file said 1.18.0 and listed ten surfaces. That was wrong. It was
+written against a second interpreter on the same machine holding an older Strands, and 1.5x has
+modules 1.18 did not. The corrected list is below, including the ones that omission hid.
 
 | Surface | Used | Where, or why not |
 |---|---|---|
@@ -19,6 +24,11 @@ Strands Agents SDK 1.18.0. Every row was checked against the installed package, 
 | `strands.session` | no | See below |
 | `strands.interrupt` | no | See below |
 | `strands.experimental` | no | Explicitly unstable. Not in something a provider's income depends on |
+| `strands.interventions` | no | See below. The graph edge it would replace always runs |
+| `strands.sandbox` | no | Code execution goes to AgentCore Code Interpreter, which is the deployed sandbox |
+| `strands.memory` | no | Recall is AgentCore Memory, keyed on topic, live in `tally_rosa` |
+| `strands.storage` | no | Meals, attendance and the month are in the store, where a claim can be audited |
+| `strands.plugins`, `strands.injection` | no | Nothing here needs to extend the orchestrator or rewrite context |
 
 ## MCP, and why the rulebook is a server
 
@@ -70,7 +80,7 @@ OTEL_EXPORTER_OTLP_ENDPOINT=http://localhost:4318   send spans to a collector
 TALLY_TRACE_CONSOLE=1                               print spans, no collector needed
 ```
 
-## The three that were rejected, and the reason for each
+## The ones that were rejected, and the reason for each
 
 **`strands.hooks`.** Turnout uses these to enforce contact policy in code rather than in the prompt,
 which is the right use of them. Tally's equivalent guarantees are not tool-call-shaped. The
@@ -96,3 +106,19 @@ strictly worse than what is built, which records the question, ends the run and 
 whenever it arrives. The escalation being asynchronous is the design, not a limitation of it.
 
 Using `Interrupt` here would have added an SDK import and removed a property the product depends on.
+
+**`strands.interventions`.** This one is here because the version mistake above hid it, and it
+deserves a straight answer rather than a quiet omission. It is a first-class control primitive added
+after 1.18: `Deny` blocks a tool call and shows the model the reason, `Confirm` asks a human to
+approve one, `Guide` steers without blocking.
+
+For Tally the answer is the same as for hooks, and for the same reason. The confidence gate is a
+graph edge and the allergy check runs on every meal whether or not an agent asked for it. An
+intervention fires when a model calls a tool. Moving either guarantee onto it would move something
+that always runs to something that runs when a model decides to act, which is the wrong direction
+for a check that protects a child with an allergy.
+
+`Confirm` is the closest fit, for the moment the provider is asked to approve a claim. It is
+documented as supported only on `beforeToolCall`, so it waits in process, and nothing sends a claim
+without her having looked at it in the app first. There is no in-process wait to replace.
+
