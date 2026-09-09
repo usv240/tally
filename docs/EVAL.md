@@ -2,10 +2,17 @@
 
 Two numbers, and the second is the one that matters.
 
-**Tally credited every component that was on the plate, and invented none.** 100 percent component
-recall across 13 real photographs, 2 trials each, with **0 spurious components in 26 readings**. It
-never once credited a food that was not there. A false component is a false claim against a federal
-food programme, so that zero is the number the whole product rests on.
+**Two numbers on the same agent, one curated and one not.**
+
+On 13 real photographs chosen for the demo: **100 percent component recall, 2 trials each, with 0
+spurious components in 26 readings.** It never once credited a food that was not there.
+
+On 45 photographs it did not choose, the first five files in each of ten Wikimedia Commons
+categories taken in the order the API returned them: **35 of 45, 78 percent.** And the part that
+matters more than either figure: **of the 10 it got wrong, 9 credited nothing at all.** When this
+agent is wrong on a photograph it has never seen, it stays silent rather than inventing a component,
+9 times out of 10. A component invented into a record is a false claim against a federal food
+programme; a component left out is a question asked.
 
 **Against the obvious alternative, it recovers meals a claim-time check can only report.** Every
 food programme app already validates the claim at month end, and so does the sponsor before paying.
@@ -130,6 +137,53 @@ reported that a person would not credit, not counting the extras noted per photo
 Asking a question is not a failure. Below a confidence threshold the agent leaves the item
 out of the record and asks the provider instead, because guessing a component into
 compliance would create a false claim.
+
+<!-- wild:start -->
+## The same agent on photographs we did not choose
+
+Generated 2026-09-09 19:58 UTC by `python -m evals.wild_eval`.
+
+The thirteen photographs above were picked by hand, and the fetcher that downloads them says why: a search for a glass of milk returned a 1921 farm milk cooler. Hand-picking made the demo repeatable and it also means that number measures the agent on cases this project curated.
+
+This is the same agent on photographs chosen by Wikimedia Commons editors. Ten categories, each naming one food that maps to one component. From each, the **first 5 files by Commons sortkey**, in the order the API returned them. Not the best five. The first five. Nothing was discarded after being looked at.
+
+**35 of 45 correct, 78%, against 100 percent on the curated set.**
+
+**Of the 10 it got wrong, 9 credited nothing at all.** One credited the wrong thing. That is the number this project cares about most: on photographs it had never seen and did not choose, when the agent was wrong it stayed silent rather than inventing a component 9 times out of 10. A component invented into a record is a false claim against a federal food programme. A component left out is a question asked. The confidence gate is what makes the second happen instead of the first, and it asked rather than guessing on 30 of the 45.
+
+The gap between 78 and 100 is the honest part, and most of it is not about food recognition at all. Commons categories are filed by subject, not by whether the subject is a meal: the misses include a 1911 printed advertisement for yoghurt, a page from a 1926 seed catalogue, and broccoli growing in a field under solar panels. The agent declined to credit a component from each of those, which is correct. A provider photographing her own table sends none of them.
+
+So the curated number is the better estimate of accuracy in use, and this one is the better estimate of how the agent fails when it fails. 7 additional components were credited across all 45 photographs.
+
+| Category | Expected | Correct | Additional components credited |
+|---|---|---|---|
+| Bananas | fruit | 5 of 5 | none |
+| Apples | fruit | 3 of 5 | juice |
+| Carrots | vegetable | 4 of 5 | fruit |
+| Broccoli | vegetable | 2 of 5 | none |
+| Cooked rice | grain | 5 of 5 | none |
+| Bread | grain | 5 of 5 | none |
+| Cheese | meat_alt | 5 of 5 | fruit |
+| Boiled eggs | meat_alt | 4 of 5 | grain, vegetable |
+| Yogurt | meat_alt | 2 of 5 | none |
+
+### Every one it got wrong
+
+| File | Commons title | Expected | What it credited |
+|---|---|---|---|
+| `apples_2.jpg` | 2013. Крым 069.jpg | fruit | nothing |
+| `apples_3.jpg` | 2013. Крым 864.jpg | fruit | nothing |
+| `carrots_4.jpg` | 112 superb varieties for market gardeners season of 1926 (Page 12) BHL42917231.jpg | vegetable | nothing |
+| `broccoli_0.jpg` | -2018-10-06 Broccoli, Trimingham (1).JPG | vegetable | nothing |
+| `broccoli_2.jpg` | 2005cauliflower and broccoli.PNG | vegetable | nothing |
+| `broccoli_4.jpg` | Agrivoltaico broccoletti Laterza 2011 2012 2013.jpg | vegetable | nothing |
+| `boiled_eggs_1.jpg` | 01 Jimmy's Deep Fried Boiled Egg.jpg | meat_alt | grain, vegetable |
+| `yogurt_0.jpg` | (20260209) Bayernland Echt Bulgara Joghurt 01.jpg | meat_alt | nothing |
+| `yogurt_3.jpg` | 1911 Gebr. Hiller, Tetschen a. E, Annonce Yoghurt.jpg | meat_alt | nothing |
+| `yogurt_4.jpg` | 2 båsheles clairs tchiveas ary-chahba.JPG | meat_alt | nothing |
+
+Every photograph is openly licensed and credited in `data/wild/ATTRIBUTION.md`. Rerun the selection with `python -m evals.wild_eval --fetch`, which takes the same first five from each category, so the case set is reproducible rather than a set that was chosen once and then kept because the number looked good.
+<!-- wild:end -->
 
 ## Deterministic logic
 

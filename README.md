@@ -6,10 +6,12 @@ claim at the published rates.**
 
 She feeds twelve kids and files paperwork for every bite. Tally does the counting.
 
-**Measured:** 100 percent component recall across 13 real photographs, with **0 spurious components
-in 26 readings**. 13 of 13 adversarial cases refused, and 0 of 6 legitimate ones wrongly refused.
-Both in [docs/EVAL.md](docs/EVAL.md). A spurious component is a false claim against a federal food
-programme, so that zero is the number the product rests on.
+**Measured, twice.** On 13 real photographs chosen for the demo: 100 percent component recall,
+2 trials each, **0 spurious components in 26 readings**. On 45 photographs it did not choose, the
+first five files in each of ten Wikimedia Commons categories: **35 of 45, and of the 10 it got
+wrong, 9 credited nothing at all**. When it is wrong on a photograph it has never seen it stays
+silent rather than inventing a component, 9 times out of 10. It also refuses 13 of 13 adversarial
+cases and wrongly refuses 0 of 6 legitimate ones. All of it in [docs/EVAL.md](docs/EVAL.md).
 
 A hands-free agent for home child care providers. Photograph the plate, say who is here, and the
 meal record, the attendance, the ratio check, the notes home and the monthly claim are done,

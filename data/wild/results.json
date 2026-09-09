@@ -1,0 +1,575 @@
+[
+  {
+    "local": "bananas_0.jpg",
+    "category": "Category:Bananas",
+    "expected": "fruit",
+    "title": "File:10.5 inch banana.JPG",
+    "licence": "CC BY-SA 3.0",
+    "author": "BrokenSphere",
+    "found": [
+      "fruit"
+    ],
+    "asked": false,
+    "error": ""
+  },
+  {
+    "local": "bananas_1.jpg",
+    "category": "Category:Bananas",
+    "expected": "fruit",
+    "title": "File:181 365+1 Banana (7623220032).jpg",
+    "licence": "CC BY-SA 2.0",
+    "author": "Dave Crosby from Devon, England",
+    "found": [
+      "fruit"
+    ],
+    "asked": false,
+    "error": ""
+  },
+  {
+    "local": "bananas_2.jpg",
+    "category": "Category:Bananas",
+    "expected": "fruit",
+    "title": "File:2016 366 253 Ripe (29575004875).jpg",
+    "licence": "CC BY 2.0",
+    "author": "Edna Winti",
+    "found": [
+      "fruit"
+    ],
+    "asked": false,
+    "error": ""
+  },
+  {
+    "local": "bananas_3.jpg",
+    "category": "Category:Bananas",
+    "expected": "fruit",
+    "title": "File:2016-09-15 04-25-35 recup.jpg",
+    "licence": "CC BY 4.0",
+    "author": "Thomas Bresson",
+    "found": [
+      "fruit"
+    ],
+    "asked": false,
+    "error": ""
+  },
+  {
+    "local": "bananas_4.jpg",
+    "category": "Category:Bananas",
+    "expected": "fruit",
+    "title": "File:2016-10-09 00-48-47 recup.jpg",
+    "licence": "CC BY 4.0",
+    "author": "Thomas Bresson",
+    "found": [
+      "fruit"
+    ],
+    "asked": true,
+    "error": ""
+  },
+  {
+    "local": "apples_0.jpg",
+    "category": "Category:Apples",
+    "expected": "fruit",
+    "title": "File:'Claque p\u00e9pin'.jpg",
+    "licence": "CC BY-SA 4.0",
+    "author": "Denisjchevalier",
+    "found": [
+      "fruit"
+    ],
+    "asked": false,
+    "error": ""
+  },
+  {
+    "local": "apples_1.jpg",
+    "category": "Category:Apples",
+    "expected": "fruit",
+    "title": "File:16.8.20 1 Borovany Poklady z diec\u00e9ze 154 (50236237482).jpg",
+    "licence": "CC BY 2.0",
+    "author": "Donald Judge",
+    "found": [
+      "fruit"
+    ],
+    "asked": true,
+    "error": ""
+  },
+  {
+    "local": "apples_2.jpg",
+    "category": "Category:Apples",
+    "expected": "fruit",
+    "title": "File:2013. \u041a\u0440\u044b\u043c 069.jpg",
+    "licence": "CC BY-SA 3.0",
+    "author": "Andrey Butko",
+    "found": [],
+    "asked": true,
+    "error": ""
+  },
+  {
+    "local": "apples_3.jpg",
+    "category": "Category:Apples",
+    "expected": "fruit",
+    "title": "File:2013. \u041a\u0440\u044b\u043c 864.jpg",
+    "licence": "CC BY-SA 3.0",
+    "author": "Andrey Butko",
+    "found": [],
+    "asked": true,
+    "error": ""
+  },
+  {
+    "local": "apples_4.jpg",
+    "category": "Category:Apples",
+    "expected": "fruit",
+    "title": "File:2015, Fair Smaki Regionow, Poznan (apples, UEP Poznan).JPG",
+    "licence": "CC BY-SA 4.0",
+    "author": "MOs810",
+    "found": [
+      "fruit",
+      "juice"
+    ],
+    "asked": true,
+    "error": ""
+  },
+  {
+    "local": "carrots_0.jpg",
+    "category": "Category:Carrots",
+    "expected": "vegetable",
+    "title": "File:(\u062e\u0636\u0627\u0631 (\u0633\u0641\u0646\u0627\u0631\u064a\u0629 +\u0644\u0641\u062a).JPG",
+    "licence": "CC BY-SA 4.0",
+    "author": "Ovva olfa",
+    "found": [
+      "vegetable"
+    ],
+    "asked": false,
+    "error": ""
+  },
+  {
+    "local": "carrots_1.jpg",
+    "category": "Category:Carrots",
+    "expected": "vegetable",
+    "title": "File:- panoramio (2709).jpg",
+    "licence": "CC BY-SA 3.0",
+    "author": "josefstuefer",
+    "found": [
+      "fruit",
+      "vegetable"
+    ],
+    "asked": true,
+    "error": ""
+  },
+  {
+    "local": "carrots_2.jpg",
+    "category": "Category:Carrots",
+    "expected": "vegetable",
+    "title": "File:10 heriloom carrots.jpg",
+    "licence": "CC BY 2.0",
+    "author": "Stacy Spensley",
+    "found": [
+      "vegetable"
+    ],
+    "asked": false,
+    "error": ""
+  },
+  {
+    "local": "carrots_3.jpg",
+    "category": "Category:Carrots",
+    "expected": "vegetable",
+    "title": "File:11. place vegetables on cutting board.jpg",
+    "licence": "CC0",
+    "author": "Datariumrex",
+    "found": [
+      "vegetable"
+    ],
+    "asked": true,
+    "error": ""
+  },
+  {
+    "local": "carrots_4.jpg",
+    "category": "Category:Carrots",
+    "expected": "vegetable",
+    "title": "File:112 superb varieties for market gardeners season of 1926 (Page 12) BHL42917231.jpg",
+    "licence": "Public domain",
+    "author": "Francis C. Stokes &amp; Co.; Henry G. Gilbert Nursery and Seed Trade Catalog Col",
+    "found": [],
+    "asked": true,
+    "error": ""
+  },
+  {
+    "local": "broccoli_0.jpg",
+    "category": "Category:Broccoli",
+    "expected": "vegetable",
+    "title": "File:-2018-10-06 Broccoli, Trimingham (1).JPG",
+    "licence": "CC BY-SA 4.0",
+    "author": "Kolforn (Kolforn)\nI'd appreciate if you could mail me (Kolforn@gmail.com) if",
+    "found": [],
+    "asked": true,
+    "error": ""
+  },
+  {
+    "local": "broccoli_1.jpg",
+    "category": "Category:Broccoli",
+    "expected": "vegetable",
+    "title": "File:-2018-12-10 Broccoli, Trimingham (1).JPG",
+    "licence": "CC BY-SA 4.0",
+    "author": "Kolforn (Kolforn)\nI'd appreciate if you could mail me (Kolforn@gmail.com) if",
+    "found": [
+      "vegetable"
+    ],
+    "asked": true,
+    "error": ""
+  },
+  {
+    "local": "broccoli_2.jpg",
+    "category": "Category:Broccoli",
+    "expected": "vegetable",
+    "title": "File:2005cauliflower and broccoli.PNG",
+    "licence": "CC BY-SA 3.0",
+    "author": "Anwar saadat at English Wikipedia",
+    "found": [],
+    "asked": false,
+    "error": ""
+  },
+  {
+    "local": "broccoli_3.jpg",
+    "category": "Category:Broccoli",
+    "expected": "vegetable",
+    "title": "File:A Mushrooms and Bell peppers.jpg",
+    "licence": "CC BY-SA 4.0",
+    "author": "Peachyeung316",
+    "found": [
+      "vegetable"
+    ],
+    "asked": true,
+    "error": ""
+  },
+  {
+    "local": "broccoli_4.jpg",
+    "category": "Category:Broccoli",
+    "expected": "vegetable",
+    "title": "File:Agrivoltaico broccoletti Laterza 2011 2012 2013.jpg",
+    "licence": "CC BY 4.0",
+    "author": "Emilio Roggero",
+    "found": [],
+    "asked": true,
+    "error": ""
+  },
+  {
+    "local": "cooked_rice_0.jpg",
+    "category": "Category:Cooked rice",
+    "expected": "grain",
+    "title": "File:08469jfCuisine of Bulacan fruits and home made foodsfvf 04.jpg",
+    "licence": "Public domain",
+    "author": "Judgefloro",
+    "found": [
+      "grain"
+    ],
+    "asked": false,
+    "error": ""
+  },
+  {
+    "local": "cooked_rice_1.jpg",
+    "category": "Category:Cooked rice",
+    "expected": "grain",
+    "title": "File:09486jfCuisine of Bulacan foodsfvf 01.jpg",
+    "licence": "Public domain",
+    "author": "Judgefloro",
+    "found": [
+      "grain"
+    ],
+    "asked": false,
+    "error": ""
+  },
+  {
+    "local": "cooked_rice_2.jpg",
+    "category": "Category:Cooked rice",
+    "expected": "grain",
+    "title": "File:09703jfCuisine Foods Fruits Philippines Baliuag Bulacanfvf 30.jpg",
+    "licence": "CC0",
+    "author": "Judgefloro",
+    "found": [
+      "grain"
+    ],
+    "asked": false,
+    "error": ""
+  },
+  {
+    "local": "cooked_rice_3.jpg",
+    "category": "Category:Cooked rice",
+    "expected": "grain",
+    "title": "File:09703jfCuisine Foods Fruits Philippines Baliuag Bulacanfvf 31.jpg",
+    "licence": "CC0",
+    "author": "Judgefloro",
+    "found": [
+      "grain"
+    ],
+    "asked": false,
+    "error": ""
+  },
+  {
+    "local": "cooked_rice_4.jpg",
+    "category": "Category:Cooked rice",
+    "expected": "grain",
+    "title": "File:09703jfCuisine Foods Fruits Philippines Baliuag Bulacanfvf 32.jpg",
+    "licence": "CC0",
+    "author": "Judgefloro",
+    "found": [
+      "grain"
+    ],
+    "asked": false,
+    "error": ""
+  },
+  {
+    "local": "bread_0.jpg",
+    "category": "Category:Bread",
+    "expected": "grain",
+    "title": "File:'\u0420\u0436\u0430\u043d\u0438 \u043b\u0435\u0431\u043d\u0438 \u043f\u0430\u0440\u0447\u0438\u045a\u0430.jpg",
+    "licence": "CC BY 4.0",
+    "author": "Mihail Verbal",
+    "found": [
+      "grain"
+    ],
+    "asked": true,
+    "error": ""
+  },
+  {
+    "local": "bread_1.jpg",
+    "category": "Category:Bread",
+    "expected": "grain",
+    "title": "File:-365 FreshBread Mar10 (25751715811).jpg",
+    "licence": "CC BY 2.0",
+    "author": "terri_bateman",
+    "found": [
+      "grain"
+    ],
+    "asked": true,
+    "error": ""
+  },
+  {
+    "local": "bread_2.jpg",
+    "category": "Category:Bread",
+    "expected": "grain",
+    "title": "File:007465 - Comida (8749337867).jpg",
+    "licence": "CC BY 2.0",
+    "author": "M.Peinado from Alcal\u00e1 de Henares, Espa\u00f1a",
+    "found": [
+      "grain"
+    ],
+    "asked": true,
+    "error": ""
+  },
+  {
+    "local": "bread_3.jpg",
+    "category": "Category:Bread",
+    "expected": "grain",
+    "title": "File:007466 - Comida (8749650855).jpg",
+    "licence": "CC BY 2.0",
+    "author": "M.Peinado from Alcal\u00e1 de Henares, Espa\u00f1a",
+    "found": [
+      "grain"
+    ],
+    "asked": true,
+    "error": ""
+  },
+  {
+    "local": "bread_4.jpg",
+    "category": "Category:Bread",
+    "expected": "grain",
+    "title": "File:0727jfToasted breadfvf.jpg",
+    "licence": "Public domain",
+    "author": "Judgefloro",
+    "found": [
+      "grain"
+    ],
+    "asked": true,
+    "error": ""
+  },
+  {
+    "local": "cheese_0.jpg",
+    "category": "Category:Cheese",
+    "expected": "meat_alt",
+    "title": "File:(20260502 160340174) EDEKA.jpg",
+    "licence": "CC BY-SA 4.0",
+    "author": "Roy Zuo",
+    "found": [
+      "meat_alt"
+    ],
+    "asked": true,
+    "error": ""
+  },
+  {
+    "local": "cheese_1.jpg",
+    "category": "Category:Cheese",
+    "expected": "meat_alt",
+    "title": "File:-365 upperbench cheeses (27851280015).jpg",
+    "licence": "CC0",
+    "author": "terri_bateman",
+    "found": [
+      "meat_alt"
+    ],
+    "asked": true,
+    "error": ""
+  },
+  {
+    "local": "cheese_2.jpg",
+    "category": "Category:Cheese",
+    "expected": "meat_alt",
+    "title": "File:01755jfMilka Crem Philippine Carabao Science City Munozfvf 28.JPG",
+    "licence": "Public domain",
+    "author": "Judgefloro",
+    "found": [
+      "meat_alt"
+    ],
+    "asked": false,
+    "error": ""
+  },
+  {
+    "local": "cheese_3.jpg",
+    "category": "Category:Cheese",
+    "expected": "meat_alt",
+    "title": "File:1chese 3.png",
+    "licence": "CC BY-SA 4.0",
+    "author": "Aliaksandr Iam",
+    "found": [
+      "meat_alt"
+    ],
+    "asked": true,
+    "error": ""
+  },
+  {
+    "local": "cheese_4.jpg",
+    "category": "Category:Cheese",
+    "expected": "meat_alt",
+    "title": "File:20110703-14-figgy goat cheese (5972870396).jpg",
+    "licence": "CC BY 2.0",
+    "author": "Weldon Kennedy from London, UK",
+    "found": [
+      "fruit",
+      "meat_alt"
+    ],
+    "asked": true,
+    "error": ""
+  },
+  {
+    "local": "boiled_eggs_0.jpg",
+    "category": "Category:Boiled eggs",
+    "expected": "meat_alt",
+    "title": "File:00 Amuse Bouche - Arp\u00e8ge Egg.jpg",
+    "licence": "CC BY-SA 2.0",
+    "author": "Edsel Little",
+    "found": [
+      "meat_alt",
+      "vegetable"
+    ],
+    "asked": true,
+    "error": ""
+  },
+  {
+    "local": "boiled_eggs_1.jpg",
+    "category": "Category:Boiled eggs",
+    "expected": "meat_alt",
+    "title": "File:01 Jimmy's Deep Fried Boiled Egg.jpg",
+    "licence": "CC BY-SA 2.0",
+    "author": "Jason Lam",
+    "found": [
+      "grain",
+      "vegetable"
+    ],
+    "asked": true,
+    "error": ""
+  },
+  {
+    "local": "boiled_eggs_2.jpg",
+    "category": "Category:Boiled eggs",
+    "expected": "meat_alt",
+    "title": "File:01361jfCuisine of Bulacan Tilapiafvf 07.jpg",
+    "licence": "CC0",
+    "author": "Judgefloro",
+    "found": [
+      "meat_alt"
+    ],
+    "asked": true,
+    "error": ""
+  },
+  {
+    "local": "boiled_eggs_3.jpg",
+    "category": "Category:Boiled eggs",
+    "expected": "meat_alt",
+    "title": "File:022 Polish cuisine, soup in Poland - botwinka soup made from beetroot leaves and root vegetables, served with egg.jpg",
+    "licence": "CC BY 3.0",
+    "author": "Marek \u015alusarczyk (Tupungato) Photo portfolio",
+    "found": [
+      "meat_alt",
+      "vegetable"
+    ],
+    "asked": true,
+    "error": ""
+  },
+  {
+    "local": "boiled_eggs_4.jpg",
+    "category": "Category:Boiled eggs",
+    "expected": "meat_alt",
+    "title": "File:1 Egg Cooked 5 Minutes in Hot Water (Flash).jpg",
+    "licence": "CC BY-SA 4.0",
+    "author": "Bodhi Peace",
+    "found": [
+      "meat_alt"
+    ],
+    "asked": false,
+    "error": ""
+  },
+  {
+    "local": "yogurt_0.jpg",
+    "category": "Category:Yogurt",
+    "expected": "meat_alt",
+    "title": "File:(20260209) Bayernland Echt Bulgara Joghurt 01.jpg",
+    "licence": "CC BY-SA 4.0",
+    "author": "Roy Zuo",
+    "found": [],
+    "asked": true,
+    "error": ""
+  },
+  {
+    "local": "yogurt_1.jpg",
+    "category": "Category:Yogurt",
+    "expected": "meat_alt",
+    "title": "File:(20260209) Bayernland Echt Bulgara Joghurt 02.jpg",
+    "licence": "CC BY-SA 4.0",
+    "author": "Roy Zuo",
+    "found": [
+      "meat_alt"
+    ],
+    "asked": true,
+    "error": ""
+  },
+  {
+    "local": "yogurt_2.jpg",
+    "category": "Category:Yogurt",
+    "expected": "meat_alt",
+    "title": "File:01755jfMilka Crem Philippine Carabao Science City Munozfvf 10.JPG",
+    "licence": "Public domain",
+    "author": "Judgefloro",
+    "found": [
+      "meat_alt"
+    ],
+    "asked": true,
+    "error": ""
+  },
+  {
+    "local": "yogurt_3.jpg",
+    "category": "Category:Yogurt",
+    "expected": "meat_alt",
+    "title": "File:1911 Gebr. Hiller, Tetschen a. E, Annonce Yoghurt.jpg",
+    "licence": "Public domain",
+    "author": "Natura-Werk Gebr. Hiller",
+    "found": [],
+    "asked": true,
+    "error": ""
+  },
+  {
+    "local": "yogurt_4.jpg",
+    "category": "Category:Yogurt",
+    "expected": "meat_alt",
+    "title": "File:2 b\u00e5sheles clairs tchiveas ary-chahba.JPG",
+    "licence": "CC BY-SA 4.0",
+    "author": "Lucyin Mahin",
+    "found": [],
+    "asked": true,
+    "error": ""
+  }
+]
