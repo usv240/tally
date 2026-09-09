@@ -108,7 +108,7 @@
   <text class="hdr" x="235" y="408">Rules as versioned data, not as code</text>
   <text class="s" x="235" y="428">cacfp_rules.json: the meal pattern, by meal and age group</text>
   <text class="s" x="235" y="445">rates.json: the 2026-2027 payment rates &#183; state_rules.json: ratio limits</text>
-  <text class="s" x="235" y="460">Published at /api/rules, so a sponsor can check them against USDA</text>
+  <text class="s" x="235" y="460">Published at /api/rules and over MCP, so a sponsor&#39;s agent can check them</text>
 
   <rect class="svc" x="680" y="380" width="295" height="86"/>
   <text class="hdr" x="700" y="408">What it will not do</text>
