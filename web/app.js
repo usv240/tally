@@ -406,7 +406,11 @@
     substitution: "Substitution recorded", spoken: "Said out loud", day_closed: "Day closed",
     claim_built: "Claim built", notes_drafted: "Notes drafted",
     compliance_checked: "Compliance checked", subsidy_reconciled: "Subsidy reconciled",
-    digest_built: "Digest built", evening_start: "Evening run started", evening_end: "Evening run finished"
+    digest_built: "Digest built", evening_start: "Evening run started", evening_end: "Evening run finished",
+    // The two AgentCore Memory events. Without these the trace printed the raw keys
+    // answer_remembered and question_not_repeated, which is the one place the recall story is
+    // visible and the one place it read like debug output.
+    answer_remembered: "Answer remembered", question_not_repeated: "Question not repeated"
   };
 
   function renderTrace() {
