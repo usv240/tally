@@ -107,6 +107,15 @@ curl -X POST <host>/api/meals -H "x-api-key: tally-sandbox-2026" \
 
 ## 4. Video script, target 4:10, hard cap 4:30
 
+> **Record from [VIDEO_SCRIPT.md](VIDEO_SCRIPT.md), not from this section.**
+>
+> This one was written while the system was being built and carries more detail than a judge can
+> absorb at speed. The shooting script is shorter, puts the product on screen inside the first
+> minute, and says where to point and what to press at each beat. This section stays because it is
+> the record of what the system actually does, which is what the shooting script was checked
+> against.
+
+
 | Time | Visual | Voiceover |
 |---|---|---|
 | 0:00 to 0:12 | A kitchen at 7:38 am. A child's plate. A small hand reaching in. Title: "Rosa's Family Child Care. Tuesday." | "Nine children before eight in the morning. Twelve by three. One adult." |
