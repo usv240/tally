@@ -5,6 +5,21 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Tally: she feeds twelve kids and files paperwork for every bite</title>
 <meta name="description" content="A hands-free agent for home child care providers. Photograph the plate, say who is here, and the meal record, the attendance, the ratio check, the parent notes and the monthly claim are done before the food is cold.">
+<!-- Link preview. A shared URL with no card is the first impression wasted. -->
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Tally">
+<meta property="og:title" content="Tally: she feeds twelve kids and files paperwork for every bite">
+<meta property="og:description" content="A hands-free agent for home child care providers. Photograph the plate, say who is here, and the meal record, the attendance, the ratio check, the parent notes and the monthly claim are done before the food is cold.">
+<meta property="og:url" content="https://dtvxrkiam6.us-east-1.awsapprunner.com/">
+<meta property="og:image" content="https://dtvxrkiam6.us-east-1.awsapprunner.com/social.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Tally, built with the Strands Agents SDK on Amazon Bedrock">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Tally: she feeds twelve kids and files paperwork for every bite">
+<meta name="twitter:description" content="A hands-free agent for home child care providers. Photograph the plate, say who is here, and the meal record, the attendance, the ratio check, the parent notes and the monthly claim are done before the food is cold.">
+<meta name="twitter:image" content="https://dtvxrkiam6.us-east-1.awsapprunner.com/social.png">
+
 <script>
   (function () {
     try {
@@ -245,7 +260,7 @@
     </div>
 
     <div class="card">
-      <img src="architecture.svg" alt="Architecture diagram. During the day, a Day Orchestrator receives a photograph or a sentence and calls Plate, Rules, Roll or Provider Gate as a tool, and Provider Gate is the only agent allowed to interrupt her. In the evening, a Strands Graph runs Ledger, then Parent Notes, then Compliance Clock, then the Digest. The meal pattern, the payment rates and the state ratio limits are versioned JSON published at an endpoint rather than written as code. AgentCore Code Interpreter computes the month's money from the same kernel file the local path imports; Runtime, Memory, Gateway and Observability are designed in rather than running. The web tier is AWS App Runner." style="width:100%;height:auto">
+      <img src="architecture.svg" data-dark-src="architecture-dark.svg" alt="Architecture diagram. During the day, a Day Orchestrator receives a photograph or a sentence and calls Plate, Rules, Roll or Provider Gate as a tool, and Provider Gate is the only agent allowed to interrupt her. In the evening, a Strands Graph runs Ledger, then Parent Notes, then Compliance Clock, then the Digest. The meal pattern, the payment rates and the state ratio limits are versioned JSON published at an endpoint rather than written as code. AgentCore Code Interpreter computes the month's money from the same kernel file the local path imports; Runtime, Memory, Gateway and Observability are designed in rather than running. The web tier is AWS App Runner." style="width:100%;height:auto">
     </div>
 
     <div class="grid cols-4">
@@ -299,15 +314,17 @@
           </tr>
           <tr>
             <td><strong>Presentation</strong></td>
-            <td>A four minute video recorded from this deployment, following one Tuesday from the
-            morning roll call to the claim being sent at five past six instead of half past nine.</td>
-            <td><a href="#demo">Demo</a></td>
+            <td>The demo below is the same Tuesday the submission video walks through, and you can
+            play it yourself rather than watch someone else press the buttons. It runs from the
+            morning roll call to the claim being ready at five past six instead of half past nine.
+            The video itself is linked from the Devpost submission.</td>
+            <td><a href="#demo">Play the day</a></td>
           </tr>
         </tbody>
       </table>
     </div>
     <p class="small muted">
-      Licence: MIT, in the repository root and visible in the About panel. All code was written
+      Licence: MIT, in the repository root and shown in the About panel of the GitHub repository. All code was written
       during the submission period. Photograph credits are in <code>data/plates/ATTRIBUTION.md</code>.
     </p>
   </div>

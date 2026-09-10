@@ -5,6 +5,21 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Tally: set up your home</title>
 <meta name="description" content="Set up a home child care programme in under three minutes. Paste whatever list of children you already have.">
+<!-- Link preview. A shared URL with no card is the first impression wasted. -->
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Tally">
+<meta property="og:title" content="Tally: set up your home">
+<meta property="og:description" content="Set up a home child care programme in under three minutes. Paste whatever list of children you already have.">
+<meta property="og:url" content="https://dtvxrkiam6.us-east-1.awsapprunner.com/start.html">
+<meta property="og:image" content="https://dtvxrkiam6.us-east-1.awsapprunner.com/social.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Tally, built with the Strands Agents SDK on Amazon Bedrock">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Tally: set up your home">
+<meta name="twitter:description" content="Set up a home child care programme in under three minutes. Paste whatever list of children you already have.">
+<meta name="twitter:image" content="https://dtvxrkiam6.us-east-1.awsapprunner.com/social.png">
+
 <script>
   (function () {
     try {
@@ -95,7 +110,7 @@ Nia, 2024-11-05, Mon Wed Fri, dairy allergy, voucher"></textarea>
       <button class="btn primary" id="read" type="button">Read my list</button>
       <button class="btn" id="sample" type="button">Use a sample list</button>
     </div>
-    <div id="parse-out"></div>
+    <div id="parse-out" role="status" aria-live="polite"></div>
   </section>
 
   <!-- Step 2 -->
@@ -134,7 +149,10 @@ Nia, 2024-11-05, Mon Wed Fri, dairy allergy, voucher"></textarea>
         <input type="number" id="budget" value="2" min="1" max="6">
       </div>
     </div>
-    <div id="ratio-out"></div>
+    <!-- Announced, because this is written asynchronously: a reader who cannot see the page
+       has no other way to learn the answer arrived, or that it failed. Polite, so it waits
+       for a pause rather than cutting in. -->
+    <div id="ratio-out" role="status" aria-live="polite"></div>
     <div class="btn-row">
       <button class="btn" id="back2" type="button">Back</button>
       <button class="btn primary" id="next2" type="button">Next</button>
@@ -216,7 +234,12 @@ Nia, 2024-11-05, Mon Wed Fri, dairy allergy, voucher"></textarea>
     if (id !== "step1") document.getElementById("s1").classList.add("done");
     if (id === "step3" || id === "done") document.getElementById("s2").classList.add("done");
     if (id === "done") document.getElementById("s3").classList.add("done");
-    window.scrollTo({ top: 0, behavior: "smooth" });
+    // styles.css neutralises every declarative transition under prefers-reduced-motion,
+    // and it cannot reach a scroll animation asked for in JavaScript. This is the only
+    // one on the site, so it asks the same question itself.
+    var calm = window.matchMedia
+      && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    window.scrollTo({ top: 0, behavior: calm ? "auto" : "smooth" });
   }
 
   function daysLabel(list) {
@@ -305,7 +328,13 @@ Nia, 2024-11-05, Mon Wed Fri, dairy allergy, voucher"></textarea>
       body: JSON.stringify({ text: document.getElementById("kids").value,
                              state: document.getElementById("state").value,
                              license_type: document.getElementById("licence").value })
-    }).then(function (r) { return r.json(); }).then(function (d) {
+    }).then(function (r) {
+      // Every other fetch on this site checks this. Without it a 500 or an HTML error page fell
+      // through to .json(), the rejection went unhandled, and step 2 sat with an empty ratio box
+      // and no explanation of why.
+      if (!r.ok) throw new Error(r.status + " from the ratio check");
+      return r.json();
+    }).then(function (d) {
       parsed = d;
       var p = d.ratio || {};
       host.innerHTML = "";
@@ -327,6 +356,13 @@ Nia, 2024-11-05, Mon Wed Fri, dairy allergy, voucher"></textarea>
           text: "Tally will warn you in the morning if the afternoon arrivals would take you over." }));
       }
       host.appendChild(box);
+    }).catch(function (e) {
+      host.innerHTML = "";
+      host.appendChild(window.h("div", { class: "warn" }, [
+        window.h("strong", { text: "The ratio check did not answer. " }),
+        window.h("span", { text: "Your list is still here and nothing was lost. "
+          + "Change the state or licence again to retry. (" + e.message + ")" })
+      ]));
     });
   }
 

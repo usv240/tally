@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630"
+     font-family="Inter, -apple-system, Segoe UI, system-ui, sans-serif">
+  <rect x="0" y="0" width="1200" height="630" fill="#FAFAF8"/>
+  <rect x="0" y="0" width="1200" height="10" fill="#0F6E56"/>
+  <text x="72" y="96" fill="#5C5C57" font-size="24" font-weight="600"
+        letter-spacing="2.5">AGENTS FOR HUMANS</text>
+  <text x="72" y="152" fill="#0F6E56" font-size="34" font-weight="700"
+        letter-spacing="-0.5">Tally</text>
+  <text x="72" y="262" fill="#1A1A1A" font-size="66" font-weight="700" letter-spacing="-1.8">She has twelve kids</text><text x="72" y="338" fill="#1A1A1A" font-size="66" font-weight="700" letter-spacing="-1.8">and no free hands.</text>
+  <text x="72" y="408" fill="#5C5C57" font-size="25">A hands-free agent for home child care providers.</text>
+  <text x="1128" y="300" fill="#0F6E56" font-size="76" font-weight="700"
+        text-anchor="end" letter-spacing="-2">$101.76</text>
+  <text x="1128" y="344" fill="#5C5C57" font-size="19" text-anchor="end">a month of meals caught at the</text><text x="1128" y="370" fill="#5C5C57" font-size="19" text-anchor="end">table, not at claim time</text>
+  <line x1="72" y1="486" x2="1128" y2="486" stroke="#E4E2DC" stroke-width="3"/>
+  <text x="72" y="548" fill="#5C5C57" font-size="21">Built with the Strands Agents SDK on Amazon Bedrock</text>
+  <rect x="72" y="574" width="120" height="4" fill="#0F6E56"/>
+</svg>

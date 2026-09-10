@@ -5,6 +5,21 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Tally: Rosa's day</title>
 <meta name="description" content="The live Tally demo. Play one Tuesday at a home child care provider and watch a real vision model read real photographs and a versioned rulebook decide what gets paid.">
+<!-- Link preview. A shared URL with no card is the first impression wasted. -->
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Tally">
+<meta property="og:title" content="Tally: Rosa's day">
+<meta property="og:description" content="The live Tally demo. Play one Tuesday at a home child care provider and watch a real vision model read real photographs and a versioned rulebook decide what gets paid.">
+<meta property="og:url" content="https://dtvxrkiam6.us-east-1.awsapprunner.com/app.html">
+<meta property="og:image" content="https://dtvxrkiam6.us-east-1.awsapprunner.com/social.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Tally, built with the Strands Agents SDK on Amazon Bedrock">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Tally: Rosa's day">
+<meta name="twitter:description" content="The live Tally demo. Play one Tuesday at a home child care provider and watch a real vision model read real photographs and a versioned rulebook decide what gets paid.">
+<meta name="twitter:image" content="https://dtvxrkiam6.us-east-1.awsapprunner.com/social.png">
+
 <script>
   (function () {
     try {
@@ -24,7 +39,11 @@
   <div class="bar">
     <a class="brand" href="index.html"><span class="mark" aria-hidden="true"></span> Tally</a>
     <div class="header-actions">
-      <span class="badge neutral" id="clock" aria-live="polite">loading</span>
+      <!-- No aria-live here on purpose. This is a label showing the simulated clock, not a
+           status. It is rewritten on every render, so announcing it meant every action
+           was read out twice, the second time as a bare time with no context. The status
+           line below is the live region that matters. -->
+      <span class="badge neutral" id="clock">loading</span>
       <div class="theme-toggle"></div>
       <button class="btn small" id="reset" type="button">Reset</button>
     </div>

@@ -5,6 +5,21 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Tally: try it with your own lunch</title>
 <meta name="description" content="Photograph any plate of food and see what the federal child care food programme would say about it. Real vision model, real versioned rules.">
+<!-- Link preview. A shared URL with no card is the first impression wasted. -->
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Tally">
+<meta property="og:title" content="Tally: try it with your own lunch">
+<meta property="og:description" content="Photograph any plate of food and see what the federal child care food programme would say about it. Real vision model, real versioned rules.">
+<meta property="og:url" content="https://dtvxrkiam6.us-east-1.awsapprunner.com/try.html">
+<meta property="og:image" content="https://dtvxrkiam6.us-east-1.awsapprunner.com/social.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Tally, built with the Strands Agents SDK on Amazon Bedrock">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Tally: try it with your own lunch">
+<meta name="twitter:description" content="Photograph any plate of food and see what the federal child care food programme would say about it. Real vision model, real versioned rules.">
+<meta name="twitter:image" content="https://dtvxrkiam6.us-east-1.awsapprunner.com/social.png">
+
 <script>
   (function () {
     try {
@@ -18,12 +33,23 @@
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='7' fill='%230F6E56'/></svg>">
 <style>
   .drop {
+    position: relative;
     border: 2px dashed var(--border); border-radius: var(--r-md);
     padding: var(--s7) var(--s5); text-align: center; background: var(--surface);
     transition: border-color .15s ease, background .15s ease;
   }
   .drop.over { border-color: var(--accent); background: var(--accent-soft); }
-  .drop input[type=file] { display: none; }
+  /* Not display:none. An input hidden that way leaves the tab order and the accessibility tree,
+     and a label is not focusable, so this page's only action had no keyboard or screen reader
+     path to it at all: everyone but a mouse user saw two dropdowns and nothing to press. The
+     input is still invisible, and it now covers the whole drop zone, stays focusable, and is
+     announced. axe cannot catch this, because a hidden element is correctly excluded. */
+  .drop input[type=file] {
+    position: absolute; inset: 0; width: 100%; height: 100%;
+    opacity: 0; cursor: pointer;
+  }
+  /* The input itself is invisible, so the focus ring has to be drawn on what a person can see. */
+  .drop:focus-within { outline: 2px solid var(--accent); outline-offset: 2px; }
   .preview { max-width: 340px; width: 100%; border-radius: var(--r-md); border: 1px solid var(--border); }
   .controls { display: flex; flex-wrap: wrap; gap: var(--s4); align-items: flex-end; }
   .field label { display: block; font-size: .875rem; font-weight: 600; margin-bottom: 6px; }
@@ -69,7 +95,7 @@
       <input type="file" id="file" accept="image/*" capture="environment">
       <strong style="display:block;font-size:1.0625rem;margin-bottom:var(--s2)">
         Take a photo, or drop one here</strong>
-      <span class="muted small">On a phone this opens the camera. JPEG or PNG, up to about 5 MB.</span>
+      <span class="muted small">On a phone this opens the camera. JPEG or PNG, up to 8 MB.</span>
     </label>
     <div id="preview-wrap" hidden style="text-align:center">
       <img id="preview" class="preview" alt="The plate you chose">
@@ -103,7 +129,10 @@
     grain and a meat or meat alternate.</p>
   </section>
 
-  <div id="out"></div>
+  <!-- Announced, because this is written asynchronously: a reader who cannot see the page
+       has no other way to learn the answer arrived, or that it failed. Polite, so it waits
+       for a pause rather than cutting in. -->
+    <div id="out" role="status" aria-live="polite"></div>
 
   <section class="card stack" style="margin-top:var(--s6)">
     <h2 style="font-size:1.125rem">Or call it from your own code</h2>

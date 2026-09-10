@@ -5,6 +5,21 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Tally: the sponsor's month</title>
 <meta name="description" content="A month as the sponsor sees it. Every meal, its photograph, its verdict and the rule version it was decided under.">
+<!-- Link preview. A shared URL with no card is the first impression wasted. -->
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Tally">
+<meta property="og:title" content="Tally: the sponsor's month">
+<meta property="og:description" content="A month as the sponsor sees it. Every meal, its photograph, its verdict and the rule version it was decided under.">
+<meta property="og:url" content="https://dtvxrkiam6.us-east-1.awsapprunner.com/sponsor.html">
+<meta property="og:image" content="https://dtvxrkiam6.us-east-1.awsapprunner.com/social.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Tally, built with the Strands Agents SDK on Amazon Bedrock">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Tally: the sponsor's month">
+<meta name="twitter:description" content="A month as the sponsor sees it. Every meal, its photograph, its verdict and the rule version it was decided under.">
+<meta name="twitter:image" content="https://dtvxrkiam6.us-east-1.awsapprunner.com/social.png">
+
 <script>
   (function () {
     try {
@@ -73,7 +88,10 @@
   <!-- Both blocks are written out at their final height, so nothing on the page moves when the
        month arrives. Only the words and numbers inside them change. -->
   <div id="who" class="notice" style="margin-bottom:var(--s5)">
-    <strong id="who-home">Loading the month.</strong>
+    <!-- Announced, because this is written asynchronously: a reader who cannot see the page
+       has no other way to learn the answer arrived, or that it failed. Polite, so it waits
+       for a pause rather than cutting in. -->
+    <strong id="who-home" role="status" aria-live="polite">Loading the month.</strong>
     <span id="who-detail"></span>
     <div class="small" style="margin-top:var(--s2)" id="who-questions">&nbsp;</div>
     <div class="small" style="margin-top:var(--s2)" id="who-rules">&nbsp;</div>
