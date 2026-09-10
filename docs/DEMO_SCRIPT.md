@@ -1,12 +1,14 @@
 # Tally: demo video script
 
-**Target 3:28. About 468 spoken words, at a comfortable 135 a minute.** The rules cap the video at five minutes.
+**Target 3:47. About 511 spoken words, at a comfortable 135 a minute.** The rules cap the video at five minutes.
 
 Record from the deployed URL, clean browser profile, 1920 by 1080, light theme. **Press Reset before every take.**
 
 Each beat below gives three things: what to point at, what to do next, and the line to say. **Read only the quoted line out loud.** Everything else is a direction to you.
 
 If a take runs long, cut a sentence rather than reading faster. The recording notes at the bottom say which one to drop first.
+
+The timecodes run slightly ahead of the words alone, on purpose. The gap is the room for the interface to answer and for the deliberate silences, which are marked where they matter.
 
 ---
 
@@ -120,7 +122,17 @@ If a take runs long, cut a sentence rather than reading faster. The recording no
 
 > This is what her sponsor sees. Every meal, the photograph it was judged from, and the version of the rulebook that decided it, so a claim can still be defended years later.
 
-## 3:10  What changed
+## 3:10  Try it yourself
+
+**Point at:** Navigate to /try.html, Try it with your own lunch. Then /start.html for a moment.
+
+**Then:** Upload any food photograph and let a real verdict come back. Do not narrate the form.
+
+**Say:**
+
+> And none of this is a canned demo. Photograph your own lunch and it will judge that one, paste your own list of children to set up a home, or call the same API with the public sandbox key on the landing page.
+
+## 3:30  What changed
 
 **Point at:** The Month tab. Hold on the money.
 
@@ -130,7 +142,7 @@ If a take runs long, cut a sentence rather than reading faster. The recording no
 
 > Rosa did not spend her evening reconstructing the day. Tally logged every meal as it happened, caught the ones that would not have been paid, and asked her twice. One month, a hundred and one dollars she would have lost.
 
-## 3:26  Close
+## 3:46  Close
 
 **Point at:** Hold on the month.
 
@@ -151,7 +163,7 @@ If a take runs long, cut a sentence rather than reading faster. The recording no
 
 ## Before you upload
 
-- Export between 3:15 and 4:00.
+- Export between 3:30 and 4:15.
 - Upload to YouTube as **public**, then open it in a logged-out window and confirm it plays.
 - Captions in `video/` are timed to an earlier, longer script. Regenerate them from the final cut.
 - The recorded visual tracks are from 5 September, before the interface fixes. Record fresh rather than narrating over them, or the video will not match the site a judge opens.
@@ -168,4 +180,5 @@ Rules.md scores five equally weighted criteria, and says judges may judge on the
 | 2:14 | Creativity. An agent defined by what it declines to do |
 | 2:36 | The hackathon's own theme. The smallest possible interruption |
 | 2:56 | Design. A complete product, including the organisation that pays the claim |
-| 3:10 | Presentation. The change stated once, plainly, before the tagline |
+| 3:10 | Technical Implementation. Proof it is a live system, and an invitation to test it |
+| 3:30 | Presentation. The change stated once, plainly, before the tagline |
