@@ -63,7 +63,8 @@ is far worse for a provider than being asked whether the cup is milk or juice.
 ## How it is built
 
 ```mermaid
-flowchart LR
+%%{init: {'theme': 'neutral'}}%%
+flowchart TB
   PROV["Provider<br/>one photo or one sentence"] <--> API
   API["Tally web and API<br/>AWS App Runner"] --> DAYAGENT
   API --> LEDGER
