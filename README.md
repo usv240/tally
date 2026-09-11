@@ -70,16 +70,16 @@ flowchart TB
   API --> DAYAGENT
   API --> LEDGER
 
-  subgraph DAY["During the day: one agent, called per event"]
+  subgraph DAY["During the day: one agent, called per event, Claude on Amazon Bedrock"]
     direction TB
-    DAYAGENT["Tally<br/>log_plate, take_roll, record_substitution,<br/>answer_open_question"]
+    DAYAGENT["Tally<br/>log_plate, take_roll, record_substitution,<br/>answer_open_question, today_so_far"]
   end
 
   subgraph EVENING["In the evening: a Strands Graph, fixed order, Claude on Amazon Bedrock"]
     direction TB
     LEDGER["Ledger"] --> NOTES["Parent Notes"]
     NOTES --> COMPLY["Compliance"]
-    COMPLY --> GATE["Provider Gate<br/>at most 2 questions"]
+    COMPLY --> GATE["Provider Gate<br/>2 questions a night, safety aside"]
   end
 
   LEDGER -->|"the month's claim"| CODE["AgentCore Code Interpreter"]
