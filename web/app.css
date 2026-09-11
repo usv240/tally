@@ -61,7 +61,10 @@
 .question .btn-row { align-items: flex-start; }
 .question .btn-row .btn {
   flex: 0 0 auto;
-  min-height: 44px;
+  /* 48, not 44. body.app .btn sets 48 for every control in the app, and the first version of
+     this rule quietly undercut it. The audit caught that the moment it learned to play the demo
+     and look at a populated screen. */
+  min-height: 48px;
   min-width: 5.5rem;
   padding-inline: var(--s4);
 }
