@@ -100,7 +100,8 @@
       <span class="muted small">On a phone this opens the camera. JPEG or PNG, up to 8 MB.</span>
     </label>
     <div id="preview-wrap" hidden style="text-align:center">
-      <img id="preview" class="preview" alt="The plate you chose">
+      <img id="preview" class="preview" alt=""
+           src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7">
     </div>
     <div class="controls">
       <div class="field">
@@ -182,6 +183,9 @@
     go.disabled = false;
     var img = document.getElementById("preview");
     img.src = URL.createObjectURL(f);
+    // It starts as a transparent pixel with no alt, because until now there was no plate for the
+    // alt to describe. There is one now.
+    img.alt = "The plate you chose, " + f.name;
     document.getElementById("preview-wrap").hidden = false;
     out.innerHTML = "";
   }

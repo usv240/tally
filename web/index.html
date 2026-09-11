@@ -255,12 +255,12 @@
       Live on this deployment: the Strands agents, the day orchestrator, the nightly Graph, the
       hooks, the Bedrock vision model, and <strong>AgentCore Code Interpreter</strong> computing
       every month's claim. Open the Month tab and the line under the total names where it ran.
-      Memory, Gateway and Runtime are designed in and not wired in. The web tier is App Runner.
+      Memory is live too, holding what Rosa has already answered so tomorrow does not ask again. Gateway and Runtime are designed in. The web tier is App Runner.
       <button class="info" data-tip="where_it_runs" data-label="where it runs"></button>
     </div>
 
     <div class="card">
-      <img src="architecture.svg" data-dark-src="architecture-dark.svg" alt="Architecture diagram. During the day, a Day Orchestrator receives a photograph or a sentence and calls Plate, Rules, Roll or Provider Gate as a tool, and Provider Gate is the only agent allowed to interrupt her. In the evening, a Strands Graph runs Ledger, then Parent Notes, then Compliance Clock, then the Digest. The meal pattern, the payment rates and the state ratio limits are versioned JSON published at an endpoint rather than written as code. AgentCore Code Interpreter computes the month's money from the same kernel file the local path imports; Runtime, Memory, Gateway and Observability are designed in rather than running. The web tier is AWS App Runner." style="width:100%;height:auto">
+      <img src="architecture.svg" data-dark-src="architecture-dark.svg" alt="Architecture diagram. During the day, a Day Orchestrator receives a photograph or a sentence and calls Plate, Rules, Roll or Provider Gate as a tool, and Provider Gate is the only agent allowed to interrupt her. In the evening, a Strands Graph runs Ledger, then Parent Notes, then Compliance Clock, then the Digest. The meal pattern, the payment rates and the state ratio limits are versioned JSON published at an endpoint rather than written as code. AgentCore Code Interpreter computes the month's money from the same kernel file the local path imports; AgentCore Memory holds what she has already answered so tomorrow does not ask again. Runtime and Gateway are designed in rather than running. The web tier is AWS App Runner." style="width:100%;height:auto">
     </div>
 
     <div class="grid cols-4">
@@ -270,8 +270,8 @@
       <div class="card"><h3>Provider Gate<button class="info" data-tip="agent_gate" data-label="Provider Gate"></button></h3><p class="muted small">The only agent allowed to ask her anything, with the budget enforced in code.</p></div>
       <div class="card"><h3>Ledger<button class="info" data-tip="agent_ledger" data-label="Ledger"></button></h3><p class="muted small">The daily maximum, the month's claim, and what the unpaid meals cost.</p></div>
       <div class="card"><h3>Parent Notes<button class="info" data-tip="agent_notes" data-label="Parent Notes"></button></h3><p class="muted small">One short note per child, in each family's language, from the record only.</p></div>
-      <div class="card"><h3>Code Interpreter, live<button class="info" data-tip="where_it_runs" data-label="where it runs"></button></h3><p class="muted small">The month's claim is computed there, by the same kernel.py the local path imports. Memory, Gateway and Runtime are designed in.</p></div>
-      <div class="card"><h3>Published rules<button class="info" data-tip="agentcore_gateway" data-label="the Gateway"></button></h3><p class="muted small">The exact rules data is served at <code>/api/rules</code> so a sponsor can check it against USDA.</p></div>
+      <div class="card"><h3>Code Interpreter, live<button class="info" data-tip="where_it_runs" data-label="where it runs"></button></h3><p class="muted small">The month's claim is computed there, by the same kernel.py the local path imports. Memory is live too: what she has already answered is written there, keyed on the child and the weekday, so tomorrow does not spend a question on it. Gateway and Runtime are designed in.</p></div>
+      <div class="card"><h3>Published rules<button class="info" data-tip="agentcore_gateway" data-label="the Gateway"></button></h3><p class="muted small">The exact rules data is served at <code>/api/rules</code> so a sponsor can check it against USDA, and over the Model Context Protocol so a sponsor's own agent can verify a claim without trusting ours.</p></div>
     </div>
   </div>
 </section>
@@ -339,17 +339,6 @@
 
     <div class="grid cols-2">
       <div class="card">
-        <h3>Run it</h3>
-        <pre class="formula">git clone &lt;repo&gt; &amp;&amp; cd tally
-uv venv &amp;&amp; uv pip install -e ".[dev]"
-python -m tally.data.fetch_plates
-python -m tally.data.make_plates
-python -m tally.data.generate
-uvicorn tally.api:app --port 8001</pre>
-        <p class="muted small">Then open http://localhost:8001. AWS credentials with Amazon Bedrock
-        access are needed for the vision step.</p>
-      </div>
-      <div class="card">
         <h3>Call it</h3>
         <pre class="formula">curl -X POST http://localhost:8001/api/meals \
   -H "x-api-key: YOUR_KEY" \
@@ -359,6 +348,17 @@ uvicorn tally.api:app --port 8001</pre>
 #    rule_version, questions</pre>
         <p class="muted small">Use the key from the button above in place of YOUR_KEY, or leave the header off entirely. Full schema at <a href="/docs">/docs</a>. The rules themselves are at
         <a href="/api/rules">/api/rules</a>, so a sponsor can check them against the USDA tables.</p>
+      </div>
+      <div class="card">
+        <h3>Or run the whole thing yourself</h3>
+        <pre class="formula">git clone &lt;repo&gt; &amp;&amp; cd tally
+uv venv &amp;&amp; uv pip install -e ".[dev]"
+python -m tally.data.fetch_plates
+python -m tally.data.make_plates
+python -m tally.data.generate
+uvicorn tally.api:app --port 8001</pre>
+        <p class="muted small">Then open http://localhost:8001. AWS credentials with Amazon Bedrock
+        access are needed for the vision step.</p>
       </div>
     </div>
 
