@@ -217,7 +217,7 @@ Screens:
 
 | Route | Purpose |
 |---|---|
-| `/` | Landing page (see `LANDING_PAGE.md`) |
+| `/` | Landing page |
 | `/demo` | Judge mode: loads Rosa's home on the demo day; "Play the day" |
 | `/app` | The provider's home screen: a big camera button, a big talk button, today's meals as a strip with green or amber badges, the current ratio as a small indicator |
 | `/app/meal/{id}` | Photo, items, verdict, the fix suggestion, "Re-take" |
