@@ -84,7 +84,7 @@ flowchart TB
   end
 
   DAY1 -->|"reads the photo"| VISION["Claude on Amazon Bedrock<br/>vision, temperature 0"]
-  DAY1 --> RULES["The food programme rulebook<br/>published as data, not written as code"]
+  DAY1 --> RULES["The food program rulebook<br/>published as data, not written as code"]
   RULES --> MCP["The sponsor's own agent<br/>can check it, over MCP"]
   EVE1 -->|"works out the month's money"| CODE["AgentCore Code Interpreter"]
   EVE3 -->|"has she answered this before?"| MEM
@@ -241,7 +241,7 @@ second pass plays the demo first and then checks every tab in the populated app.
 ## Try it with your own lunch
 
 This is not only a scripted demo. **`/try.html`** takes a photograph of any plate, from your camera or
-your files, and returns what the food programme would say about it: the components it found with the
+your files, and returns what the food program would say about it: the components it found with the
 confidence behind each one, whether it would be paid, and the smallest change that would fix it. A meal
 pattern is defined per age group, so you choose who is eating. Nothing is stored: the photograph is
 read, the answer is returned, the file is deleted.
