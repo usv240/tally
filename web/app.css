@@ -51,9 +51,20 @@
   border: 1px solid var(--border); border-radius: var(--r-md);
   padding: var(--s4); background: var(--surface);
 }
-.question.safety { border-color: var(--danger); background: var(--danger-soft); }
-.question.meal { border-color: var(--warning); background: var(--warning-soft); }
-.question .q { font-weight: 550; margin-bottom: var(--s3); }
+.question.q-safety { border-color: var(--danger); background: var(--danger-soft); }
+.question.q-meal { border-color: var(--warning); background: var(--warning-soft); }
+.question .q { font-weight: 550; margin-bottom: var(--s3); max-width: 62ch; }
+
+/* An answer button is sized by its label, never by whatever is beside it. Yes, No and Not sure
+   were 46 wide and 120 tall, because the card had inherited a two column grid and the buttons
+   stretched to fill the row. Three tall thin slabs, all the same size whatever they said. */
+.question .btn-row { align-items: flex-start; }
+.question .btn-row .btn {
+  flex: 0 0 auto;
+  min-height: 44px;
+  min-width: 5.5rem;
+  padding-inline: var(--s4);
+}
 
 .note-card { border-left: 3px solid var(--accent); padding-left: var(--s4); }
 

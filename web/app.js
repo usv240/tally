@@ -251,7 +251,9 @@
   }
 
   function questionCard(q) {
-    var card = window.h("div", { class: "question " + q.priority }, [
+    // Prefixed, because .meal is the meal card's grid. A question about a meal used to pick
+    // that up and lay itself out in two columns, stretching its buttons to the row height.
+    var card = window.h("div", { class: "question q-" + q.priority }, [
       window.h("div", { class: "q", text: q.text })
     ]);
     var opts = q.options && q.options.length ? q.options : ["Yes", "No", "Not sure"];
