@@ -1,7 +1,7 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 690" role="img"
      aria-labelledby="arch-title arch-desc" font-family="Inter, system-ui, sans-serif">
   <title id="arch-title">Tally architecture</title>
-  <desc id="arch-desc">During the day a Day Orchestrator receives a photograph or a spoken sentence
+  <desc id="arch-desc">During the day a The web API receives a photograph or a spoken sentence
     and calls Plate, Rules, Roll or Provider Gate as a tool, answering in seconds. In the evening a
     Strands Graph runs Ledger, then Parent Notes, then Compliance, then the Digest, in that fixed
     order. Two Amazon Bedrock AgentCore services are live: Code Interpreter computes the month's
@@ -55,7 +55,7 @@
   <text class="s" x="235" y="102">She is standing there waiting, so it answers in seconds</text>
 
   <rect class="agent" x="240" y="120" width="170" height="52"/>
-  <text class="t" x="325" y="142" text-anchor="middle">Day Orchestrator</text>
+  <text class="t" x="325" y="142" text-anchor="middle">The web API</text>
   <text class="s" x="325" y="160" text-anchor="middle">one tool per event</text>
 
   <rect class="agent" x="440" y="120" width="170" height="52"/>

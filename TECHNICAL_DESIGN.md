@@ -64,6 +64,10 @@ This is deliberately a different Strands shape from Turnout (agents-as-tools plu
 
 ### 3.1 Day Orchestrator
 
+**Not in the shipped build.** The deployed day path calls one tool per event directly from
+the API, and `log_plate` runs the Plate agent below. `day_agent` exists in `agents/graph.py`
+and nothing calls it. The orchestrator described here is the design, not the running system.
+
 - Input: one event: `{type: photo|utterance|tap, payload, timestamp, provider_id}`.
 - Behavior: classifies the event (a photo is a meal unless the provider said otherwise; an utterance is attendance, a meal statement, a correction, a note for a parent, or a question), calls the right tool agent, and returns a short spoken response under 20 words plus a structured record. Never asks more than one question per event.
 

@@ -65,36 +65,38 @@ is far worse for a provider than being asked whether the cup is milk or juice.
 ```mermaid
 %%{init: {'theme': 'neutral'}}%%
 flowchart TB
-  PROV["Provider<br/>one photo or one sentence"] <--> API
-  API["Tally web and API<br/>AWS App Runner"]
-  API --> DAYAGENT
-  API --> LEDGER
+  PROV["The provider<br/>one photo, or one sentence"] <--> APP
+  APP["Tally, on AWS App Runner"]
+  APP --> DAY1
+  APP --> EVE1
+  APP -->|"her answers are remembered"| MEM["AgentCore Memory"]
 
-  subgraph DAY["During the day: one agent, called per event, Claude on Amazon Bedrock"]
+  subgraph DAY["During the day: answer her in seconds"]
     direction TB
-    DAYAGENT["Tally<br/>log_plate, take_roll, record_substitution,<br/>answer_open_question, today_so_far"]
+    DAY1["Read the plate, check every allergy,<br/>and name the missing food<br/>while it can still be added"]
   end
 
-  subgraph EVENING["In the evening: a Strands Graph, fixed order, Claude on Amazon Bedrock"]
+  subgraph EVENING["In the evening: a Strands Graph on Amazon Bedrock"]
     direction TB
-    LEDGER["Ledger"] --> NOTES["Parent Notes"]
-    NOTES --> COMPLY["Compliance"]
-    COMPLY --> GATE["Provider Gate<br/>2 questions a night, safety aside"]
+    EVE1["1. Close the day's meals"] --> EVE2["2. Write the notes home"]
+    EVE2 --> EVE3["3. Check the compliance dates"]
+    EVE3 --> EVE4["4. Ask at most two questions<br/>an allergy always gets through"]
   end
 
-  LEDGER -->|"the month's claim"| CODE["AgentCore Code Interpreter"]
-  COMPLY -->|"has she answered this before?"| MEM["AgentCore Memory"]
-  DAYAGENT -->|"writes her answers"| MEM
-  DAYAGENT -->|"reads the plate"| VISION["Amazon Bedrock<br/>Claude Sonnet 4.6 vision"]
-  DAYAGENT --> RULES["Rulebook engine<br/>versioned JSON, plain Python"]
-  RULES --> MCP["MCP server<br/>read by the sponsor's<br/>own reviewer agent"]
+  DAY1 -->|"reads the photo"| VISION["Claude on Amazon Bedrock<br/>vision, temperature 0"]
+  DAY1 --> RULES["The food programme rulebook<br/>published as data, not written as code"]
+  RULES --> MCP["The sponsor's own agent<br/>can check it, over MCP"]
+  EVE1 -->|"works out the month's money"| CODE["AgentCore Code Interpreter"]
+  EVE3 -->|"has she answered this before?"| MEM
 ```
 
 The day and the evening are different problems, so they have different shapes.
 
 **During the day** the provider is standing there with a plate in her hand, so the work is request
-driven and shallow: one agent receives one photograph or one sentence and calls a single specialist
-tool.
+driven and shallow, and only the step that genuinely needs a model uses one. The API calls one tool
+per event. `log_plate` runs the Plate agent, a Strands agent on Bedrock vision at temperature 0, and
+everything after the reading is deterministic. `take_roll` uses no model at all. Latency is the
+product, so there is no orchestrating agent standing between her and the answer.
 
 **In the evening** the work is a fixed pipeline whose steps feed each other, so it is a Strands
 `Graph`: Ledger, then Parent Notes, then Compliance, then the Digest, in that order.
