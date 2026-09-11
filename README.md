@@ -288,6 +288,10 @@ flags.
 - **Rosa and every child are fictional.** The photographs are real, openly licensed pictures of real
   food from Wikimedia Commons, credited in [data/plates/ATTRIBUTION.md](data/plates/ATTRIBUTION.md).
   Testing food recognition against drawings would prove nothing.
+- **The demo home has nine children in it,** which is inside the four to twelve a licensed family
+  child care home may hold. "Twelve kids" in the tagline is the top of that range, not a count of
+  Rosa's roster. The Children tab shows all nine, one of them an infant whose meals Tally records and
+  declines to judge.
 - **Two images are composites.** There is no openly licensed photograph of "the same plate after the
   milk was added", so those two are composed from the real photographs, side by side, and the
   attribution says so.
