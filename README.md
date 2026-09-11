@@ -66,25 +66,27 @@ is far worse for a provider than being asked whether the cup is milk or juice.
 %%{init: {'theme': 'neutral'}}%%
 flowchart TB
   PROV["Provider<br/>one photo or one sentence"] <--> API
-  API["Tally web and API<br/>AWS App Runner"] --> DAYAGENT
+  API["Tally web and API<br/>AWS App Runner"]
+  API --> DAYAGENT
   API --> LEDGER
 
   subgraph DAY["During the day: one agent, called per event"]
     direction TB
-    DAYAGENT["Tally<br/>log_plate, take_roll,<br/>record_substitution"]
+    DAYAGENT["Tally<br/>log_plate, take_roll, record_substitution,<br/>answer_open_question"]
   end
 
-  subgraph EVENING["In the evening: a Strands Graph, fixed order"]
+  subgraph EVENING["In the evening: a Strands Graph, fixed order, Claude on Amazon Bedrock"]
     direction TB
     LEDGER["Ledger"] --> NOTES["Parent Notes"]
     NOTES --> COMPLY["Compliance"]
     COMPLY --> GATE["Provider Gate<br/>at most 2 questions"]
   end
 
-  DAYAGENT --> VISION["Amazon Bedrock<br/>Claude Sonnet 4.6 vision"]
+  LEDGER -->|"the month's claim"| CODE["AgentCore Code Interpreter"]
+  COMPLY -->|"has she answered this before?"| MEM["AgentCore Memory"]
+  DAYAGENT -->|"writes her answers"| MEM
+  DAYAGENT -->|"reads the plate"| VISION["Amazon Bedrock<br/>Claude Sonnet 4.6 vision"]
   DAYAGENT --> RULES["Rulebook engine<br/>versioned JSON, plain Python"]
-  LEDGER --> CODE["AgentCore Code Interpreter<br/>the month's claim"]
-  GATE --> MEM["AgentCore Memory<br/>answers she already gave"]
   RULES --> MCP["MCP server<br/>read by the sponsor's<br/>own reviewer agent"]
 ```
 
