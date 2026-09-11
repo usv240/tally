@@ -42,7 +42,7 @@
       <a href="#how">How it works</a>
       <a href="try.html">Try it yourself</a>
       <a href="#judges">For judges</a>
-      <a href="#developers">Developers</a>
+      <a href="#api">API</a>
     </nav>
     <div class="header-actions">
       <div class="theme-toggle"></div>
@@ -290,7 +290,7 @@
             because they are different problems. Bedrock vision at temperature zero with a confidence
             gate. Rules and rates as versioned data behind a tool, not as code. 97 tests plus a
             published vision eval.</td>
-            <td><a href="app.html#trace">Agent trace</a><br><a href="#developers">API and code</a></td>
+            <td><a href="app.html#trace">Agent trace</a><br><a href="#api">API and code</a></td>
           </tr>
           <tr>
             <td><strong>Design</strong></td>
@@ -330,13 +330,12 @@
   </div>
 </section>
 
-<section class="band" id="developers">
+<section class="band" id="api">
   <div class="wrap stack">
-    <h2>For developers.</h2>
-    <p class="section-lede">
-      The endpoint worth integrating is one line: send a photograph, get a compliant meal record.
-      <button class="info" data-tip="sandbox_key" data-label="the sandbox key"></button>
-    </p>
+    <h2>The API.</h2>
+    <p class="section-lede">The endpoint worth integrating is one line: send a photograph, get a compliant meal record. Generate a key and call it yourself, from here or from your terminal.</p>
+
+    <div id="api-try"></div>
 
     <div class="grid cols-2">
       <div class="card">
@@ -353,12 +352,12 @@ uvicorn tally.api:app --port 8001</pre>
       <div class="card">
         <h3>Call it</h3>
         <pre class="formula">curl -X POST http://localhost:8001/api/meals \
-  -H "x-api-key: tally-sandbox-2026" \
+  -H "x-api-key: YOUR_KEY" \
   -F "photo=@lunch.jpg" -F "meal_type=lunch"
 
 # -> components, reimbursable, smallest_fix,
 #    rule_version, questions</pre>
-        <p class="muted small">Full schema at <a href="/docs">/docs</a>. The rules themselves are at
+        <p class="muted small">Use the key from the button above in place of YOUR_KEY, or leave the header off entirely. Full schema at <a href="/docs">/docs</a>. The rules themselves are at
         <a href="/api/rules">/api/rules</a>, so a sponsor can check them against the USDA tables.</p>
       </div>
     </div>
@@ -433,6 +432,7 @@ uvicorn tally.api:app --port 8001</pre>
   </div>
 </footer>
 
+<script src="apitry.js"></script>
 <script src="infotips.js"></script>
 <script src="common.js"></script>
 </body>
