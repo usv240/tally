@@ -1,0 +1,1022 @@
+{
+  "version": "1",
+  "types": [
+    {
+      "name": "SugarFigureType",
+      "description": "Whether a sugar figure is measured as added sugars or total sugars. Added sugars are added during processing; total sugars include naturally occurring sugars such as lactose.",
+      "values": [
+        {
+          "value": "SugarFigureType_ADDED",
+          "description": "The figure represents added sugars."
+        },
+        {
+          "value": "SugarFigureType_TOTAL",
+          "description": "The figure represents total sugars."
+        },
+        {
+          "value": "SugarFigureType_OTHER",
+          "description": "A sugar figure type not otherwise modeled."
+        }
+      ]
+    },
+    {
+      "name": "MilkService",
+      "description": "How fluid milk is served to a child: as a beverage, on cereal, or a combination of both.",
+      "values": [
+        {
+          "value": "MilkService_BEVERAGE",
+          "description": "Fluid milk served as a beverage."
+        },
+        {
+          "value": "MilkService_ON_CEREAL",
+          "description": "Fluid milk served on cereal."
+        },
+        {
+          "value": "MilkService_COMBINATION",
+          "description": "Fluid milk served as a combination of beverage and on cereal."
+        },
+        {
+          "value": "MilkService_OTHER",
+          "description": "A manner of serving fluid milk not permitted."
+        }
+      ]
+    },
+    {
+      "name": "MilkFatType",
+      "description": "The fat content type of fluid milk served.",
+      "values": [
+        {
+          "value": "MilkFatType_WHOLE",
+          "description": "Whole milk."
+        },
+        {
+          "value": "MilkFatType_REDUCED_FAT",
+          "description": "Reduced-fat (2 percent) milk."
+        },
+        {
+          "value": "MilkFatType_LOW_FAT",
+          "description": "Low-fat (1 percent) milk."
+        },
+        {
+          "value": "MilkFatType_FAT_FREE",
+          "description": "Fat-free (skim) milk."
+        },
+        {
+          "value": "MilkFatType_OTHER",
+          "description": "A milk fat type not otherwise modeled."
+        }
+      ]
+    },
+    {
+      "name": "MealType",
+      "description": "The type of meal being served in CACFP: breakfast, lunch, supper, or snack.",
+      "values": [
+        {
+          "value": "MealType_LUNCH",
+          "description": "A lunch meal."
+        },
+        {
+          "value": "MealType_SNACK",
+          "description": "A snack."
+        },
+        {
+          "value": "MealType_OTHER",
+          "description": "A meal type not otherwise modeled."
+        },
+        {
+          "value": "MealType_SUPPER",
+          "description": "A supper meal."
+        },
+        {
+          "value": "MealType_BREAKFAST",
+          "description": "A breakfast meal."
+        }
+      ]
+    },
+    {
+      "name": "TipoComida",
+      "description": "The type of meal or snack served in the Child and Adult Care Food Program (CACFP).",
+      "values": [
+        {
+          "value": "TipoComida_DESAYUNO",
+          "description": "Breakfast meal."
+        },
+        {
+          "value": "TipoComida_ALMUERZO",
+          "description": "Lunch meal."
+        },
+        {
+          "value": "TipoComida_CENA",
+          "description": "Supper meal."
+        },
+        {
+          "value": "TipoComida_MERIENDA",
+          "description": "Snack."
+        },
+        {
+          "value": "TipoComida_OTHER",
+          "description": "Any other meal type not explicitly modeled."
+        }
+      ]
+    }
+  ],
+  "rules": [
+    {
+      "id": "C3SGHAMLQT30",
+      "expression": "(not (= milkService\n        MilkService_OTHER))",
+      "alternateExpression": "Fluid milk must be served as a beverage, on cereal, or a combination of both; no other manner of service is permitted."
+    },
+    {
+      "id": "I9UPBW7JOG2J",
+      "expression": "(=> (>= childAgeYears 6)\n    (or (= milkFatType\n           MilkFatType_WHOLE)\n        (= milkFatType\n           MilkFatType_REDUCED_FAT)\n        (= milkFatType\n           MilkFatType_LOW_FAT)\n        (= milkFatType\n           MilkFatType_FAT_FREE)))",
+      "alternateExpression": "Children who are 6 years old and older may be served whole, reduced-fat, low-fat, or fat-free milk, and the milk may be flavored or unflavored."
+    },
+    {
+      "id": "D99G2940UBDT",
+      "expression": "(=> (and (>= childAgeYears 1)\n         (<= childAgeYears 5))\n    (not milkIsFlavored))",
+      "alternateExpression": "Flavored milk is not allowed for children aged 1 through 5 years."
+    },
+    {
+      "id": "MU63117S0B9K",
+      "expression": "(=> (and isLactoseFreeOrReducedLactoseMilk\n         milkMeetsFatAndFlavorForAge)\n    isMilkCreditableAsFluidMilk)",
+      "alternateExpression": "Lactose-free and reduced-lactose milk that meet the fat content and flavor requirements for the child's age group may be served as fluid milk."
+    },
+    {
+      "id": "YHAGEREFOM70",
+      "expression": "(not yogurtServedInPlaceOfFluidMilk)",
+      "alternateExpression": "For children, yogurt does not count as fluid milk and may not be served in place of fluid milk."
+    },
+    {
+      "id": "WMJ9GPFL7ROK",
+      "expression": "(= leafyGreensVegetableCredit\n   (* leafyGreensCups 0.5))",
+      "alternateExpression": "One cup of leafy greens counts as one half cup of vegetables."
+    },
+    {
+      "id": "O28I3FX1KU5B",
+      "expression": "(or (not beansCountedAsVegetable)\n    (not beansCountedAsMeatAlternate))",
+      "alternateExpression": "beansCountedAsVegetable is false or beansCountedAsMeatAlternate is false"
+    },
+    {
+      "id": "OXNT6YUMJVSE",
+      "expression": "(= driedFruitFruitCredit\n   (* driedFruitCups 2))",
+      "alternateExpression": "One quarter cup of dried fruit counts as one half cup of fruit (dried fruit credits at double its volume)."
+    },
+    {
+      "id": "KJYX10V4A576",
+      "expression": "(=> juiceAlreadyServedToday\n    (not juiceCreditsThisOccasion))",
+      "alternateExpression": "Juice served at a second meal or snack in the same day does not credit toward the vegetable or fruit component."
+    },
+    {
+      "id": "ET0WLFP94SJ6",
+      "expression": "(=> isGrainCreditable\n    grainMadeWithEnrichedOrWholeGrain)",
+      "alternateExpression": "All creditable grains must be made with enriched or whole grain meal or flour."
+    },
+    {
+      "id": "GXIQNJ3Q0XGF",
+      "expression": "(= dailyWholeGrainRichRequirementMet\n   wholeGrainRichServedToday)",
+      "alternateExpression": "The daily whole grain-rich requirement is met if and only if at least one whole grain-rich grain was served that day."
+    },
+    {
+      "id": "K55K8B6QLXKB",
+      "expression": "(=> isGrainBasedDessert\n    (not isGrainCreditable))",
+      "alternateExpression": "Grain-based desserts are not creditable as grains."
+    },
+    {
+      "id": "CCA7QB427YU9",
+      "expression": "(=> isBreakfastCerealCreditable\n    (<= cerealAddedSugarsPerDryOunce\n        6))",
+      "alternateExpression": "A breakfast cereal is creditable as a grain only if it contains no more than 6 grams of added sugars per dry ounce."
+    },
+    {
+      "id": "BBLO2MEVBXPD",
+      "expression": "(=> (> cerealAddedSugarsPerDryOunce\n       6)\n    (not isBreakfastCerealCreditable))",
+      "alternateExpression": "A breakfast cereal containing more than 6 grams of added sugars per dry ounce is not creditable as a grain."
+    },
+    {
+      "id": "TOLE7UZRD22U",
+      "expression": "(=> isAcornChestnutOrCoconut\n    (not isMeatAlternateCreditable))",
+      "alternateExpression": "Acorns, chestnuts, and coconuts do not credit as meat alternates."
+    },
+    {
+      "id": "Y9HQ92YXDY8J",
+      "expression": "(=> isNonCommercialOrNonStandardizedTofuSoy\n    (not isMeatAlternateCreditable))",
+      "alternateExpression": "Non-commercial and non-standardized tofu and soy products are not creditable."
+    },
+    {
+      "id": "SJOUS5UR3NHS",
+      "expression": "(= yogurtOunceEquivalentCredit\n   (/ yogurtOuncesByWeight\n      4))",
+      "alternateExpression": "Four ounces by weight of yogurt equals one ounce equivalent of meats/meat alternates."
+    },
+    {
+      "id": "FF5V2UOTO4Y5",
+      "expression": "(= yogurtMayBePlainOrFlavoredSweetenedOrUnsweetened\n   true)",
+      "alternateExpression": "Yogurt may be plain or flavored, unsweetened or sweetened."
+    },
+    {
+      "id": "Q3QPW8F7KYAF",
+      "expression": "(=> isYogurtCreditable\n    (<= yogurtAddedSugarsPer6Ounces\n        12))",
+      "alternateExpression": "Yogurt is creditable as a meat alternate only if it contains no more than 12 grams of added sugars per 6 ounces."
+    },
+    {
+      "id": "W6SBBIPLTYR3",
+      "expression": "(=> (> yogurtAddedSugarsPer6Ounces\n       12)\n    (not isYogurtCreditable))",
+      "alternateExpression": "A yogurt containing more than 12 grams of added sugars per 6 ounces is not creditable as a meat alternate."
+    },
+    {
+      "id": "R7WGHG9DT3DF",
+      "expression": "(=> isNonCreditableYogurtProduct\n    (not isYogurtCreditable))",
+      "alternateExpression": "Frozen yogurt, drinkable yogurt, homemade yogurt, yogurt flavored products, yogurt bars, yogurt covered fruits or nuts, and similar products are not creditable as yogurt."
+    },
+    {
+      "id": "PA7V3IZHBRHU",
+      "expression": "(=> (and isSoyYogurt\n         isYogurtCreditable)\n    (<= yogurtAddedSugarsPer6Ounces\n        12))",
+      "alternateExpression": "Soy yogurt is creditable as a meat alternate only if it contains no more than 12 grams of added sugars per 6 ounces (the same limit as dairy yogurt)."
+    },
+    {
+      "id": "NI2J6BKDAT2D",
+      "expression": "(=> foodDeepFatFriedOnSite\n    (not isMealReimbursable))",
+      "alternateExpression": "Deep-fat fried foods prepared on-site cannot be part of a reimbursable meal."
+    },
+    {
+      "id": "SFE38VZTQH82",
+      "expression": "(not foodUsedAsPunishmentOrReward)",
+      "alternateExpression": "Foods and beverages must not be used as punishments or rewards."
+    },
+    {
+      "id": "NNB20N6KQG4C",
+      "expression": "(=> (and isFamilyStyleMealService\n         isSecondMeal)\n    (not isSecondMealClaimable))",
+      "alternateExpression": "Under family style meal service, second meals may not be claimed for reimbursement."
+    },
+    {
+      "id": "L9ZZUVDSI33T",
+      "expression": "(=> isSubstitutionReimbursable\n    hasWrittenMedicalStatement)",
+      "alternateExpression": "A medical-statement substitution is reimbursable only if a written medical statement signed by a State licensed healthcare professional or registered dietitian has been provided."
+    },
+    {
+      "id": "P2LV7EZRSUML",
+      "expression": "(=> isDevelopmentallyAppropriate\n    solidFoodsMayBeIntroduced)",
+      "alternateExpression": "Solid foods may be introduced when developmentally appropriate for the infant."
+    },
+    {
+      "id": "XCP6U9BZ8LG2",
+      "expression": "(=> isInfantCerealCreditable\n    infantCerealIsIronFortified)",
+      "alternateExpression": "Infant cereal is creditable only if it is iron-fortified."
+    },
+    {
+      "id": "JHW812ODON58",
+      "expression": "(not (= mealType\n        MealType_OTHER))",
+      "alternateExpression": "The meal type cannot be the unmodeled OTHER value."
+    },
+    {
+      "id": "JIIKTAC3TJ4E",
+      "expression": "(=> (and (= mealType\n            MealType_BREAKFAST)\n         (>= meatReplacedGrainsAtBreakfastThisWeek\n             4))\n    (not containsGrains))",
+      "alternateExpression": "If a meat or meat alternate replaces the grains component at breakfast a fourth time (or more) in the same week, that breakfast does not meet the grains requirement."
+    },
+    {
+      "id": "QHGQ2D6R2HK4",
+      "expression": "(=> (and (= mealType\n            MealType_SNACK)\n         isMealReimbursable)\n    (>= snackComponentCount\n        2))",
+      "alternateExpression": "A reimbursable snack for a child must contain at least two of the five components."
+    },
+    {
+      "id": "LOVTFVEHODAF",
+      "expression": "(=> (and (= mealType\n            MealType_SNACK)\n         snackOnlyItemsAreMilkAndJuice)\n    (not isMealReimbursable))",
+      "alternateExpression": "A snack whose only two items are fluid milk and juice is not reimbursable."
+    },
+    {
+      "id": "XGSDG8EUGQ1A",
+      "expression": "(=> (and (= mealType\n            MealType_SNACK)\n         snackHasFluidMilk\n         snackHasJuice\n         snackOnlyItemsAreMilkAndJuice)\n    (not isMealReimbursable))",
+      "alternateExpression": "A snack consisting of fluid milk and juice (fruit or vegetable) is not reimbursable."
+    },
+    {
+      "id": "HGLIB4KZOT1P",
+      "expression": "(=> (and (= mealType\n            MealType_SNACK)\n         (< snackComponentCount\n            2))\n    (not isMealReimbursable))",
+      "alternateExpression": "A snack containing only one component is not reimbursable."
+    },
+    {
+      "id": "B4LO9UTTFHAP",
+      "expression": "(=> (and isInfant\n         foodDeepFatFriedOnSite)\n    (not isMealReimbursable))",
+      "alternateExpression": "if isInfant is true and foodDeepFatFriedOnSite is true, then isMealReimbursable is false"
+    },
+    {
+      "id": "NW3QVGR68UGF",
+      "expression": "(=> (and isInfant\n         isMealReimbursable)\n    breastmilkOrIronFortifiedFormulaServed)",
+      "alternateExpression": "For infants, every meal and snack must include breastmilk or iron-fortified infant formula to be reimbursable."
+    },
+    {
+      "id": "S8HJIZQUFWYK",
+      "expression": "(=> (and isInfant juiceServed)\n    (not isMealReimbursable))",
+      "alternateExpression": "An infant meal that includes fruit juice or vegetable juice is not reimbursable."
+    },
+    {
+      "id": "P13D68UZLE16",
+      "expression": "(=> isInfant\n    (not wholeGrainRichRequirementApplies))",
+      "alternateExpression": "The whole grain-rich requirement does not apply to infants."
+    },
+    {
+      "id": "W2U11CTLROOJ",
+      "expression": "(=> isInfant\n    (not isCookedGrainCreditable))",
+      "alternateExpression": "Cooked grains such as rice, quinoa, and pasta are not creditable in the infant meal pattern."
+    },
+    {
+      "id": "JYQ8MO248NIQ",
+      "expression": "(=> isInfant\n    (not isCheeseFoodOrSpreadCreditableForInfants))",
+      "alternateExpression": "For infants, cheese food and cheese spread are not creditable as a meat alternate."
+    },
+    {
+      "id": "QXM8TMWCWEZQ",
+      "expression": "(=> isInfant\n    isNaturalOrProcessedCheeseCreditableForInfants)",
+      "alternateExpression": "For infants, natural or processed cheese is creditable as a meat alternate."
+    },
+    {
+      "id": "KGMHTXY7P44G",
+      "expression": "(>= cerealAddedSugarsPerDryOunce\n    0)",
+      "alternateExpression": "cerealAddedSugarsPerDryOunce is at least 0"
+    },
+    {
+      "id": "JAM5ZGVTMYNW",
+      "expression": "(>= yogurtAddedSugarsPer6Ounces\n    0)",
+      "alternateExpression": "yogurtAddedSugarsPer6Ounces is at least 0"
+    },
+    {
+      "id": "LWUAEQK572GB",
+      "expression": "(=> isWholeGrainRich\n    (>= grainWholeGrainPercent\n        50))",
+      "alternateExpression": "if isWholeGrainRich is true, then grainWholeGrainPercent is at least 50"
+    },
+    {
+      "id": "OS7JY8QQ5MSD",
+      "expression": "(=> isWholeGrainRich\n    (<= grainWholeGrainPercent\n        100))",
+      "alternateExpression": "if isWholeGrainRich is true, then grainWholeGrainPercent is no more than 100"
+    },
+    {
+      "id": "ZGPI1QT0N13D",
+      "expression": "(=> (not isWholeGrainRich)\n    (or (not (>= grainWholeGrainPercent\n                 50))\n        (not (<= grainWholeGrainPercent\n                 100))))",
+      "alternateExpression": "if isWholeGrainRich is false, then grainWholeGrainPercent is less than 50 or grainWholeGrainPercent is greater than 100"
+    },
+    {
+      "id": "V4HO1LHK7WFI",
+      "expression": "(=> isMeatReplacingGrainsAtBreakfastAllowed\n    (<= meatReplacedGrainsAtBreakfastThisWeek\n        3))",
+      "alternateExpression": "if isMeatReplacingGrainsAtBreakfastAllowed is true, then meatReplacedGrainsAtBreakfastThisWeek is no more than 3"
+    },
+    {
+      "id": "ECNI3CCSZQLS",
+      "expression": "(=> (not isMeatReplacingGrainsAtBreakfastAllowed)\n    (not (<= meatReplacedGrainsAtBreakfastThisWeek\n             3)))",
+      "alternateExpression": "if isMeatReplacingGrainsAtBreakfastAllowed is false, then meatReplacedGrainsAtBreakfastThisWeek is greater than 3"
+    },
+    {
+      "id": "GL6CH4S9FV7P",
+      "expression": "(=> (= childAgeYears 1)\n    (= milkFatType\n       MilkFatType_WHOLE))",
+      "alternateExpression": "if childAgeYears is equal to 1, then milkFatType is equal to MilkFatType_WHOLE"
+    },
+    {
+      "id": "Q2CWBXIGH9F3",
+      "expression": "(=> (= childAgeYears 1)\n    (not milkIsFlavored))",
+      "alternateExpression": "if childAgeYears is equal to 1, then milkIsFlavored is false"
+    },
+    {
+      "id": "X6B54DE3H1RZ",
+      "expression": "(=> (and (>= childAgeYears 2)\n         (<= childAgeYears 5))\n    (not milkIsFlavored))",
+      "alternateExpression": "if childAgeYears is at least 2 and childAgeYears is no more than 5, then milkIsFlavored is false"
+    },
+    {
+      "id": "JQGOQ2WT7XW1",
+      "expression": "(=> (and (>= childAgeYears 2)\n         (<= childAgeYears 5))\n    (or (= milkFatType\n           MilkFatType_WHOLE)\n        (= milkFatType\n           MilkFatType_REDUCED_FAT)\n        (= milkFatType\n           MilkFatType_LOW_FAT)\n        (= milkFatType\n           MilkFatType_FAT_FREE)))",
+      "alternateExpression": "if childAgeYears is at least 2 and childAgeYears is no more than 5, then at least one of the following 4 statements is true: 1) milkFatType is equal to MilkFatType_WHOLE; 2) milkFatType is equal to MilkFatType_REDUCED_FAT; 3) milkFatType is equal to MilkFatType_LOW_FAT; 4) milkFatType is equal to MilkFatType_FAT_FREE"
+    },
+    {
+      "id": "I3VVCVUS70TW",
+      "expression": "(=> isMilkSubstituteAllowed\n    milkSubstituteServed)",
+      "alternateExpression": "if isMilkSubstituteAllowed is true, then milkSubstituteServed is true"
+    },
+    {
+      "id": "PAK16X0L9IXY",
+      "expression": "(=> isMilkSubstituteAllowed\n    hasWrittenParentRequest)",
+      "alternateExpression": "if isMilkSubstituteAllowed is true, then hasWrittenParentRequest is true"
+    },
+    {
+      "id": "HILLD6ZUKAEX",
+      "expression": "(=> isMilkSubstituteAllowed\n    substituteNutritionallyEquivalent)",
+      "alternateExpression": "if isMilkSubstituteAllowed is true, then substituteNutritionallyEquivalent is true"
+    },
+    {
+      "id": "W6FF8VWKQ1SW",
+      "expression": "(=> (not isMilkSubstituteAllowed)\n    (or (not milkSubstituteServed)\n        (not hasWrittenParentRequest)\n        (not substituteNutritionallyEquivalent)))",
+      "alternateExpression": "if isMilkSubstituteAllowed is false, then at least one of the following 3 statements is true: 1) milkSubstituteServed is false; 2) hasWrittenParentRequest is false; 3) substituteNutritionallyEquivalent is false"
+    },
+    {
+      "id": "RVNQHMHZP08E",
+      "expression": "(=> isJuiceCreditable\n    juiceIsPasteurized)",
+      "alternateExpression": "if isJuiceCreditable is true, then juiceIsPasteurized is true"
+    },
+    {
+      "id": "EM1BQFUHSQLD",
+      "expression": "(=> isJuiceCreditable\n    juiceIsFullStrength)",
+      "alternateExpression": "if isJuiceCreditable is true, then juiceIsFullStrength is true"
+    },
+    {
+      "id": "AA0O9RSCY14L",
+      "expression": "(=> isCommerciallyPreFriedFoodAllowed\n    foodIsCommerciallyPreFried)",
+      "alternateExpression": "if isCommerciallyPreFriedFoodAllowed is true, then foodIsCommerciallyPreFried is true"
+    },
+    {
+      "id": "MMSLB0CRPM0K",
+      "expression": "(=> isCommerciallyPreFriedFoodAllowed\n    (not reheatedByFrying))",
+      "alternateExpression": "if isCommerciallyPreFriedFoodAllowed is true, then reheatedByFrying is false"
+    },
+    {
+      "id": "DBFMHMSRP9PT",
+      "expression": "(=> (not isCommerciallyPreFriedFoodAllowed)\n    (or (not foodIsCommerciallyPreFried)\n        reheatedByFrying))",
+      "alternateExpression": "if isCommerciallyPreFriedFoodAllowed is false, then foodIsCommerciallyPreFried is false or reheatedByFrying is true"
+    },
+    {
+      "id": "JRLGQ66CWMAZ",
+      "expression": "(=> (and (= mealType\n            MealType_BREAKFAST)\n         isMealReimbursable)\n    containsFluidMilk)",
+      "alternateExpression": "if mealType is equal to MealType_BREAKFAST and isMealReimbursable is true, then containsFluidMilk is true"
+    },
+    {
+      "id": "LE0G9WY76VMB",
+      "expression": "(=> (and (= mealType\n            MealType_BREAKFAST)\n         isMealReimbursable)\n    (or containsVegetables\n        containsFruits))",
+      "alternateExpression": "if mealType is equal to MealType_BREAKFAST and isMealReimbursable is true, then containsVegetables is true or containsFruits is true"
+    },
+    {
+      "id": "HPHD3FIH5SDJ",
+      "expression": "(=> (and (= mealType\n            MealType_BREAKFAST)\n         isMealReimbursable)\n    containsGrains)",
+      "alternateExpression": "if mealType is equal to MealType_BREAKFAST and isMealReimbursable is true, then containsGrains is true"
+    },
+    {
+      "id": "Y7X013PO2L5O",
+      "expression": "(=> (and (= mealType\n            MealType_LUNCH)\n         isMealReimbursable)\n    containsFluidMilk)",
+      "alternateExpression": "if mealType is equal to MealType_LUNCH and isMealReimbursable is true, then containsFluidMilk is true"
+    },
+    {
+      "id": "JYX485KBNSSV",
+      "expression": "(=> (and (= mealType\n            MealType_LUNCH)\n         isMealReimbursable)\n    containsMeatsMeatAlternates)",
+      "alternateExpression": "if mealType is equal to MealType_LUNCH and isMealReimbursable is true, then containsMeatsMeatAlternates is true"
+    },
+    {
+      "id": "WCWJ6YTGKW4A",
+      "expression": "(=> (and (= mealType\n            MealType_LUNCH)\n         isMealReimbursable)\n    containsVegetables)",
+      "alternateExpression": "if mealType is equal to MealType_LUNCH and isMealReimbursable is true, then containsVegetables is true"
+    },
+    {
+      "id": "Y4IPLG06ZM7E",
+      "expression": "(=> (and (= mealType\n            MealType_LUNCH)\n         isMealReimbursable)\n    containsFruits)",
+      "alternateExpression": "if mealType is equal to MealType_LUNCH and isMealReimbursable is true, then containsFruits is true"
+    },
+    {
+      "id": "E96ZY207WUJK",
+      "expression": "(=> (and (= mealType\n            MealType_LUNCH)\n         isMealReimbursable)\n    containsGrains)",
+      "alternateExpression": "if mealType is equal to MealType_LUNCH and isMealReimbursable is true, then containsGrains is true"
+    },
+    {
+      "id": "QNX1F8NUYS5Q",
+      "expression": "(=> (and (= mealType\n            MealType_SUPPER)\n         isMealReimbursable)\n    containsFluidMilk)",
+      "alternateExpression": "if mealType is equal to MealType_SUPPER and isMealReimbursable is true, then containsFluidMilk is true"
+    },
+    {
+      "id": "R0GGT9GAP8RB",
+      "expression": "(=> (and (= mealType\n            MealType_SUPPER)\n         isMealReimbursable)\n    containsMeatsMeatAlternates)",
+      "alternateExpression": "if mealType is equal to MealType_SUPPER and isMealReimbursable is true, then containsMeatsMeatAlternates is true"
+    },
+    {
+      "id": "PJ95ZZQ8FYE5",
+      "expression": "(=> (and (= mealType\n            MealType_SUPPER)\n         isMealReimbursable)\n    containsVegetables)",
+      "alternateExpression": "if mealType is equal to MealType_SUPPER and isMealReimbursable is true, then containsVegetables is true"
+    },
+    {
+      "id": "M8QWB4AME7K8",
+      "expression": "(=> (and (= mealType\n            MealType_SUPPER)\n         isMealReimbursable)\n    containsFruits)",
+      "alternateExpression": "if mealType is equal to MealType_SUPPER and isMealReimbursable is true, then containsFruits is true"
+    },
+    {
+      "id": "HJ9NDIQ12IW0",
+      "expression": "(=> (and (= mealType\n            MealType_SUPPER)\n         isMealReimbursable)\n    containsGrains)",
+      "alternateExpression": "if mealType is equal to MealType_SUPPER and isMealReimbursable is true, then containsGrains is true"
+    },
+    {
+      "id": "I25RC8O58Z55",
+      "expression": "(=> (and vegetableServedToMeetFruitRequirement\n         (= mealType\n            MealType_LUNCH))\n    twoVegetablesAreDifferentKinds)",
+      "alternateExpression": "if vegetableServedToMeetFruitRequirement is true and mealType is equal to MealType_LUNCH, then twoVegetablesAreDifferentKinds is true"
+    },
+    {
+      "id": "AW5YGA0OL6T7",
+      "expression": "(=> (and vegetableServedToMeetFruitRequirement\n         (= mealType\n            MealType_SUPPER))\n    twoVegetablesAreDifferentKinds)",
+      "alternateExpression": "if vegetableServedToMeetFruitRequirement is true and mealType is equal to MealType_SUPPER, then twoVegetablesAreDifferentKinds is true"
+    },
+    {
+      "id": "YZJ6WJQLCEPO",
+      "expression": "(=> isInfant\n    infantMealPatternApplies)",
+      "alternateExpression": "if isInfant is true, then infantMealPatternApplies is true"
+    },
+    {
+      "id": "PDODZF5GURQ0",
+      "expression": "(=> isInfant\n    (not childMealPatternApplies))",
+      "alternateExpression": "if isInfant is true, then childMealPatternApplies is false"
+    },
+    {
+      "id": "NBAAZKYKHOFC",
+      "expression": "(=> childMealPatternApplies\n    (>= childAgeYears 1))",
+      "alternateExpression": "if childMealPatternApplies is true, then childAgeYears is at least 1"
+    },
+    {
+      "id": "FFVE8KIDWMZ5",
+      "expression": "(=> childMealPatternApplies\n    (<= childAgeYears 18))",
+      "alternateExpression": "if childMealPatternApplies is true, then childAgeYears is no more than 18"
+    },
+    {
+      "id": "FHLTSNXNG2T9",
+      "expression": "(=> (and parentSuppliesOneComponent\n         isMealReimbursable)\n    parentComponentMeetsRequirements)",
+      "alternateExpression": "if parentSuppliesOneComponent is true and isMealReimbursable is true, then parentComponentMeetsRequirements is true"
+    },
+    {
+      "id": "JLO2GJL5UEQO",
+      "expression": "(=> (and parentSuppliesOneComponent\n         isMealReimbursable)\n    providerSuppliesRemainingComponents)",
+      "alternateExpression": "if parentSuppliesOneComponent is true and isMealReimbursable is true, then providerSuppliesRemainingComponents is true"
+    },
+    {
+      "id": "TALLYY9SUFFI",
+      "expression": "(=> (<= yogurtAddedSugarsPer6Ounces 12) isYogurtCreditable)",
+      "alternateExpression": "Yogurt with no more than 12 grams of added sugars per 6 ounces is creditable as a meat alternate."
+    },
+    {
+      "id": "TALLYG5SUFFI",
+      "expression": "(=> (and (<= cerealAddedSugarsPerDryOunce 6) grainMadeWithEnrichedOrWholeGrain) isBreakfastCerealCreditable)",
+      "alternateExpression": "A breakfast cereal made with enriched or whole grain meal or flour, with no more than 6 grams of added sugars per dry ounce, is creditable as a grain."
+    },
+    {
+      "id": "TALLYS1SUFFI",
+      "expression": "(=> (and (= mealType MealType_SNACK) (>= snackComponentCount 2) (not snackOnlyItemsAreMilkAndJuice)) isMealReimbursable)",
+      "alternateExpression": "A snack with two or more of the five components, that is not only milk and juice, is reimbursable."
+    },
+    {
+      "id": "TALLYS2INVAL",
+      "expression": "(=> (and (= mealType MealType_SNACK) snackOnlyItemsAreMilkAndJuice) (not isMealReimbursable))",
+      "alternateExpression": "A snack whose only two items are fluid milk and juice is not reimbursable."
+    }
+  ],
+  "variables": [
+    {
+      "name": "childAgeYears",
+      "type": "INT",
+      "description": "The child's age in years. A child is a participant aged 1 year through 18 years."
+    },
+    {
+      "name": "isInfant",
+      "type": "BOOL",
+      "description": "True if the participant is an infant, meaning aged birth through 11 months."
+    },
+    {
+      "name": "containsFluidMilk",
+      "type": "BOOL",
+      "description": "True if the meal contains the fluid milk component."
+    },
+    {
+      "name": "containsVegetables",
+      "type": "BOOL",
+      "description": "True if the meal contains the vegetables component."
+    },
+    {
+      "name": "containsFruits",
+      "type": "BOOL",
+      "description": "True if the meal contains the fruits component."
+    },
+    {
+      "name": "containsGrains",
+      "type": "BOOL",
+      "description": "True if the meal contains the grains component."
+    },
+    {
+      "name": "containsMeatsMeatAlternates",
+      "type": "BOOL",
+      "description": "True if the meal contains the meats/meat alternates component."
+    },
+    {
+      "name": "isMealReimbursable",
+      "type": "BOOL",
+      "description": "True if the meal is reimbursable, meaning it contains every component required for that meal type for a child."
+    },
+    {
+      "name": "isFoodCreditable",
+      "type": "BOOL",
+      "description": "True if the food is creditable, meaning it may count toward a meal component."
+    },
+    {
+      "name": "grainWholeGrainPercent",
+      "type": "NUMBER",
+      "description": "The percent of a grain product's grain content that is whole grain. A product is whole grain-rich when this is between 50 and 100 percent, with any remaining grains being enriched."
+    },
+    {
+      "name": "isWholeGrainRich",
+      "type": "BOOL",
+      "description": "True if the grain product is whole grain-rich (grain content between 50 and 100 percent whole grain with any remaining grains enriched)."
+    },
+    {
+      "name": "sugarFigureType",
+      "type": "SugarFigureType",
+      "description": "Whether a referenced sugar quantity is measured as added sugars or total sugars."
+    },
+    {
+      "name": "meatReplacedGrainsAtBreakfastThisWeek",
+      "type": "INT",
+      "description": "The number of times a meat or meat alternate has replaced the grains component at breakfast during the current week."
+    },
+    {
+      "name": "isMeatReplacingGrainsAtBreakfastAllowed",
+      "type": "BOOL",
+      "description": "True if a meat or meat alternate may be served in place of the entire grains component at breakfast on this occasion (allowed only up to 3 times per week)."
+    },
+    {
+      "name": "vegetableServedToMeetFruitRequirement",
+      "type": "BOOL",
+      "description": "True if a vegetable is being served to meet the entire fruit requirement at lunch or supper."
+    },
+    {
+      "name": "twoVegetablesAreDifferentKinds",
+      "type": "BOOL",
+      "description": "True if, when two vegetables are served to meet both the vegetable and fruit requirements at lunch or supper, the two vegetables are two different kinds of vegetable."
+    },
+    {
+      "name": "snackComponentCount",
+      "type": "INT",
+      "description": "The number of distinct meal components (of the five) contained in a snack."
+    },
+    {
+      "name": "snackHasFluidMilk",
+      "type": "BOOL",
+      "description": "True if the snack includes fluid milk."
+    },
+    {
+      "name": "snackHasJuice",
+      "type": "BOOL",
+      "description": "True if the snack includes fruit juice or vegetable juice."
+    },
+    {
+      "name": "snackOnlyItemsAreMilkAndJuice",
+      "type": "BOOL",
+      "description": "True if the only two items in the snack are fluid milk and juice (fruit or vegetable juice)."
+    },
+    {
+      "name": "milkService",
+      "type": "MilkService",
+      "description": "The manner in which fluid milk is served to the child."
+    },
+    {
+      "name": "milkFatType",
+      "type": "MilkFatType",
+      "description": "The fat content type of the fluid milk served to the child."
+    },
+    {
+      "name": "milkIsFlavored",
+      "type": "BOOL",
+      "description": "True if the fluid milk served is flavored, false if unflavored."
+    },
+    {
+      "name": "isLactoseFreeOrReducedLactoseMilk",
+      "type": "BOOL",
+      "description": "True if the milk served is lactose-free or reduced-lactose milk."
+    },
+    {
+      "name": "milkMeetsFatAndFlavorForAge",
+      "type": "BOOL",
+      "description": "True if the milk meets the fat content and flavor requirements for the child's age group."
+    },
+    {
+      "name": "isMilkCreditableAsFluidMilk",
+      "type": "BOOL",
+      "description": "True if the milk may be served and counted as the fluid milk component."
+    },
+    {
+      "name": "yogurtServedInPlaceOfFluidMilk",
+      "type": "BOOL",
+      "description": "True if yogurt is being served in place of fluid milk."
+    },
+    {
+      "name": "milkSubstituteServed",
+      "type": "BOOL",
+      "description": "True if a fluid milk substitute such as soy milk is served for a non-disability reason."
+    },
+    {
+      "name": "hasWrittenParentRequest",
+      "type": "BOOL",
+      "description": "True if there is a written request from the parent or guardian for the milk substitute."
+    },
+    {
+      "name": "substituteNutritionallyEquivalent",
+      "type": "BOOL",
+      "description": "True if the milk substitute is nutritionally equivalent to milk as set out in 7 CFR 226.20(g)(3)."
+    },
+    {
+      "name": "isMilkSubstituteAllowed",
+      "type": "BOOL",
+      "description": "True if a fluid milk substitute served for a non-disability reason is permitted."
+    },
+    {
+      "name": "isVegetableServingCreditable",
+      "type": "BOOL",
+      "description": "True if a vegetable serving (fresh, frozen, or canned vegetables, dry beans, peas, lentils, or vegetable juice) is creditable as a vegetable."
+    },
+    {
+      "name": "leafyGreensCups",
+      "type": "NUMBER",
+      "description": "The volume of leafy greens served, in cups."
+    },
+    {
+      "name": "leafyGreensVegetableCredit",
+      "type": "NUMBER",
+      "description": "The vegetable credit, in cups, attributed to leafy greens served."
+    },
+    {
+      "name": "beansCountedAsVegetable",
+      "type": "BOOL",
+      "description": "True if cooked dry beans, peas, and lentils in a dish are counted as a vegetable."
+    },
+    {
+      "name": "beansCountedAsMeatAlternate",
+      "type": "BOOL",
+      "description": "True if cooked dry beans, peas, and lentils in a dish are counted as a meat alternate."
+    },
+    {
+      "name": "isFruitServingCreditable",
+      "type": "BOOL",
+      "description": "True if a fruit serving (fresh, frozen, canned, or dried fruits, or fruit juice) is creditable as a fruit."
+    },
+    {
+      "name": "driedFruitCups",
+      "type": "NUMBER",
+      "description": "The volume of dried fruit served, in cups."
+    },
+    {
+      "name": "driedFruitFruitCredit",
+      "type": "NUMBER",
+      "description": "The fruit credit, in cups, attributed to dried fruit served."
+    },
+    {
+      "name": "juiceIsPasteurized",
+      "type": "BOOL",
+      "description": "True if the juice is pasteurized."
+    },
+    {
+      "name": "juiceIsFullStrength",
+      "type": "BOOL",
+      "description": "True if the juice is full-strength."
+    },
+    {
+      "name": "isJuiceCreditable",
+      "type": "BOOL",
+      "description": "True if the juice is creditable toward a vegetable or fruit component."
+    },
+    {
+      "name": "juiceAlreadyServedToday",
+      "type": "BOOL",
+      "description": "True if fruit juice or vegetable juice was already served to meet the vegetable or fruit requirement at an earlier meal or snack on the same day."
+    },
+    {
+      "name": "juiceCreditsThisOccasion",
+      "type": "BOOL",
+      "description": "True if the juice served at this meal or snack credits toward the vegetable or fruit component."
+    },
+    {
+      "name": "grainMadeWithEnrichedOrWholeGrain",
+      "type": "BOOL",
+      "description": "True if the grain is made with enriched or whole grain meal or flour."
+    },
+    {
+      "name": "isGrainCreditable",
+      "type": "BOOL",
+      "description": "True if the grain food is creditable toward the grains component."
+    },
+    {
+      "name": "wholeGrainRichServedToday",
+      "type": "BOOL",
+      "description": "True if at least one whole grain-rich grain was served to the child during the day across all eating occasions."
+    },
+    {
+      "name": "dailyWholeGrainRichRequirementMet",
+      "type": "BOOL",
+      "description": "True if the daily whole grain-rich requirement is met (at least one grain serving per day is whole grain-rich)."
+    },
+    {
+      "name": "isGrainBasedDessert",
+      "type": "BOOL",
+      "description": "True if the grain food is a grain-based dessert, such as cookies, cakes, brownies, doughnuts, sweet rolls, toaster pastries, or granola bars."
+    },
+    {
+      "name": "cerealAddedSugarsPerDryOunce",
+      "type": "NUMBER",
+      "description": "The grams of added sugars per dry ounce in a breakfast cereal."
+    },
+    {
+      "name": "isBreakfastCerealCreditable",
+      "type": "BOOL",
+      "description": "True if the breakfast cereal is creditable as a grain."
+    },
+    {
+      "name": "isMeatAlternateCreditable",
+      "type": "BOOL",
+      "description": "True if the food qualifies as a creditable meat or meat alternate (lean meat, poultry, fish, alternate protein products, cheese, eggs, cooked dry beans/peas/lentils, nut or seed butters, nuts and seeds, yogurt, commercial tofu and soy products)."
+    },
+    {
+      "name": "isAcornChestnutOrCoconut",
+      "type": "BOOL",
+      "description": "True if the food is an acorn, chestnut, or coconut."
+    },
+    {
+      "name": "isNonCommercialOrNonStandardizedTofuSoy",
+      "type": "BOOL",
+      "description": "True if the tofu or soy product is non-commercial or non-standardized."
+    },
+    {
+      "name": "yogurtOuncesByWeight",
+      "type": "NUMBER",
+      "description": "The amount of yogurt served, measured in ounces by weight."
+    },
+    {
+      "name": "yogurtOunceEquivalentCredit",
+      "type": "NUMBER",
+      "description": "The ounce equivalent of meats/meat alternates credited from yogurt served (4 ounces by weight equals one ounce equivalent)."
+    },
+    {
+      "name": "yogurtMayBePlainOrFlavoredSweetenedOrUnsweetened",
+      "type": "BOOL",
+      "description": "True indicating yogurt may be plain or flavored, unsweetened or sweetened."
+    },
+    {
+      "name": "yogurtAddedSugarsPer6Ounces",
+      "type": "NUMBER",
+      "description": "The grams of added sugars per 6 ounces in a yogurt product."
+    },
+    {
+      "name": "isYogurtCreditable",
+      "type": "BOOL",
+      "description": "True if the yogurt is creditable as a meat alternate."
+    },
+    {
+      "name": "isNonCreditableYogurtProduct",
+      "type": "BOOL",
+      "description": "True if the product is frozen yogurt, a drinkable yogurt product, homemade yogurt, a yogurt flavored product, a yogurt bar, yogurt covered fruit or nuts, or a similar product."
+    },
+    {
+      "name": "isSoyYogurt",
+      "type": "BOOL",
+      "description": "True if the yogurt is soy yogurt."
+    },
+    {
+      "name": "foodDeepFatFriedOnSite",
+      "type": "BOOL",
+      "description": "True if the food was deep-fat fried (cooked by submerging in hot oil or other fat) on-site."
+    },
+    {
+      "name": "foodIsCommerciallyPreFried",
+      "type": "BOOL",
+      "description": "True if the food was pre-fried, flash-fried, or par-fried by a commercial manufacturer."
+    },
+    {
+      "name": "reheatedByFrying",
+      "type": "BOOL",
+      "description": "True if the commercially pre-fried food was reheated by frying."
+    },
+    {
+      "name": "isCommerciallyPreFriedFoodAllowed",
+      "type": "BOOL",
+      "description": "True if the commercially pre-fried, flash-fried, or par-fried food may be served."
+    },
+    {
+      "name": "foodUsedAsPunishmentOrReward",
+      "type": "BOOL",
+      "description": "True if foods or beverages are used as punishments or rewards."
+    },
+    {
+      "name": "isFamilyStyleMealService",
+      "type": "BOOL",
+      "description": "True if the meal is served under family style meal service."
+    },
+    {
+      "name": "isSecondMeal",
+      "type": "BOOL",
+      "description": "True if this is a second meal."
+    },
+    {
+      "name": "isSecondMealClaimable",
+      "type": "BOOL",
+      "description": "True if a second meal may be claimed for reimbursement."
+    },
+    {
+      "name": "modifiedMealMeetsMealPattern",
+      "type": "BOOL",
+      "description": "True if a modified meal meets the meal pattern. The document text for this rule is truncated and incomplete."
+    },
+    {
+      "name": "cerealSugarLimitMeasure",
+      "type": "SugarFigureType",
+      "description": "The sugar measure used for the breakfast cereal sugar limit; it must be added sugars, not total sugars."
+    },
+    {
+      "name": "mealType",
+      "type": "MealType",
+      "description": "The type of meal currently being served: breakfast, lunch, supper, or snack."
+    },
+    {
+      "name": "yogurtSugarLimitMeasure",
+      "type": "SugarFigureType",
+      "description": "The sugar measure used for the yogurt sugar limit; it must be added sugars, not total sugars."
+    },
+    {
+      "name": "hasWrittenMedicalStatement",
+      "type": "BOOL",
+      "description": "True if a written medical statement signed by a State licensed healthcare professional or a registered dietitian has been provided to justify a substitution or accommodation."
+    },
+    {
+      "name": "isSubstitutionReimbursable",
+      "type": "BOOL",
+      "description": "True if a meal substitution requiring a medical statement is reimbursable. Such a substitution is reimbursable only when a written medical statement signed by a State licensed healthcare professional or registered dietitian is provided."
+    },
+    {
+      "name": "parentSuppliesOneComponent",
+      "type": "BOOL",
+      "description": "True if a parent or guardian supplies exactly one component of a meal for a non-disability reason."
+    },
+    {
+      "name": "parentComponentMeetsRequirements",
+      "type": "BOOL",
+      "description": "True if the single component supplied by the parent or guardian meets the applicable meal pattern requirements."
+    },
+    {
+      "name": "providerSuppliesRemainingComponents",
+      "type": "BOOL",
+      "description": "True if the provider supplies all of the remaining components of the meal that the parent or guardian did not supply."
+    },
+    {
+      "name": "childMealPatternApplies",
+      "type": "BOOL",
+      "description": "True if the child meal pattern applies to the participant. The child meal pattern applies to children aged 1 through 18 and does not apply to infants."
+    },
+    {
+      "name": "infantMealPatternApplies",
+      "type": "BOOL",
+      "description": "True if the separate infant meal pattern applies to the participant."
+    },
+    {
+      "name": "breastmilkOrIronFortifiedFormulaServed",
+      "type": "BOOL",
+      "description": "True if breastmilk or iron-fortified infant formula is served at the infant meal or snack."
+    },
+    {
+      "name": "juiceServed",
+      "type": "BOOL",
+      "description": "True if fruit juice or vegetable juice is served in the meal."
+    },
+    {
+      "name": "wholeGrainRichRequirementApplies",
+      "type": "BOOL",
+      "description": "True if the whole grain-rich requirement applies to the participant. It applies only to the child and adult meal patterns, not to infants."
+    },
+    {
+      "name": "cookedGrainServed",
+      "type": "BOOL",
+      "description": "True if a cooked grain such as rice, quinoa, or pasta is served."
+    },
+    {
+      "name": "isCookedGrainCreditable",
+      "type": "BOOL",
+      "description": "True if cooked grains are creditable. In the infant meal pattern, cooked grains are not creditable."
+    },
+    {
+      "name": "cheeseFoodOrSpreadServed",
+      "type": "BOOL",
+      "description": "True if cheese food or cheese spread is served as a meat alternate."
+    },
+    {
+      "name": "naturalOrProcessedCheeseServed",
+      "type": "BOOL",
+      "description": "True if natural or processed cheese is served as a meat alternate."
+    },
+    {
+      "name": "isCheeseFoodOrSpreadCreditableForInfants",
+      "type": "BOOL",
+      "description": "True if cheese food or cheese spread is creditable as a meat alternate for infants."
+    },
+    {
+      "name": "isNaturalOrProcessedCheeseCreditableForInfants",
+      "type": "BOOL",
+      "description": "True if natural or processed cheese is creditable as a meat alternate for infants."
+    },
+    {
+      "name": "solidFoodsMayBeIntroduced",
+      "type": "BOOL",
+      "description": "True if solid foods may be introduced to the infant, which is around 6 months of age or earlier/later when developmentally appropriate."
+    },
+    {
+      "name": "isDevelopmentallyAppropriate",
+      "type": "BOOL",
+      "description": "True if introducing solid foods is developmentally appropriate for the infant."
+    },
+    {
+      "name": "infantCerealIsIronFortified",
+      "type": "BOOL",
+      "description": "True if the infant cereal served is iron-fortified."
+    },
+    {
+      "name": "isInfantCerealCreditable",
+      "type": "BOOL",
+      "description": "True if the infant cereal served is creditable. Infant cereal must be iron-fortified to be creditable."
+    }
+  ]
+}

@@ -20,6 +20,7 @@ from tally.models import (
     ComplianceItem,
     Meal,
     ParentNote,
+    Proof,
     Provider,
     Question,
 )
@@ -39,6 +40,7 @@ class MemoryStore:
         self.notes: dict[tuple[str, date], ParentNote] = {}
         self.compliance: dict[str, ComplianceItem] = {}
         self.claims: dict[str, Claim] = {}
+        self.proofs: dict[str, Proof] = {}
         self.vocabulary: dict[str, str] = {}
         """The provider's own names for foods, learned over time: "the usual crackers" -> a product."""
 
@@ -153,6 +155,22 @@ class MemoryStore:
     def get_claim(self, month: str) -> Claim | None:
         return self.claims.get(month)
 
+    # Proofs ------------------------------------------------------------------
+    def put_proof(self, p: Proof) -> None:
+        self.proofs[p.id] = p
+
+    def list_proofs(self, on: date | None = None, meal_id: str | None = None) -> list[Proof]:
+        out = list(self.proofs.values())
+        if on is not None:
+            out = [p for p in out if p.at.date() == on]
+        if meal_id is not None:
+            out = [p for p in out if p.meal_id == meal_id]
+        return sorted(out, key=lambda p: p.at)
+
+    def proofs_for_question(self, question: str) -> list[Proof]:
+        """Every attempt at one question, so the tool can cap the loop and the page can show it."""
+        return sorted((p for p in self.proofs.values() if p.question == question), key=lambda p: p.at)
+
     # Vocabulary ---------------------------------------------------------------
     def learn_food(self, phrase: str, product: str) -> None:
         self.vocabulary[phrase.strip().lower()] = product
@@ -167,6 +185,7 @@ class MemoryStore:
             "attendance": {str(d): [_dump(e) for e in evs] for d, evs in self.attendance.items()},
             "questions": [_dump(q) for q in self.questions.values()],
             "compliance": [_dump(c) for c in self.compliance.values()],
+            "proofs": [_dump(p) for p in self.proofs.values()],
             "vocabulary": self.vocabulary,
         }, indent=1), encoding="utf-8")
 
@@ -186,6 +205,8 @@ class MemoryStore:
             s.put_question(Question.model_validate(q))
         for c in blob.get("compliance", []):
             s.put_compliance(ComplianceItem.model_validate(c))
+        for p in blob.get("proofs", []):
+            s.put_proof(Proof.model_validate(p))
         s.vocabulary = dict(blob.get("vocabulary", {}))
         return s
 

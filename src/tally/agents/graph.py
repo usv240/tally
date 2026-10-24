@@ -17,8 +17,9 @@ from __future__ import annotations
 from strands import Agent
 from strands.multiagent import GraphBuilder
 
-from tally import runtime
+from tally import prove, runtime
 from tally.agents.models import fast_model, reasoning_model
+from tally.tools.prove import prove_answer
 from tally.tools.day import (
     answer_open_question,
     log_plate,
@@ -71,7 +72,16 @@ answer_open_question when she is answering something you asked.
 
 Never decide reimbursability yourself. The tool does that, against versioned rules."""
 
-LEDGER = """You close out the day's meals.
+# Appended to DAY only when prove_answer is in the tool list. With TALLY_PROVE=off the agent runs
+# word for word as it did before the tool existed, which is what makes the before-and-after honest.
+DAY_PROVE = """When she asks what the rules say, about a food, a meal, milk, juice, sugar limits, whole
+grains, snacks or infants, do not answer from memory. Draft the answer as one plain statement with the
+numbers in it, then call prove_answer with her question, your draft, and any facts she has given you.
+Do exactly what next_step says: say a proved answer; rewrite a contradicted one so it agrees with the
+rule quoted and prove it again; if it cannot be decided, ask her the one short question that settles
+it and stop there. Never give her a rule answer that was not proved unless you say it is unverified."""
+
+LEDGER ="""You close out the day's meals.
 
 Call close_the_day, then report in one sentence: how many children were fed, what the day is worth,
 and whether anything was not reimbursable. If anything was lost, say what it would have paid, because
@@ -95,12 +105,41 @@ Call build_digest. Report exactly what is waiting: notes to approve, questions t
 items. If nothing needs her, say so in one sentence and stop. Never pad."""
 
 
-def day_agent() -> Agent:
-    """Request driven, shallow, fast. The provider is waiting with a plate in her hand."""
+def day_agent(with_prove: bool | None = None) -> Agent:
+    """Request driven, shallow, fast. The provider is waiting with a plate in her hand.
+
+    `with_prove` adds the one tool this agent gained in October 2026. None means "whatever
+    TALLY_PROVE says"; False is the agent exactly as it shipped in September.
+    """
+    with_prove = prove.enabled() if with_prove is None else with_prove
+    tools = [log_plate, take_roll, record_substitution, answer_open_question, today_so_far]
+    prompt = preamble() + NL2 + DAY
+    if with_prove:
+        tools.append(prove_answer)
+        prompt += NL2 + DAY_PROVE
     return Agent(name="Tally", description="Handles one photograph or sentence at a time.",
-                 model=reasoning_model(), system_prompt=preamble() + NL2 + DAY,
-                 tools=[log_plate, take_roll, record_substitution, answer_open_question, today_so_far],
-                 callback_handler=None)
+                 model=reasoning_model(), system_prompt=prompt, tools=tools, callback_handler=None)
+
+
+def ask(text: str, with_prove: bool | None = None) -> dict:
+    """Put one question to the Day agent and report what it said and what it proved.
+
+    The proofs are read back off the store rather than off the agent's reply, so the page shows what
+    was actually checked, not what the model says it checked.
+    """
+    r = runtime.get()
+    before = {p.id for p in r.store.list_proofs()}
+    agent = day_agent(with_prove)
+    enabled = prove_answer in agent.tool_names if hasattr(agent, "tool_names") else bool(with_prove)
+    r.emit("asked", text=text, prove=enabled)
+    result = agent(text)
+    answer = str(result).strip()
+    proofs = [p for p in r.store.list_proofs() if p.id not in before]
+    verdict = proofs[-1].verdict if proofs else ("UNCHECKED" if enabled else "SKIPPED")
+    tone = {"VALID": "ok", "INVALID": "alert"}.get(verdict, "info")
+    r.say(answer, tone=tone)
+    return {"question": text, "answer": answer, "prove": enabled, "verdict": verdict,
+            "proof_ids": [p.id for p in proofs]}
 
 
 def ledger_agent() -> Agent:

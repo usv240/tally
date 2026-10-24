@@ -135,6 +135,25 @@ class DemoService:
             answer_open_question(question_id, answer)
             return self.state()
 
+    def ask(self, text: str, prove: bool | None = None) -> dict:
+        """One question to the Day agent. `prove=False` is the agent as it was before the tool."""
+        with self.lock:
+            runtime.configure(self.rt)
+            from tally.agents.graph import ask
+
+            out = ask(text, with_prove=prove)
+            return {"ask": out, **self.state()}
+
+    def prove(self, question: str, answer: str, facts: str = "", meal_id: str = "") -> dict:
+        """Prove one answer directly, for the public API and the MCP server. Same tool, no agent."""
+        with self.lock:
+            runtime.configure(self.rt)
+            from tally.tools.prove import prove_answer
+
+            out = prove_answer(question, answer, facts, meal_id)
+            p = next((x for x in self.rt.store.list_proofs() if x.id == out.get("proof_id")), None)
+            return {**out, "proof": self.proof_json(p) if p else None}
+
     def substitute(self, meal_id: str, child_id: str, food: str, component: str) -> dict:
         with self.lock:
             runtime.configure(self.rt)
@@ -197,6 +216,7 @@ class DemoService:
                          for c in r.store.list_children()],
             "ratio": self.ratio(),
             "meals": [self.meal_json(m) for m in meals],
+            "proofs": [self.proof_json(p) for p in r.store.list_proofs(on)],
             "questions": [{"id": q.id, "text": q.text, "options": q.options,
                            "priority": q.priority, "answered": q.answered} for q in questions],
             "asked_today": r.store.questions_asked_today(on),
@@ -247,6 +267,18 @@ class DemoService:
             "flags": v.flags if v else [],
             "label_checks": v.label_checks if v else [],
             "rule_version": v.rule_version if v else "",
+            "proofs": [self.proof_json(p) for p in self.rt.store.list_proofs(meal_id=m.id)],
+        }
+
+    def proof_json(self, p) -> dict:
+        """A proof as the page and the sponsor see it: the verdict, the rule, the facts, the version."""
+        return {
+            "id": p.id, "at": p.at.isoformat(), "question": p.question, "answer": p.answer,
+            "facts": p.facts, "verdict": p.verdict, "rules": p.rules, "premises": p.premises,
+            "claims": p.claims, "missing_facts": p.missing_facts, "untranslated": p.untranslated,
+            "policy_version": p.policy_version, "guardrail_version": p.guardrail_version,
+            "latency_ms": p.latency_ms, "text_units": p.text_units, "attempt": p.attempt,
+            "meal_id": p.meal_id,
         }
 
     def month(self) -> dict:

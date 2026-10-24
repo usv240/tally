@@ -1,0 +1,363 @@
+{
+  "qualityReport": {
+    "typeCount": 5,
+    "variableCount": 96,
+    "ruleCount": 83,
+    "unusedTypes": [
+      "SugarFigureType",
+      "TipoComida"
+    ],
+    "unusedTypeValues": [
+      {
+        "typeName": "MilkService",
+        "valueName": "MilkService_BEVERAGE"
+      },
+      {
+        "typeName": "MilkService",
+        "valueName": "MilkService_ON_CEREAL"
+      },
+      {
+        "typeName": "MilkService",
+        "valueName": "MilkService_COMBINATION"
+      },
+      {
+        "typeName": "MilkFatType",
+        "valueName": "MilkFatType_OTHER"
+      }
+    ],
+    "unusedVariables": [
+      "isFoodCreditable",
+      "sugarFigureType",
+      "isVegetableServingCreditable",
+      "isFruitServingCreditable",
+      "modifiedMealMeetsMealPattern",
+      "cerealSugarLimitMeasure",
+      "yogurtSugarLimitMeasure",
+      "cookedGrainServed",
+      "cheeseFoodOrSpreadServed",
+      "naturalOrProcessedCheeseServed",
+      "mealTypeIsNotOther"
+    ],
+    "conflictingRules": [],
+    "disjointRuleSets": [
+      {
+        "variables": [
+          "childAgeYears",
+          "milkFatType",
+          "milkIsFlavored",
+          "childMealPatternApplies",
+          "isInfant",
+          "foodDeepFatFriedOnSite",
+          "isMealReimbursable",
+          "breastmilkOrIronFortifiedFormulaServed",
+          "juiceServed",
+          "wholeGrainRichRequirementApplies",
+          "isCookedGrainCreditable",
+          "isCheeseFoodOrSpreadCreditableForInfants",
+          "isNaturalOrProcessedCheeseCreditableForInfants",
+          "infantMealPatternApplies",
+          "mealType",
+          "snackComponentCount",
+          "snackOnlyItemsAreMilkAndJuice",
+          "snackHasFluidMilk",
+          "snackHasJuice",
+          "containsFluidMilk",
+          "containsVegetables",
+          "containsFruits",
+          "containsGrains",
+          "containsMeatsMeatAlternates",
+          "parentSuppliesOneComponent",
+          "parentComponentMeetsRequirements",
+          "providerSuppliesRemainingComponents",
+          "meatReplacedGrainsAtBreakfastThisWeek",
+          "vegetableServedToMeetFruitRequirement",
+          "twoVegetablesAreDifferentKinds",
+          "isMeatReplacingGrainsAtBreakfastAllowed"
+        ],
+        "rules": [
+          "I9UPBW7JOG2J",
+          "D99G2940UBDT",
+          "GL6CH4S9FV7P",
+          "Q2CWBXIGH9F3",
+          "X6B54DE3H1RZ",
+          "JQGOQ2WT7XW1",
+          "NBAAZKYKHOFC",
+          "FFVE8KIDWMZ5",
+          "PDODZF5GURQ0",
+          "B4LO9UTTFHAP",
+          "NW3QVGR68UGF",
+          "S8HJIZQUFWYK",
+          "P13D68UZLE16",
+          "W2U11CTLROOJ",
+          "JYQ8MO248NIQ",
+          "QXM8TMWCWEZQ",
+          "YZJ6WJQLCEPO",
+          "NI2J6BKDAT2D",
+          "QHGQ2D6R2HK4",
+          "LOVTFVEHODAF",
+          "XGSDG8EUGQ1A",
+          "HGLIB4KZOT1P",
+          "JRLGQ66CWMAZ",
+          "LE0G9WY76VMB",
+          "HPHD3FIH5SDJ",
+          "Y7X013PO2L5O",
+          "JYX485KBNSSV",
+          "WCWJ6YTGKW4A",
+          "Y4IPLG06ZM7E",
+          "E96ZY207WUJK",
+          "QNX1F8NUYS5Q",
+          "R0GGT9GAP8RB",
+          "PJ95ZZQ8FYE5",
+          "M8QWB4AME7K8",
+          "HJ9NDIQ12IW0",
+          "FHLTSNXNG2T9",
+          "JLO2GJL5UEQO",
+          "JHW812ODON58",
+          "JIIKTAC3TJ4E",
+          "I25RC8O58Z55",
+          "AW5YGA0OL6T7",
+          "V4HO1LHK7WFI",
+          "ECNI3CCSZQLS"
+        ]
+      },
+      {
+        "variables": [
+          "grainWholeGrainPercent",
+          "isWholeGrainRich"
+        ],
+        "rules": [
+          "LWUAEQK572GB",
+          "OS7JY8QQ5MSD",
+          "ZGPI1QT0N13D"
+        ]
+      },
+      {
+        "variables": [
+          "milkService"
+        ],
+        "rules": [
+          "C3SGHAMLQT30"
+        ]
+      },
+      {
+        "variables": [
+          "isLactoseFreeOrReducedLactoseMilk",
+          "milkMeetsFatAndFlavorForAge",
+          "isMilkCreditableAsFluidMilk"
+        ],
+        "rules": [
+          "MU63117S0B9K"
+        ]
+      },
+      {
+        "variables": [
+          "yogurtServedInPlaceOfFluidMilk"
+        ],
+        "rules": [
+          "YHAGEREFOM70"
+        ]
+      },
+      {
+        "variables": [
+          "milkSubstituteServed",
+          "isMilkSubstituteAllowed",
+          "hasWrittenParentRequest",
+          "substituteNutritionallyEquivalent"
+        ],
+        "rules": [
+          "I3VVCVUS70TW",
+          "W6FF8VWKQ1SW",
+          "PAK16X0L9IXY",
+          "HILLD6ZUKAEX"
+        ]
+      },
+      {
+        "variables": [
+          "leafyGreensCups",
+          "leafyGreensVegetableCredit"
+        ],
+        "rules": [
+          "WMJ9GPFL7ROK"
+        ]
+      },
+      {
+        "variables": [
+          "beansCountedAsVegetable",
+          "beansCountedAsMeatAlternate"
+        ],
+        "rules": [
+          "O28I3FX1KU5B"
+        ]
+      },
+      {
+        "variables": [
+          "driedFruitCups",
+          "driedFruitFruitCredit"
+        ],
+        "rules": [
+          "OXNT6YUMJVSE"
+        ]
+      },
+      {
+        "variables": [
+          "juiceIsPasteurized",
+          "isJuiceCreditable",
+          "juiceIsFullStrength"
+        ],
+        "rules": [
+          "RVNQHMHZP08E",
+          "EM1BQFUHSQLD"
+        ]
+      },
+      {
+        "variables": [
+          "juiceAlreadyServedToday",
+          "juiceCreditsThisOccasion"
+        ],
+        "rules": [
+          "KJYX10V4A576"
+        ]
+      },
+      {
+        "variables": [
+          "grainMadeWithEnrichedOrWholeGrain",
+          "isGrainCreditable",
+          "isGrainBasedDessert"
+        ],
+        "rules": [
+          "ET0WLFP94SJ6",
+          "K55K8B6QLXKB"
+        ]
+      },
+      {
+        "variables": [
+          "wholeGrainRichServedToday",
+          "dailyWholeGrainRichRequirementMet"
+        ],
+        "rules": [
+          "GXIQNJ3Q0XGF"
+        ]
+      },
+      {
+        "variables": [
+          "cerealAddedSugarsPerDryOunce",
+          "isBreakfastCerealCreditable"
+        ],
+        "rules": [
+          "CCA7QB427YU9",
+          "BBLO2MEVBXPD",
+          "KGMHTXY7P44G"
+        ]
+      },
+      {
+        "variables": [
+          "isMeatAlternateCreditable",
+          "isAcornChestnutOrCoconut",
+          "isNonCommercialOrNonStandardizedTofuSoy"
+        ],
+        "rules": [
+          "TOLE7UZRD22U",
+          "Y9HQ92YXDY8J"
+        ]
+      },
+      {
+        "variables": [
+          "yogurtOuncesByWeight",
+          "yogurtOunceEquivalentCredit"
+        ],
+        "rules": [
+          "SJOUS5UR3NHS"
+        ]
+      },
+      {
+        "variables": [
+          "yogurtMayBePlainOrFlavoredSweetenedOrUnsweetened"
+        ],
+        "rules": [
+          "FF5V2UOTO4Y5"
+        ]
+      },
+      {
+        "variables": [
+          "yogurtAddedSugarsPer6Ounces",
+          "isYogurtCreditable",
+          "isSoyYogurt",
+          "isNonCreditableYogurtProduct"
+        ],
+        "rules": [
+          "Q3QPW8F7KYAF",
+          "W6SBBIPLTYR3",
+          "PA7V3IZHBRHU",
+          "JAM5ZGVTMYNW",
+          "R7WGHG9DT3DF"
+        ]
+      },
+      {
+        "variables": [
+          "foodIsCommerciallyPreFried",
+          "isCommerciallyPreFriedFoodAllowed",
+          "reheatedByFrying"
+        ],
+        "rules": [
+          "AA0O9RSCY14L",
+          "DBFMHMSRP9PT",
+          "MMSLB0CRPM0K"
+        ]
+      },
+      {
+        "variables": [
+          "foodUsedAsPunishmentOrReward"
+        ],
+        "rules": [
+          "SFE38VZTQH82"
+        ]
+      },
+      {
+        "variables": [
+          "isFamilyStyleMealService",
+          "isSecondMeal",
+          "isSecondMealClaimable"
+        ],
+        "rules": [
+          "NNB20N6KQG4C"
+        ]
+      },
+      {
+        "variables": [
+          "hasWrittenMedicalStatement",
+          "isSubstitutionReimbursable"
+        ],
+        "rules": [
+          "L9ZZUVDSI33T"
+        ]
+      },
+      {
+        "variables": [
+          "solidFoodsMayBeIntroduced",
+          "isDevelopmentallyAppropriate"
+        ],
+        "rules": [
+          "P2LV7EZRSUML"
+        ]
+      },
+      {
+        "variables": [
+          "infantCerealIsIronFortified",
+          "isInfantCerealCreditable"
+        ],
+        "rules": [
+          "XCP6U9BZ8LG2"
+        ]
+      },
+      {
+        "variables": [
+          "topicCoveredByTheseRules",
+          "questionIsAboutPortionSizeRatioRateOrTiering"
+        ],
+        "rules": [
+          "DOAUUNN79AXD"
+        ]
+      }
+    ]
+  }
+}

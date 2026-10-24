@@ -197,6 +197,36 @@ def sponsor_month(month: str = Query(default=""),
     check_key(x_api_key)
     return service.sponsor_month(month or None)
 
+@app.post("/api/prove", tags=["write"])
+def post_prove(body: dict = Body(...), x_api_key: str | None = Header(default=None)) -> dict:
+    """Prove an answer about the meal pattern against the regulation. The one tool, over HTTP.
+
+    Send a question and a draft answer and get back VALID, INVALID with the rule it breaks,
+    SATISFIABLE or AMBIGUOUS with the fact that would decide it, or UNVERIFIED when the question
+    is outside 7 CFR 226.20. The check is a formal proof by Amazon Bedrock Automated Reasoning,
+    not a second model's opinion. Use it in front of your own agent's rule answers.
+
+    Body: {"question": "Can I serve ...?", "answer": "Yes, because ...", "facts": "the label says ..."}
+    """
+    check_key(x_api_key)
+    question, answer = (body.get("question") or "").strip(), (body.get("answer") or "").strip()
+    if not question or not answer:
+        raise HTTPException(status_code=400, detail="question and answer are required")
+    return service.prove(question, answer, body.get("facts") or "", body.get("meal_id") or "")
+
+@app.post("/api/ask", tags=["demo"])
+def post_ask(body: dict = Body(...)) -> dict:
+    """Ask Tally what the rules say. Body: {"text": "...", "prove": true}
+
+    `prove: false` runs the Day agent exactly as it shipped before prove_answer existed, which is
+    the Before in the before-and-after.
+    """
+    text = (body.get("text") or "").strip()
+    if not text:
+        raise HTTPException(status_code=400, detail="text is required")
+    prove_flag = body.get("prove")
+    return service.ask(text, None if prove_flag is None else bool(prove_flag))
+
 @app.post("/api/step", tags=["demo"])
 def post_step(body: dict = Body(default={})) -> dict:
     """Run the next step of the demo day, or a named one."""

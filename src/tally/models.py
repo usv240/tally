@@ -112,6 +112,43 @@ class Verdict(BaseModel):
     by_age_group: dict[str, bool] = Field(default_factory=dict)
 
 
+ProofVerdict = Literal[
+    "VALID",        # the rules prove the answer
+    "INVALID",      # the rules contradict the answer; `rules` says which
+    "SATISFIABLE",  # true under some facts, false under others; `missing_facts` says which
+    "AMBIGUOUS",    # the sentence has two readings; `missing_facts` says how they differ
+    "IMPOSSIBLE",   # the stated facts contradict each other
+    "UNVERIFIED",   # outside the rulebook, or too complex to decide
+    "SKIPPED",      # proving is switched off, or the check did not run
+]
+
+
+class Proof(BaseModel):
+    """One check of one answer against the regulation. Kept, so a reviewer can see it a year later."""
+
+    id: str
+    provider_id: str
+    at: datetime
+    question: str
+    answer: str
+    facts: str = ""
+    verdict: ProofVerdict
+    rules: list[str] = Field(default_factory=list)
+    """The rules that prove or contradict the answer, in the rulebook's words."""
+    premises: list[str] = Field(default_factory=list)
+    claims: list[str] = Field(default_factory=list)
+    untranslated: list[str] = Field(default_factory=list)
+    """Parts of the answer the logic could not read. A VALID verdict does not cover these."""
+    missing_facts: list[str] = Field(default_factory=list)
+    """Statements whose truth would settle the answer. The agent turns one into a question."""
+    policy_version: str = ""
+    guardrail_version: str = ""
+    latency_ms: int = 0
+    text_units: int = 0
+    attempt: int = 1
+    meal_id: str | None = None
+
+
 class Meal(BaseModel):
     id: str
     provider_id: str
