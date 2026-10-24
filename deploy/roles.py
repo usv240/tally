@@ -120,13 +120,16 @@ if _deployed.exists():
                      f"arn:aws:bedrock:{REGION}:{ACCOUNT}:guardrail-profile/us.guardrail.v1:0",
                      f"arn:aws:bedrock:*:{ACCOUNT}:guardrail-profile/us.guardrail.v1:0",
                      "arn:aws:bedrock:*::guardrail-profile/us.guardrail.v1:0"]
+        statements = [{"Sid": "ApplyTheProveGuardrail", "Effect": "Allow",
+                       "Action": ["bedrock:ApplyGuardrail"], "Resource": resources}]
         if _d.get("policy_arn"):
-            resources += [_d["policy_arn"], _d["policy_arn"] + ":*"]
-        put_policy(INSTANCE_ROLE, "ProveAnswers", {
-            "Version": "2012-10-17",
-            "Statement": [{"Sid": "ApplyTheProveGuardrail", "Effect": "Allow",
-                           "Action": ["bedrock:ApplyGuardrail"], "Resource": resources}],
-        })
+            # Applying a guardrail that carries an Automated Reasoning policy also invokes that
+            # policy, under its own action, on its versioned ARN. The cross-Region permissions page
+            # does not mention it; the live service's AccessDenied did.
+            statements.append({"Sid": "InvokeTheReasoningPolicy", "Effect": "Allow",
+                               "Action": ["bedrock:InvokeAutomatedReasoningPolicy"],
+                               "Resource": [_d["policy_arn"], _d["policy_arn"] + ":*"]})
+        put_policy(INSTANCE_ROLE, "ProveAnswers", {"Version": "2012-10-17", "Statement": statements})
 
 print(f"\nACCESS_ROLE_ARN={access_arn}")
 print(f"INSTANCE_ROLE_ARN={instance_arn}")
