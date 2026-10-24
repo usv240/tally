@@ -15,7 +15,7 @@ import uuid
 
 from strands import tool
 
-from tally import prove, runtime
+from tally import ledger, prove, runtime
 from tally.models import Proof
 
 MAX_ATTEMPTS = 3
@@ -37,6 +37,10 @@ def _record(question: str, answer: str, facts: str, checked: prove.Checked, atte
         policy_version=checked.policy_version, guardrail_version=checked.guardrail_version,
         latency_ms=checked.latency_ms, text_units=checked.text_units, attempt=attempt, meal_id=meal_id,
     )
+    # Filed before it is stored, so a receipt a reviewer is shown is one the ledger already holds.
+    if ledger.enabled() and checked.verdict != "SKIPPED":
+        p.ledger = ledger.file(p, p.provider_id)
+        r.emit("proof_filed", proof_id=p.id, **p.ledger)
     r.store.put_proof(p)
     return p
 

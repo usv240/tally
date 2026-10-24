@@ -404,7 +404,10 @@
 #             sugars per 6 ounces."]</pre>
         <p class="muted small">Put it in front of your own agent's rule answers. The reply is a proof
         by Amazon Bedrock Automated Reasoning against 7 CFR 226.20, not a second model's opinion.
-        The same tool is on the MCP server as <code>prove_answer</code>.</p>
+        The same tool is on the MCP server as <code>prove_answer</code>, and as a standalone AWS
+        Lambda in <code>lambda/</code> for agents that are not Tally. Every receipt is filed in
+        Amazon S3 with Object Lock, so a sponsor can read it three years on and nobody can have
+        changed it.</p>
       </div>
       <div class="card">
         <h3>Or run the whole thing yourself</h3>

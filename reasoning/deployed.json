@@ -7,5 +7,6 @@
   "guardrail_id": "y90i1mw4ewvy",
   "guardrail_arn": "arn:aws:bedrock:us-east-1:957325809861:guardrail/y90i1mw4ewvy",
   "guardrail_version": "8",
-  "confidence": 0.3
+  "confidence": 0.3,
+  "ledger_bucket": "tally-proof-ledger-957325809861"
 }

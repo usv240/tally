@@ -128,9 +128,16 @@ verify this". The rulebook is `reasoning/cacfp_meal_pattern.txt` (sources in
 `reasoning/SOURCES.md`); `python -m deploy.reasoning_policy all` builds the policy and the guardrail.
 `TALLY_PROVE=off` runs the agent exactly as it was, which is how the before and after was filmed.
 
-The same tool is reachable three ways: inside the agent (`src/tally/tools/prove.py`), over MCP
-(`prove_answer` on `tally.mcp.server`), and over HTTP (`POST /api/prove`, with the sandbox key).
-Measurements are in [docs/EVAL.md](docs/EVAL.md), under "Proved against the regulation".
+The same tool is reachable four ways: inside the agent (`src/tally/tools/prove.py`), over MCP
+(`prove_answer` on `tally.mcp.server`), over HTTP (`POST /api/prove`, with the sandbox key), and as
+a standalone AWS Lambda Function URL (`lambda/`, deployed by `python -m deploy.lambda`) that needs
+no Tally at all. Measurements are in [docs/EVAL.md](docs/EVAL.md), under "Proved against the
+regulation".
+
+**Every receipt is filed in Amazon S3 with Object Lock** (`src/tally/ledger.py`, bucket from
+`python -m deploy.ledger`): a write-once copy, compliance mode, three years, which is how long a
+food program claim stays reviewable. Nobody can edit or delete it, Tally included. The agent never
+reads the bucket; it is where the tool's evidence lands, the way a claim lands on the sponsor's desk.
 
 **Reuse the pattern** in your own Strands agent, in about twenty lines:
 

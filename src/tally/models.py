@@ -147,6 +147,8 @@ class Proof(BaseModel):
     text_units: int = 0
     attempt: int = 1
     meal_id: str | None = None
+    ledger: dict = Field(default_factory=dict)
+    """Where the receipt was filed in Amazon S3 (bucket, key, locked_until), or why it was not."""
 
 
 class Meal(BaseModel):

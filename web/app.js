@@ -490,10 +490,13 @@
         })));
     }
     var policy = (p.policy_version || "").split("/").pop();
+    var filed = p.ledger && p.ledger.filed
+      ? "Filed in S3, locked until " + p.ledger.locked_until + ". "
+      : (p.ledger && p.ledger.reason ? "Not filed: " + p.ledger.reason + ". " : "");
     card.appendChild(window.h("p", { class: "stamp" }, [
       (p.verdict === "SKIPPED" ? "Proving was off. " : "Automated Reasoning policy " + (policy || "unversioned")
-        + ", guardrail version " + (p.guardrail_version || "?") + ". "),
-      window.infoBtn("proof_receipt", "the proof receipt")
+        + ", guardrail version " + (p.guardrail_version || "?") + ". " + filed),
+      window.infoBtn(p.ledger && p.ledger.filed ? "proof_ledger" : "proof_receipt", "the proof receipt")
     ]));
     return card;
   }

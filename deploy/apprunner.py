@@ -35,8 +35,11 @@ def _prove_env() -> dict:
     if not f.exists():
         return {"TALLY_PROVE": "off"}
     d = json.loads(f.read_text())
-    return {"TALLY_PROVE": "on", "TALLY_GUARDRAIL_ID": d["guardrail_id"],
-            "TALLY_GUARDRAIL_VERSION": str(d["guardrail_version"])}
+    env = {"TALLY_PROVE": "on", "TALLY_GUARDRAIL_ID": d["guardrail_id"],
+           "TALLY_GUARDRAIL_VERSION": str(d["guardrail_version"])}
+    if d.get("ledger_bucket"):
+        env["TALLY_LEDGER_BUCKET"] = d["ledger_bucket"]
+    return env
 
 
 SERVICES = {

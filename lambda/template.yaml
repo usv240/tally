@@ -1,0 +1,60 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Transform: AWS::Serverless-2016-10-31
+Description: >
+  prove_answer as a standalone AWS Lambda function with a Function URL. Proves a draft answer
+  against an Amazon Bedrock Guardrails Automated Reasoning policy and returns the verdict, the
+  rules it rests on or breaks, and the fact that would decide it. Built for Tally; usable in front
+  of any agent.
+
+Parameters:
+  GuardrailId:
+    Type: String
+    Description: The guardrail that carries the Automated Reasoning policy.
+  GuardrailVersion:
+    Type: String
+    Default: "1"
+  PolicyArn:
+    Type: String
+    Description: The Automated Reasoning policy ARN (unversioned); invoking it needs its own permission.
+
+Resources:
+  ProveAnswer:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: tally-prove-answer
+      Runtime: python3.12
+      Handler: handler.handler
+      CodeUri: ./build
+      MemorySize: 512
+      Timeout: 30
+      Environment:
+        Variables:
+          GUARDRAIL_ID: !Ref GuardrailId
+          GUARDRAIL_VERSION: !Ref GuardrailVersion
+      FunctionUrlConfig:
+        AuthType: NONE
+        Cors:
+          AllowOrigins: ["*"]
+          AllowMethods: ["POST"]
+          AllowHeaders: ["content-type"]
+      Policies:
+        - Statement:
+            - Sid: ApplyTheProveGuardrail
+              Effect: Allow
+              Action: bedrock:ApplyGuardrail
+              Resource:
+                - !Sub arn:aws:bedrock:${AWS::Region}:${AWS::AccountId}:guardrail/${GuardrailId}
+                - !Sub arn:aws:bedrock:*:${AWS::AccountId}:guardrail/${GuardrailId}
+                - !Sub arn:aws:bedrock:*:${AWS::AccountId}:guardrail-profile/us.guardrail.v1:0
+                - arn:aws:bedrock:*::guardrail-profile/us.guardrail.v1:0
+            - Sid: InvokeTheReasoningPolicy
+              Effect: Allow
+              Action: bedrock:InvokeAutomatedReasoningPolicy
+              Resource:
+                - !Ref PolicyArn
+                - !Sub "${PolicyArn}:*"
+
+Outputs:
+  ProveUrl:
+    Description: POST a JSON body of question, answer and facts here.
+    Value: !GetAtt ProveAnswerUrl.FunctionUrl

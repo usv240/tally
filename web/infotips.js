@@ -18,6 +18,7 @@ window.INFOTIPS = {
 
   prove_answer: "Before Tally tells you what the rules say, its draft answer is checked by Amazon Bedrock Automated Reasoning against 7 CFR 226.20 turned into formal logic. The reply is a proof, not a second opinion: proved, contradicted with the rule named, or the one fact that would decide it. Switch it off to see the agent as it was before the tool.",
   proof_receipt: "One check of one answer, kept with the day's record. It names the verdict, the rule it rests on, the facts the logic read, and the policy version, so a sponsor can see a year later why the agent said what it said.",
+  proof_ledger: "Every receipt is also written to an Amazon S3 bucket with Object Lock in compliance mode: a write-once copy that nobody, Tally included, can change or delete for three years, the period a food program claim stays reviewable. A sponsor can be handed the object key and read it without Tally in the loop.",
   attempt: "The agent gets three checks per question. A contradicted answer is rewritten and checked again; an undecided one waits for your answer to a question. After three it says it could not verify this rather than guessing.",
 
   /* Metrics and behaviour ----------------------------------------------- */

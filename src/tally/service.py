@@ -281,7 +281,7 @@ class DemoService:
             "claims": p.claims, "missing_facts": p.missing_facts, "untranslated": p.untranslated,
             "policy_version": p.policy_version, "guardrail_version": p.guardrail_version,
             "latency_ms": p.latency_ms, "text_units": p.text_units, "attempt": p.attempt,
-            "meal_id": p.meal_id,
+            "meal_id": p.meal_id, "ledger": p.ledger,
         }
 
     def month(self) -> dict:
