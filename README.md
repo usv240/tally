@@ -127,6 +127,8 @@ It is a proof, not a second model's opinion. Three checks per question, then an 
 verify this". The rulebook is `reasoning/cacfp_meal_pattern.txt` (sources in
 `reasoning/SOURCES.md`); `python -m deploy.reasoning_policy all` builds the policy and the guardrail.
 `TALLY_PROVE=off` runs the agent exactly as it was, which is how the before and after was filmed.
+`python -m evals.score` recounts every published number from the saved results in a second, with no
+AWS account and no model.
 
 The same tool is reachable four ways: inside the agent (`src/tally/tools/prove.py`), over MCP
 (`prove_answer` on `tally.mcp.server`), over HTTP (`POST /api/prove`, with the sandbox key), and as

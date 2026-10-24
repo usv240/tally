@@ -41,19 +41,22 @@ def main() -> int:
         for cond, name in (("no_tool", "no tool"), ("debate", "two-agent debate"), ("tool", "with prove_answer")):
             vs = [x[cond]["verdict"] for x in a["rows"]]
             wrong = sum(1 for v in vs if v in ("INVALID", "IMPOSSIBLE"))
-            print(f"  {name:<20} {wrong} / {sum(1 for v in vs if v == 'VALID')} / {sum(1 for v in vs if v == 'ASKED')}  of {len(vs)}")
+            proved = sum(1 for v in vs if v == "VALID")
+            asked = sum(1 for v in vs if v == "ASKED")
+            print(f"  {name:<20} {wrong} / {proved} / {asked}  of {len(vs)}")
     for name, label in (("audit_before_results.json", "Tally's rulebook before the fix"),
                         ("audit_results.json", "Tally's rulebook after the fix")):
         au = load(name)
         if au:
             stale = sum(1 for x in au["rows"] if x["verdict"] in ("INVALID", "IMPOSSIBLE"))
-            print(f"\n{label}: {stale} of {len(au['rows'])} statements contradicted"
-                  + (": " + ", ".join(x["where"] for x in au["rows"] if x["verdict"] in ("INVALID", "IMPOSSIBLE")) if stale else ""))
+            where = ", ".join(x["where"] for x in au["rows"] if x["verdict"] in ("INVALID", "IMPOSSIBLE"))
+            print(f"\n{label}: {stale} of {len(au['rows'])} statements contradicted" + (": " + where if stale else ""))
     h = load("holdout_results.json")
     if h.get("solver"):
         rows = h["solver"]["rows"]
         print(f"\nHeld out, {len(rows)} questions written after the last change:")
-        print(f"  wrong answers contradicted      {sum(1 for x in rows if x['wrong'] in ('INVALID', 'IMPOSSIBLE'))} of {len(rows)}")
+        caught = sum(1 for x in rows if x["wrong"] in ("INVALID", "IMPOSSIBLE"))
+        print(f"  wrong answers contradicted      {caught} of {len(rows)}")
         print(f"  correct answers wrongly blocked {sum(1 for x in rows if x['correct'] == 'INVALID')} of {len(rows)}")
     if h.get("agent"):
         rows = h["agent"]["rows"]

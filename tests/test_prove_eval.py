@@ -41,6 +41,33 @@ def test_the_negative_controls_hold():
     assert s["caught"] >= 0.8 * s["n"], "the tool stopped catching wrong answers"
 
 
+def test_the_held_out_run_is_published_as_it_came_out():
+    """Ten cases written after the last policy change, run once. The page must say what the file says."""
+    h = json.loads(pathlib.Path("evals/holdout_results.json").read_text(encoding="utf-8"))
+    page = pathlib.Path("docs/EVAL.md").read_text(encoding="utf-8")
+    s, a = h["solver"], h["agent"]
+    assert s["n"] == 10
+    assert (f"Held out, 10 questions: {s['caught']} of 10 wrong answers contradicted, "
+            f"{s['blocked']} of 10 correct answers wrongly blocked") in page
+    assert f"called prove_answer on {a['rule_called']} of {a['rule_n']} rule questions and on {a['other_called']} of {a['other_n']}" in page
+    assert s["blocked"] == 0, "a correct USDA answer was blocked on the held-out set"
+
+
+def test_score_recounts_what_the_page_says():
+    import io
+    from contextlib import redirect_stdout
+
+    from evals import score
+
+    buf = io.StringIO()
+    with redirect_stdout(buf):
+        score.main()
+    out = buf.getvalue()
+    page = pathlib.Path("docs/EVAL.md").read_text(encoding="utf-8")
+    m = re.search(r"wrong answers contradicted\s+(\d+) of (\d+)", out)
+    assert m and f"{m.group(1)} of {m.group(2)} wrong answers contradicted" in page
+
+
 def test_the_audit_found_the_stale_yogurt_rule_and_the_fix_cleared_it():
     before = json.loads(pathlib.Path("evals/audit_before_results.json").read_text(encoding="utf-8"))
     after = json.loads(pathlib.Path("evals/audit_results.json").read_text(encoding="utf-8"))

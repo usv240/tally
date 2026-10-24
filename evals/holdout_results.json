@@ -1,0 +1,319 @@
+{
+ "solver": {
+  "n": 10,
+  "caught": 8,
+  "wrong_proved": 0,
+  "blocked": 0,
+  "proved": 5,
+  "rows": [
+   {
+    "id": "h_yogurt_12_exact",
+    "source": "7 CFR 226.20(a)(5)(iii)(B)",
+    "correct": "VALID",
+    "wrong": "INVALID"
+   },
+   {
+    "id": "h_drinkable_yogurt",
+    "source": "7 CFR 226.20(a)(5)(iii)(C)",
+    "correct": "SATISFIABLE",
+    "wrong": "INVALID"
+   },
+   {
+    "id": "h_cereal_6_exact",
+    "source": "7 CFR 226.20(a)(4)(ii)",
+    "correct": "SATISFIABLE",
+    "wrong": "SATISFIABLE"
+   },
+   {
+    "id": "h_snack_veg_fruit",
+    "source": "7 CFR 226.20(c)(3)",
+    "correct": "SATISFIABLE",
+    "wrong": "INVALID"
+   },
+   {
+    "id": "h_milk_2yo_whole",
+    "source": "7 CFR 226.20(a)(1)(ii)",
+    "correct": "UNVERIFIED",
+    "wrong": "SATISFIABLE"
+   },
+   {
+    "id": "h_milk_flavored_5yo",
+    "source": "7 CFR 226.20(a)(1)(ii)",
+    "correct": "IMPOSSIBLE",
+    "wrong": "IMPOSSIBLE"
+   },
+   {
+    "id": "h_juice_snack_after_breakfast",
+    "source": "7 CFR 226.20(a)(3)(i)",
+    "correct": "VALID",
+    "wrong": "INVALID"
+   },
+   {
+    "id": "h_granola_bar",
+    "source": "7 CFR 226.20(a)(4)(iii)",
+    "correct": "VALID",
+    "wrong": "INVALID"
+   },
+   {
+    "id": "h_supper_missing_milk",
+    "source": "7 CFR 226.20(c)(2)",
+    "correct": "VALID",
+    "wrong": "INVALID"
+   },
+   {
+    "id": "h_infant_cheese",
+    "source": "CACFP 06-2025, Meats and Meat Alternates, p. 13",
+    "correct": "VALID",
+    "wrong": "INVALID"
+   }
+  ]
+ },
+ "agent": {
+  "rule_n": 30,
+  "rule_called": 30,
+  "other_n": 10,
+  "other_called": 0,
+  "rows": [
+   {
+    "id": "yogurt_sugar_17",
+    "kind": "rule",
+    "called": 1,
+    "answer": "Is the 17 grams figure the added sugars specifically, or is it total sugars on the label?"
+   },
+   {
+    "id": "yogurt_sugar_9",
+    "kind": "rule",
+    "called": 1,
+    "answer": "Yes, 9 grams of added sugars per 6 oz is under the 23-gram limit, so that yogurt credits as a meat alternate at snack."
+   },
+   {
+    "id": "yogurt_old_limit",
+    "kind": "rule",
+    "called": 1,
+    "answer": "Yogurt must have no more than 23 grams of added sugars per 6 oz, total sugars is no longer the measure."
+   },
+   {
+    "id": "yogurt_frozen",
+    "kind": "rule",
+    "called": 1,
+    "answer": "Is the frozen yogurt labeled as a \"frozen dairy dessert\" rather than just \"yogurt\"?"
+   },
+   {
+    "id": "cereal_sugar_8",
+    "kind": "rule",
+    "called": 2,
+    "answer": "No, at 8g of added sugars per ounce it's over the 6g limit, so it won't credit as a grain."
+   },
+   {
+    "id": "cereal_sugar_4",
+    "kind": "rule",
+    "called": 1,
+    "answer": "Is the cereal the first ingredient listed on the box?"
+   },
+   {
+    "id": "cereal_old_limit",
+    "kind": "rule",
+    "called": 2,
+    "answer": "No, it's 6 grams of added sugar per dry ounce now, not total sugar."
+   },
+   {
+    "id": "snack_milk_juice",
+    "kind": "rule",
+    "called": 2,
+    "answer": "No, milk and juice alone don't make a reimbursable snack; you need to add a food item like crackers or fruit."
+   },
+   {
+    "id": "snack_crackers_cheese",
+    "kind": "rule",
+    "called": 1,
+    "answer": "Is the cheese a creditable portion, at least \u00bd oz for ages 1-5 or \u00be oz for ages 6-12?"
+   },
+   {
+    "id": "snack_one_component",
+    "kind": "rule",
+    "called": 1,
+    "answer": "No, apple slices alone are only one component, and a snack needs two. What would you add alongside them?"
+   },
+   {
+    "id": "milk_flavored_4yo",
+    "kind": "rule",
+    "called": 1,
+    "answer": "Is it low-fat (1%) or fat-free chocolate milk?"
+   },
+   {
+    "id": "milk_flavored_7yo",
+    "kind": "rule",
+    "called": 1,
+    "answer": "Is the chocolate milk low-fat (1%) or fat-free?"
+   },
+   {
+    "id": "milk_whole_1yo",
+    "kind": "rule",
+    "called": 1,
+    "answer": "Maya gets whole milk, that's required at age 1."
+   },
+   {
+    "id": "milk_skim_3yo",
+    "kind": "rule",
+    "called": 1,
+    "answer": "Yes, skim milk is creditable for children 2 and older."
+   },
+   {
+    "id": "milk_yogurt_substitute_child",
+    "kind": "rule",
+    "called": 1,
+    "answer": "No, yogurt does not count as fluid milk for children and cannot replace it at lunch."
+   },
+   {
+    "id": "juice_twice",
+    "kind": "rule",
+    "called": 1,
+    "answer": "Is the apple juice 100% juice?"
+   },
+   {
+    "id": "juice_once",
+    "kind": "rule",
+    "called": 1,
+    "answer": "Is the juice full-strength (not diluted or from concentrate with added water)?"
+   },
+   {
+    "id": "wgr_not_met",
+    "kind": "rule",
+    "called": 1,
+    "answer": "Does supper or a snack today include a whole grain-rich grain?"
+   },
+   {
+    "id": "wgr_met",
+    "kind": "rule",
+    "called": 1,
+    "answer": "Is whole wheat toast listed as whole grain-rich on the package or your product documentation?"
+   },
+   {
+    "id": "grain_dessert",
+    "kind": "rule",
+    "called": 2,
+    "answer": "No, oatmeal cookies are a grain-based dessert and don't credit as the grain at snack."
+   },
+   {
+    "id": "breakfast_meat_for_grain_4th",
+    "kind": "rule",
+    "called": 1,
+    "answer": "Can eggs replace the grain at breakfast under your program's current meal pattern, has that substitution been approved for your site?"
+   },
+   {
+    "id": "breakfast_meat_for_grain_2nd",
+    "kind": "rule",
+    "called": 1,
+    "answer": "Yes, eggs credit as a meat alternate and can replace grains at breakfast up to 3 times a week, this would only be your second time."
+   },
+   {
+    "id": "lunch_missing_vegetable",
+    "kind": "rule",
+    "called": 1,
+    "answer": "Does Nia have a dairy-free milk substitute on her plan, since she's allergic to dairy?"
+   },
+   {
+    "id": "lunch_two_vegetables",
+    "kind": "rule",
+    "called": 1,
+    "answer": "Are the carrots and green beans two different kinds of vegetables (not two servings of the same one)?"
+   },
+   {
+    "id": "deep_fried",
+    "kind": "rule",
+    "called": 1,
+    "answer": "Are the nuggets deep-fried on-site at your home, or are they pre-fried before you buy them?"
+   },
+   {
+    "id": "infant_juice",
+    "kind": "rule",
+    "called": 1,
+    "answer": "Is the apple juice 100% full-strength, pasteurized juice?"
+   },
+   {
+    "id": "infant_wgr",
+    "kind": "rule",
+    "called": 1,
+    "answer": "Is Eli (your 10-month-old) currently eating grains at all, or only formula/breast milk?"
+   },
+   {
+    "id": "infant_rice",
+    "kind": "rule",
+    "called": 1,
+    "answer": "No, cooked rice doesn't credit for infants; only infant cereal or creditable bread products count."
+   },
+   {
+    "id": "infant_cheese_spread",
+    "kind": "rule",
+    "called": 1,
+    "answer": "No, cheese spread doesn't credit for infants; use natural or processed cheese instead."
+   },
+   {
+    "id": "infant_cereal_iron",
+    "kind": "rule",
+    "called": 1,
+    "answer": "Is Eli's cereal labeled iron-fortified?"
+   },
+   {
+    "id": "n_roll",
+    "kind": "other",
+    "called": 0,
+    "answer": "Maya and Leo are in, Ava is marked absent sick, and you're fine on ratio."
+   },
+   {
+    "id": "n_arrive",
+    "kind": "other",
+    "called": 0,
+    "answer": "Mateo is signed in; you're at 1 of 12 right now."
+   },
+   {
+    "id": "n_thanks",
+    "kind": "other",
+    "called": 0,
+    "answer": "Got it, just holler when you need me."
+   },
+   {
+    "id": "n_weather",
+    "kind": "other",
+    "called": 0,
+    "answer": "I can only help with child care day stuff, attendance, meals, and food program questions."
+   },
+   {
+    "id": "n_how_many",
+    "kind": "other",
+    "called": 0,
+    "answer": "No roll has been taken yet, tell me who's here and I'll log it."
+   },
+   {
+    "id": "n_substitute",
+    "kind": "other",
+    "called": 0,
+    "answer": "Which meal should I attach that substitution to?"
+   },
+   {
+    "id": "n_photo",
+    "kind": "other",
+    "called": 0,
+    "answer": "Got it, send it over when you're ready."
+   },
+   {
+    "id": "n_nap",
+    "kind": "other",
+    "called": 0,
+    "answer": "No one is checked in yet, want to do roll call before you rest?"
+   },
+   {
+    "id": "n_answer",
+    "kind": "other",
+    "called": 0,
+    "answer": "I don't have an open question on file about Leo's Tuesday attendance, can you remind me what I asked?"
+   },
+   {
+    "id": "n_greeting",
+    "kind": "other",
+    "called": 0,
+    "answer": "Morning, want me to pull up today so far?"
+   }
+  ]
+ }
+}
