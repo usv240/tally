@@ -108,12 +108,22 @@ put_policy(INSTANCE_ROLE, "UseAgentCore", {
 # which one. Nothing here can create, change or delete a policy; that stays with the deploy user.
 _deployed = Path(__file__).resolve().parent.parent / "reasoning" / "deployed.json"
 if _deployed.exists():
-    guardrail_arn = json.loads(_deployed.read_text()).get("guardrail_arn")
+    _d = json.loads(_deployed.read_text())
+    guardrail_arn = _d.get("guardrail_arn")
     if guardrail_arn:
+        # The guardrail carries a cross-Region profile (us.guardrail.v1:0), which Automated Reasoning
+        # checks require, and the call is authorised against the profile as well as the guardrail.
+        # The first live deploy had only the guardrail and every proof came back AccessDenied.
+        resources = [guardrail_arn,
+                     f"arn:aws:bedrock:{REGION}:{ACCOUNT}:guardrail-profile/us.guardrail.v1:0",
+                     f"arn:aws:bedrock:*:{ACCOUNT}:guardrail-profile/us.guardrail.v1:0",
+                     "arn:aws:bedrock:*::guardrail-profile/us.guardrail.v1:0"]
+        if _d.get("policy_arn"):
+            resources += [_d["policy_arn"], _d["policy_arn"] + ":*"]
         put_policy(INSTANCE_ROLE, "ProveAnswers", {
             "Version": "2012-10-17",
             "Statement": [{"Sid": "ApplyTheProveGuardrail", "Effect": "Allow",
-                           "Action": ["bedrock:ApplyGuardrail"], "Resource": guardrail_arn}],
+                           "Action": ["bedrock:ApplyGuardrail"], "Resource": resources}],
         })
 
 print(f"\nACCESS_ROLE_ARN={access_arn}")

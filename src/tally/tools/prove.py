@@ -104,15 +104,25 @@ def prove_answer(question: str, answer: str, facts: str = "", meal_id: str = "")
                 "next_step": "No attempts left for this question. Tell her you could not verify it."}
 
     r.emit("answer_drafted", question=question, answer=answer, facts=facts, attempt=attempt)
+    error = ""
     if not prove.enabled():
         checked = prove.Checked(verdict="SKIPPED")
     else:
         try:
             checked = prove.prove(question, answer, facts)
         except Exception as exc:  # the service having a bad minute must not take the agent down
-            r.emit("proof_error", question=question, error=str(exc)[:200])
+            error = f"{type(exc).__name__}: {str(exc)[:200]}"
+            r.emit("proof_error", question=question, error=error)
             checked = prove.Checked(verdict="SKIPPED")
     p = _record(question, answer, facts, checked, attempt, meal_id or None)
+    if error:
+        # "Switched off" and "could not reach the service" are different news, for her and for
+        # whoever reads the trace. The first live deploy reported the second as the first.
+        r.emit("answer_proved", proof_id=p.id, verdict=p.verdict, attempt=attempt, error=error)
+        return {"proof_id": p.id, "verdict": "SKIPPED", "attempt": attempt, "error": error,
+                "attempts_left": MAX_ATTEMPTS - attempt,
+                "next_step": "The proof service did not answer, so this could not be checked. Answer "
+                             "as you would have, and say it is unchecked."}
     r.emit("answer_proved", proof_id=p.id, verdict=p.verdict, attempt=attempt, rules=p.rules[:2],
            missing_facts=p.missing_facts[:2], latency_ms=p.latency_ms, text_units=p.text_units)
     return {

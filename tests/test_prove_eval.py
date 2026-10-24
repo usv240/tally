@@ -41,7 +41,12 @@ def test_the_negative_controls_hold():
     assert s["caught"] >= 0.8 * s["n"], "the tool stopped catching wrong answers"
 
 
-def test_the_audit_found_the_stale_yogurt_rule():
-    a = json.loads(pathlib.Path("evals/audit_results.json").read_text(encoding="utf-8"))
+def test_the_audit_found_the_stale_yogurt_rule_and_the_fix_cleared_it():
+    before = json.loads(pathlib.Path("evals/audit_before_results.json").read_text(encoding="utf-8"))
+    after = json.loads(pathlib.Path("evals/audit_results.json").read_text(encoding="utf-8"))
     page = pathlib.Path("docs/EVAL.md").read_text(encoding="utf-8")
-    assert f"{a['stale']} of {a['n']} statements contradicted the regulation" in page
+    stale_rows = [r["where"] for r in before["rows"] if r["verdict"] in ("INVALID", "IMPOSSIBLE")]
+    assert before["stale"] >= 1 and any("yogurt_sugar" in w for w in stale_rows), stale_rows
+    assert after["stale"] == 0, [r["where"] for r in after["rows"] if r["verdict"] in ("INVALID", "IMPOSSIBLE")]
+    assert f"{before['stale']} of {before['n']} statements contradicted the regulation" in page
+    assert f"{after['stale']} of {after['n']} statements contradicted the regulation" in page

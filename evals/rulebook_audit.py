@@ -22,11 +22,26 @@ END = "<!-- audit:end -->"
 RESULTS = Path("evals/audit_results.json")
 
 QUESTION = "What does the meal pattern say?"
+BEFORE_START = "<!-- audit-before:start -->"
+BEFORE_END = "<!-- audit-before:end -->"
+
+REF: str | None = None
+"""A git ref. When set, the rulebook and the pages are read as they were at that commit, so the
+audit that found the stale rule can be rerun after the rule was fixed."""
+
+
+def _read(path: str) -> str:
+    if REF:
+        import subprocess
+
+        return subprocess.run(["git", "show", f"{REF}:{path}"], check=True, capture_output=True,
+                              text=True, encoding="utf-8").stdout
+    return Path(path).read_text(encoding="utf-8")
 
 
 def statements() -> list[dict]:
     """Every rule-shaped sentence Tally holds, with where it lives."""
-    rules = json.loads(Path("rules/cacfp_rules.json").read_text(encoding="utf-8"))
+    rules = json.loads(_read("rules/cacfp_rules.json"))
     out = []
     for lc in rules.get("label_checks", []):
         out.append({"where": f"rules/cacfp_rules.json label_checks.{lc['id']}", "claim": lc["description"]})
@@ -69,7 +84,7 @@ def statements() -> list[dict]:
                 out.append({"where": f"rules/cacfp_rules.json meals.{meal}.forbidden_pairs", "claim": fp["note"]})
     # The sentences the provider actually reads on the screen.
     for f in ("web/app.js", "web/try.html"):
-        text = Path(f).read_text(encoding="utf-8")
+        text = _read(f)
         for m in re.finditer(r'"((?:Yoghurt|Cereal) must be under [^"]+?)[,.]', text):
             out.append({"where": f, "claim": m.group(1) + "."})
     return out
@@ -89,8 +104,16 @@ def run() -> dict:
 
 
 def render(a: dict) -> str:
-    lines = [START, "## Tally's own rulebook, proved", "",
-             f"Generated {datetime.now(UTC):%Y-%m-%d %H:%M} UTC by `python -m evals.rulebook_audit`.", "",
+    if REF:
+        lines = [BEFORE_START, f"## Tally's own rulebook, proved, as it was at `{REF[:7]}`", "",
+                 f"Generated {datetime.now(UTC):%Y-%m-%d %H:%M} UTC by "
+                 f"`python -m evals.rulebook_audit --before {REF[:7]}`.", "",
+                 "This is the run that found the stale rule. The rulebook and the pages are read from git "
+                 "at that commit, so it can be rerun after the fix.", ""]
+    else:
+        lines = [START, "## Tally's own rulebook, proved", "",
+                 f"Generated {datetime.now(UTC):%Y-%m-%d %H:%M} UTC by `python -m evals.rulebook_audit`.", "",]
+    lines += [
              "Every rule-shaped sentence in `rules/cacfp_rules.json`, and every label instruction the "
              "provider reads on screen, put through the same proof the Day agent uses.", "",
              f"**{a['stale']} of {a['n']} statements contradicted the regulation. {a['proved']} were proved; "
@@ -109,16 +132,21 @@ def render(a: dict) -> str:
 def main() -> int:
     ap = argparse.ArgumentParser()
     ap.add_argument("--out", default=None)
+    ap.add_argument("--before", default=None, help="a git ref: audit the rulebook as it was then")
     a = ap.parse_args()
+    global REF
+    REF = a.before
     result = run()
-    RESULTS.write_text(json.dumps(result, indent=1) + "\n")
+    out_json = Path("evals/audit_before_results.json") if REF else RESULTS
+    out_json.write_text(json.dumps(result, indent=1) + "\n")
     body = render(result)
     print("\n" + body)
     if a.out:
         p = Path(a.out)
         text = p.read_text(encoding="utf-8")
-        if START in text:
-            text = re.sub(re.escape(START) + ".*?" + re.escape(END), lambda _: body, text, flags=re.S)
+        start, end = (BEFORE_START, BEFORE_END) if REF else (START, END)
+        if start in text:
+            text = re.sub(re.escape(start) + ".*?" + re.escape(end), lambda _: body, text, flags=re.S)
         else:
             text = text.rstrip() + "\n\n" + body + "\n"
         p.write_text(text, encoding="utf-8")

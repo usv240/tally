@@ -164,7 +164,7 @@ def render(solver: dict | None, agents: dict | None) -> str:
             f"{s['off_topic_proved']} of {s['off_topic_n']} off-topic answers wrongly proved.**", "",
             f"Of the {s['n']} correct answers, {s['proved']} were proved outright, "
             f"{s['undecided']} came back undecided, which is the tool asking for a fact rather than "
-            f"refusing, and {s['forbidden']} came back IMPOSSIBLE, which means the situation in the "
+            f"refusing, and {s.get('forbidden', 0)} came back IMPOSSIBLE, which means the situation in the "
             f"question itself breaks a rule and the tool tells her the rule, which agrees with a correct "
             f"\"no\". {s['wrong_served']} wrong answers were proved. Median check "
             f"{s['latency_median_ms'] / 1000:.1f} s, 90th percentile {s['latency_p90_ms'] / 1000:.1f} s. "

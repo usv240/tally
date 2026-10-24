@@ -1,31 +1,31 @@
 {
  "n": 23,
- "stale": 1,
- "proved": 3,
+ "stale": 0,
+ "proved": 2,
  "rows": [
   {
    "where": "rules/cacfp_rules.json label_checks.cereal_sugar",
-   "claim": "Breakfast cereal must contain no more than 6 grams of sugar per dry ounce.",
+   "claim": "Breakfast cereal must contain no more than 6 grams of added sugars per dry ounce.",
    "verdict": "SATISFIABLE",
-   "rule": "A breakfast cereal is creditable as a grain only if it contains no more than 6 grams of added sugars per dry ounce."
+   "rule": ""
   },
   {
    "where": "rules/cacfp_rules.json label_checks.cereal_sugar (as applied)",
-   "claim": "A breakfast cereal whose label shows 6 grams of sugar per dry ounce passes the label check and is creditable as a grain.",
+   "claim": "A breakfast cereal whose label shows 6 grams of added per dry ounce passes the label check and is creditable as a grain.",
    "verdict": "SATISFIABLE",
    "rule": ""
   },
   {
    "where": "rules/cacfp_rules.json label_checks.yogurt_sugar",
-   "claim": "Yogurt must contain no more than 23 grams of sugar per 6 ounces.",
+   "claim": "Yogurt must contain no more than 12 grams of added sugars per 6 ounces.",
    "verdict": "SATISFIABLE",
    "rule": ""
   },
   {
    "where": "rules/cacfp_rules.json label_checks.yogurt_sugar (as applied)",
-   "claim": "A yogurt whose label shows 23 grams of sugar per 6 ounces passes the label check and is creditable as a meat alternate.",
-   "verdict": "INVALID",
-   "rule": "Yogurt is creditable as a meat alternate only if it contains no more than 12 grams of added sugars per 6 ounces."
+   "claim": "A yogurt whose label shows 12 grams of added per 6 ounces passes the label check and is creditable as a meat alternate.",
+   "verdict": "VALID",
+   "rule": "Yogurt with no more than 12 grams of added sugars per 6 ounces is creditable as a meat alternate."
   },
   {
    "where": "rules/cacfp_rules.json daily_rules.whole_grain_rich",
@@ -79,12 +79,12 @@
    "where": "rules/cacfp_rules.json meals.breakfast.substitutions",
    "claim": "A meat or meat alternate may replace the grain at breakfast up to three times a week.",
    "verdict": "SATISFIABLE",
-   "rule": "if isMeatReplacingGrainsAtBreakfastAllowed is false, then meatReplacedGrainsAtBreakfastThisWeek is greater than 3"
+   "rule": "A meat or meat alternate may replace the entire grains component at breakfast when it has done so at most twice earlier this week."
   },
   {
    "where": "rules/cacfp_rules.json meals.lunch.required",
    "claim": "A reimbursable lunch for a child must contain: milk, fruit, vegetable, grain, meat alt.",
-   "verdict": "VALID",
+   "verdict": "SATISFIABLE",
    "rule": "if mealType is equal to MealType_LUNCH and isMealReimbursable is true, then containsFluidMilk is true"
   },
   {
@@ -96,7 +96,7 @@
   {
    "where": "rules/cacfp_rules.json meals.supper.required",
    "claim": "A reimbursable supper for a child must contain: milk, fruit, vegetable, grain, meat alt.",
-   "verdict": "VALID",
+   "verdict": "SATISFIABLE",
    "rule": "if mealType is equal to MealType_SUPPER and isMealReimbursable is true, then containsFluidMilk is true"
   },
   {
@@ -119,27 +119,27 @@
   },
   {
    "where": "web/app.js",
-   "claim": "Yoghurt must be under 23g of sugar per 6oz.",
+   "claim": "Yoghurt must be under 12g of added sugars per 6oz.",
    "verdict": "SATISFIABLE",
    "rule": ""
   },
   {
    "where": "web/app.js",
-   "claim": "Cereal must be under 6g of sugar per dry ounce.",
+   "claim": "Cereal must be under 6g of added sugars per dry ounce.",
    "verdict": "SATISFIABLE",
    "rule": ""
   },
   {
    "where": "web/try.html",
-   "claim": "Yoghurt must be under 23g of sugar per 6oz.",
+   "claim": "Yoghurt must be under 12g of added sugars per 6oz.",
    "verdict": "SATISFIABLE",
    "rule": ""
   },
   {
    "where": "web/try.html",
-   "claim": "Cereal must be under 6g of sugar per dry ounce.",
+   "claim": "Cereal must be under 6g of added sugars per dry ounce.",
    "verdict": "SATISFIABLE",
-   "rule": ""
+   "rule": "The breakfast cereal sugar limit is measured in added sugars, not total sugars; the former total sugars limit no longer applies."
   }
  ]
 }

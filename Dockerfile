@@ -19,6 +19,9 @@ COPY rules ./rules
 COPY data ./data
 COPY docs ./docs
 COPY evals ./evals
+# The rulebook, the built policy definition (rule ids to sentences for the receipts) and the
+# guardrail ids the prove_answer tool reads when the environment does not name them.
+COPY reasoning ./reasoning
 COPY LICENSE ./
 
 EXPOSE 8080

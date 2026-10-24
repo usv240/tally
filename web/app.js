@@ -478,9 +478,16 @@
       ]));
     }
     if (p.premises && p.premises.length) {
-      card.appendChild(window.h("div", { class: "facts" }, p.premises.slice(0, 5).map(function (f) {
-        return window.h("span", { class: "chip", text: f });
-      })));
+      // The solver's own reading of her facts, variable names and all. Shown as evidence, labelled
+      // so a provider knows it is the logic's bookkeeping and not something she has to understand.
+      card.appendChild(window.h("p", { class: "small muted", style: "margin:var(--s3) 0 0",
+        text: "What the logic read from her facts:" }));
+      card.appendChild(window.h("div", { class: "facts", style: "margin-top:var(--s1)" },
+        p.premises.slice(0, 5).map(function (f) {
+          return window.h("span", { class: "chip", text: f.replace(/([a-z])([A-Z])/g, "$1 $2")
+            .replace(/([a-z])(\d)/g, "$1 $2").replace(/(\d)([a-z])/gi, "$1 $2").toLowerCase()
+            .replace(/[a-z ]+type_/g, "").replace(/_/g, " ") });
+        })));
     }
     var policy = (p.policy_version || "").split("/").pop();
     card.appendChild(window.h("p", { class: "stamp" }, [
