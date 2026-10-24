@@ -45,10 +45,14 @@ def _next_step(p: Proof) -> str:
     """What the agent should do now, in words it can follow. The verdict decides, not the model."""
     if p.verdict == "VALID":
         return "Proved. Say the answer. Mention the rule in a few words if it helps her."
-    if p.verdict in ("INVALID", "IMPOSSIBLE"):
-        # IMPOSSIBLE arrives when the situation she described already breaks a rule (flavored milk
-        # for a 4 year old): the premises cannot all hold under the rulebook. For her that is the
-        # same news as INVALID, with the same rule to quote.
+    if p.verdict == "IMPOSSIBLE":
+        # The situation she described already breaks a rule (flavored milk for a 4 year old, yogurt
+        # in place of milk): the facts cannot all hold under the rulebook, whatever the draft said.
+        # The news for her is the rule, and there is nothing to rewrite or re-prove.
+        rule = p.rules[0] if p.rules else "the rule quoted"
+        return (f"What she described is not allowed. This rule rules it out: {rule}. Tell her so, in "
+                f"her words, and stop. Do not call prove_answer again for this question.")
+    if p.verdict == "INVALID":
         rule = p.rules[0] if p.rules else "the rule quoted"
         if p.attempt >= MAX_ATTEMPTS:
             return (f"Contradicts the rules and no attempts are left. Tell her you could not verify "

@@ -1,0 +1,1552 @@
+{
+ "url": "http://localhost:8011/app.html",
+ "at": "2026-10-24T13:35:22.588Z",
+ "allow": [],
+ "viewports": [
+  {
+   "width": 1440,
+   "height": 900,
+   "load": "load",
+   "screens": 3,
+   "filled": [
+    0.57,
+    0.84,
+    0.48
+   ],
+   "motion": {
+    "elements": 0,
+    "css": 0,
+    "transitions": 0,
+    "scripted": 0,
+    "videos": 0,
+    "playingVideos": 0
+   },
+   "metrics": {
+    "viewport": {
+     "w": 1440,
+     "h": 900
+    },
+    "page": {
+     "height": 2541,
+     "screens": 2.8,
+     "words": 627,
+     "img": 0,
+     "video": 0,
+     "canvas": 0,
+     "svg": 1,
+     "sections": 2,
+     "horizontalOverflow": 0,
+     "overflowCulprits": [],
+     "uiFragments": 0,
+     "uiAbuse": false,
+     "realPictures": 0,
+     "videoCount": 0,
+     "uiPictures": 0,
+     "pictureSamples": [],
+     "blendText": 0,
+     "sideScrollers": 0,
+     "brokenImages": [],
+     "emoji": [],
+     "videosNoPoster": 0
+    },
+    "hero": {
+     "text": "0 here. Nothing logged yet.",
+     "words": 5,
+     "chars": 27,
+     "lines": 1,
+     "size": 20,
+     "vw": 1.4,
+     "font": "Inter",
+     "weight": 650,
+     "tracking": 0,
+     "leading": 1.35,
+     "top": 262,
+     "tag": "div",
+     "kind": "heading",
+     "align": "left",
+     "position": "left"
+    },
+    "h1": null,
+    "headings": [],
+    "headingSummary": {
+     "count": 0,
+     "maxLines": 0,
+     "over2Lines": 0,
+     "statements": 0,
+     "centered": 0,
+     "medianWords": null,
+     "mixedFontHeadings": 0
+    },
+    "type": {
+     "families": [
+      {
+       "family": "Inter",
+       "share": 1,
+       "mono": false
+      },
+      {
+       "family": "Arial",
+       "share": 0,
+       "mono": false
+      }
+     ],
+     "familyCount": 2,
+     "sizes": [
+      10,
+      12,
+      13,
+      14,
+      15,
+      16,
+      18,
+      20
+     ],
+     "sizeCount": 8,
+     "notLoaded": [],
+     "body": {
+      "font": "Inter",
+      "size": 15,
+      "leading": 1.5,
+      "weight": 400,
+      "tracking": 0,
+      "contrast": 15.2
+     },
+     "measureChars": 86,
+     "max": {
+      "size": 20,
+      "vw": 1.4,
+      "font": "Inter",
+      "text": "0 here. Nothing logged yet."
+     },
+     "monoShare": 0,
+     "monoProseShare": 0,
+     "monoFamilies": [],
+     "monoSamples": [],
+     "microLabels": 0,
+     "microLabelShare": 0,
+     "microSamples": [],
+     "upperShare": 0.01,
+     "centerShare": 0.08,
+     "smallText": 2
+    },
+    "eyebrows": [],
+    "numbered": [],
+    "color": {
+     "bodyBg": "#fafaf8",
+     "bodyBgHsl": {
+      "h": 60,
+      "s": 0.17,
+      "l": 0.98
+     },
+     "dark": false,
+     "sectionBgs": [
+      {
+       "color": "#ffffff",
+       "top": 692,
+       "hsl": {
+        "h": 0,
+        "s": 0,
+        "l": 1
+       }
+      }
+     ],
+     "textColors": [
+      {
+       "color": "#5c5c57",
+       "share": 0.5
+      },
+      {
+       "color": "#1a1a1a",
+       "share": 0.46
+      },
+      {
+       "color": "#0f6e56",
+       "share": 0.02
+      },
+      {
+       "color": "#b42318",
+       "share": 0.01
+      },
+      {
+       "color": "#ffffff",
+       "share": 0.01
+      }
+     ],
+     "button": {
+      "bg": "#ffffff",
+      "hsl": {
+       "h": 0,
+       "s": 0,
+       "l": 1
+      },
+      "fg": "#1a1a1a"
+     },
+     "lowContrast": []
+    },
+    "buttons": {
+     "count": 15,
+     "inHero": 11,
+     "radius": 6,
+     "height": 53,
+     "withShadow": 0,
+     "withGradient": 0,
+     "mono": 0,
+     "upper": 0,
+     "heroLabels": [
+      "Skip to content",
+      "Say who is here",
+      "Mateo arrives",
+      "Breakfast",
+      "Add the milk"
+     ]
+    },
+    "surfaces": {
+     "shadowStatic": 3,
+     "shadowOverlay": 0,
+     "shadowSamples": [
+      "section.card → rgba(0, 0, 0, 0.06) 0px 1px 2px 0px, rgba(0, 0, 0, 0.04) 0px 4px 12px 0px",
+      "section#ask.card → rgba(0, 0, 0, 0.06) 0px 1px 2px 0px, rgba(0, 0, 0, 0.04) 0px 4px 12px 0px",
+      "div.card → rgba(0, 0, 0, 0.06) 0px 1px 2px 0px, rgba(0, 0, 0, 0.04) 0px 4px 12px 0px"
+     ],
+     "gradients": 0,
+     "scrims": 0,
+     "gradientSamples": [],
+     "gradientText": 0,
+     "hairlines": 3,
+     "hairlineSamples": [
+      "header.site 1440px",
+      "div.tabs 1168px",
+      "footer.site 1440px"
+     ],
+     "outlinedBoxes": 6,
+     "dashed": 2,
+     "blurred": 1,
+     "roundedBoxes": 6,
+     "boxRadius": 12,
+     "squareMedia": 0,
+     "roundedMedia": 0,
+     "mediaRadius": 0,
+     "textShadow": 0,
+     "cardRows": []
+    },
+    "heroMedia": [],
+    "nav": {
+     "links": 1,
+     "fixed": true,
+     "height": 73,
+     "floatingPill": false,
+     "blur": true
+    },
+    "fontsLoaded": [
+     "inter"
+    ]
+   },
+   "layout": {
+    "viewport": {
+     "w": 1440,
+     "h": 900
+    },
+    "pageH": 2541,
+    "margins": {
+     "left": 136,
+     "right": 149
+    },
+    "sections": [
+     {
+      "sel": "div.stack",
+      "tag": "div",
+      "top": 262,
+      "height": 127,
+      "words": 26,
+      "media": 0,
+      "middle": 228,
+      "heading": null,
+      "left": 153,
+      "right": 305,
+      "textLeft": 153,
+      "textRight": 347,
+      "fullBleed": false,
+      "footer": false,
+      "hero": true,
+      "continues": true,
+      "pinned": false
+     },
+     {
+      "sel": "section.card",
+      "tag": "section",
+      "top": 413,
+      "height": 256,
+      "words": 52,
+      "media": 0,
+      "middle": 12,
+      "heading": {
+       "text": "Play the day",
+       "size": 18,
+       "tag": "h2"
+      },
+      "left": 161,
+      "right": 267,
+      "textLeft": 161,
+      "textRight": 292,
+      "fullBleed": false,
+      "footer": false,
+      "hero": true,
+      "continues": true,
+      "pinned": false
+     },
+     {
+      "sel": "section#ask.card",
+      "tag": "section",
+      "top": 692,
+      "height": 1263,
+      "words": 373,
+      "media": 0,
+      "middle": 0,
+      "heading": {
+       "text": "Ask Tally what the rules say",
+       "size": 18,
+       "tag": "h2"
+      },
+      "left": 161,
+      "right": 161,
+      "textLeft": 161,
+      "textRight": 178,
+      "fullBleed": false,
+      "footer": false,
+      "hero": false,
+      "continues": true,
+      "pinned": false
+     },
+     {
+      "sel": "div#panel-today",
+      "tag": "div",
+      "top": 2029,
+      "height": 313,
+      "words": 63,
+      "media": 0,
+      "middle": 0,
+      "heading": {
+       "text": "Nothing logged yet",
+       "size": 20,
+       "tag": "h3"
+      },
+      "left": 136,
+      "right": 386,
+      "textLeft": 136,
+      "textRight": 386,
+      "fullBleed": false,
+      "footer": false,
+      "hero": false,
+      "continues": true,
+      "pinned": false
+     },
+     {
+      "sel": "footer.site",
+      "tag": "footer",
+      "top": 2406,
+      "height": 135,
+      "words": 24,
+      "media": 0,
+      "middle": 111,
+      "heading": null,
+      "left": 136,
+      "right": 139,
+      "textLeft": 136,
+      "textRight": 149,
+      "fullBleed": false,
+      "footer": true,
+      "hero": false,
+      "continues": false,
+      "pinned": false
+     }
+    ],
+    "gaps": [],
+    "h1s": [],
+    "edgeText": [],
+    "edges": [
+     {
+      "x": 161,
+      "n": 7
+     },
+     {
+      "x": 178,
+      "n": 4
+     },
+     {
+      "x": 136,
+      "n": 2
+     },
+     {
+      "x": 190,
+      "n": 2
+     }
+    ],
+    "leftBlocks": 15,
+    "bodySize": 15,
+    "stage": false,
+    "explains": true,
+    "slivers": [],
+    "voidShare": 0.14,
+    "voidBox": {
+     "x": 840,
+     "y": 540,
+     "w": 600,
+     "h": 300
+    }
+   },
+   "app": {
+    "viewport": {
+     "w": 1440,
+     "h": 900
+    },
+    "dark": false,
+    "ground": "#fafaf8",
+    "sidebar": null,
+    "topbar": {
+     "h": 73
+    },
+    "canvas": {
+     "left": 136,
+     "right": 149
+    },
+    "hero": {
+     "text": "0 here. Nothing logged yet.",
+     "words": 5,
+     "chars": 27,
+     "lines": 1,
+     "size": 20,
+     "vw": 1.4,
+     "font": "Inter",
+     "weight": 650,
+     "tracking": 0,
+     "leading": 1.35,
+     "top": 262,
+     "tag": "div",
+     "kind": "heading",
+     "align": "left",
+     "position": "left"
+    },
+    "charts": 0,
+    "layout": {
+     "panels": 4,
+     "firstScreen": 3,
+     "ragged": [],
+     "voids": []
+    },
+    "tiles": 0,
+    "panels": {
+     "count": 6,
+     "radii": [
+      [
+       12,
+       6
+      ]
+     ],
+     "heavyBorders": 1,
+     "borderSamples": [
+      "#175cd3 on #e8f0fe (5.22:1)"
+     ],
+     "heavyShadows": 0,
+     "softShadows": 6,
+     "shadowSamples": [],
+     "glass": 0
+    },
+    "chips": {
+     "count": 0,
+     "hues": 0,
+     "samples": []
+    },
+    "numbers": {
+     "cells": 0,
+     "leftAligned": 0,
+     "figures": 0,
+     "tabularShare": null,
+     "kpiMax": null
+    },
+    "rows": null,
+    "chartHues": 0,
+    "placeholders": [],
+    "type": {
+     "under13": 0.04,
+     "tiny": 0,
+     "tinySamples": [],
+     "sizes": [
+      12,
+      13,
+      14,
+      15,
+      16,
+      18,
+      20
+     ]
+    },
+    "title": null,
+    "colourShare": 0.008
+   },
+   "consoleErrors": []
+  },
+  {
+   "width": 768,
+   "height": 1024,
+   "load": "load",
+   "screens": 3,
+   "filled": [
+    0.82,
+    0.96,
+    0.62
+   ],
+   "motion": {
+    "elements": 0,
+    "css": 0,
+    "transitions": 0,
+    "scripted": 0,
+    "videos": 0,
+    "playingVideos": 0
+   },
+   "metrics": {
+    "viewport": {
+     "w": 768,
+     "h": 1024
+    },
+    "page": {
+     "height": 3020,
+     "screens": 2.9,
+     "words": 627,
+     "img": 0,
+     "video": 0,
+     "canvas": 0,
+     "svg": 1,
+     "sections": 2,
+     "horizontalOverflow": 0,
+     "overflowCulprits": [],
+     "uiFragments": 0,
+     "uiAbuse": false,
+     "realPictures": 0,
+     "videoCount": 0,
+     "uiPictures": 0,
+     "pictureSamples": [],
+     "blendText": 0,
+     "sideScrollers": 0,
+     "brokenImages": [],
+     "emoji": [],
+     "videosNoPoster": 0
+    },
+    "hero": {
+     "text": "0 here. Nothing logged yet.",
+     "words": 5,
+     "chars": 27,
+     "lines": 1,
+     "size": 20,
+     "vw": 2.6,
+     "font": "Inter",
+     "weight": 650,
+     "tracking": 0,
+     "leading": 1.35,
+     "top": 262,
+     "tag": "div",
+     "kind": "heading",
+     "align": "left",
+     "position": "left"
+    },
+    "h1": null,
+    "headings": [],
+    "headingSummary": {
+     "count": 0,
+     "maxLines": 0,
+     "over2Lines": 0,
+     "statements": 0,
+     "centered": 0,
+     "medianWords": null,
+     "mixedFontHeadings": 0
+    },
+    "type": {
+     "families": [
+      {
+       "family": "Inter",
+       "share": 1,
+       "mono": false
+      },
+      {
+       "family": "Arial",
+       "share": 0,
+       "mono": false
+      }
+     ],
+     "familyCount": 2,
+     "sizes": [
+      10,
+      12,
+      13,
+      14,
+      15,
+      16,
+      18,
+      20
+     ],
+     "sizeCount": 8,
+     "notLoaded": [],
+     "body": {
+      "font": "Inter",
+      "size": 15,
+      "leading": 1.5,
+      "weight": 400,
+      "tracking": 0,
+      "contrast": 15.2
+     },
+     "measureChars": 82,
+     "max": {
+      "size": 20,
+      "vw": 2.6,
+      "font": "Inter",
+      "text": "0 here. Nothing logged yet."
+     },
+     "monoShare": 0,
+     "monoProseShare": 0,
+     "monoFamilies": [],
+     "monoSamples": [],
+     "microLabels": 0,
+     "microLabelShare": 0,
+     "microSamples": [],
+     "upperShare": 0.01,
+     "centerShare": 0.08,
+     "smallText": 2
+    },
+    "eyebrows": [],
+    "numbered": [],
+    "color": {
+     "bodyBg": "#fafaf8",
+     "bodyBgHsl": {
+      "h": 60,
+      "s": 0.17,
+      "l": 0.98
+     },
+     "dark": false,
+     "sectionBgs": [
+      {
+       "color": "#ffffff",
+       "top": 434,
+       "hsl": {
+        "h": 0,
+        "s": 0,
+        "l": 1
+       }
+      }
+     ],
+     "textColors": [
+      {
+       "color": "#5c5c57",
+       "share": 0.5
+      },
+      {
+       "color": "#1a1a1a",
+       "share": 0.46
+      },
+      {
+       "color": "#0f6e56",
+       "share": 0.02
+      },
+      {
+       "color": "#b42318",
+       "share": 0.01
+      },
+      {
+       "color": "#ffffff",
+       "share": 0.01
+      }
+     ],
+     "button": {
+      "bg": "#ffffff",
+      "hsl": {
+       "h": 0,
+       "s": 0,
+       "l": 1
+      },
+      "fg": "#1a1a1a"
+     },
+     "lowContrast": []
+    },
+    "buttons": {
+     "count": 15,
+     "inHero": 11,
+     "radius": 6,
+     "height": 53,
+     "withShadow": 0,
+     "withGradient": 0,
+     "mono": 0,
+     "upper": 0,
+     "heroLabels": [
+      "Skip to content",
+      "Say who is here",
+      "Mateo arrives",
+      "Breakfast",
+      "Add the milk"
+     ]
+    },
+    "surfaces": {
+     "shadowStatic": 3,
+     "shadowOverlay": 0,
+     "shadowSamples": [
+      "section.card → rgba(0, 0, 0, 0.06) 0px 1px 2px 0px, rgba(0, 0, 0, 0.04) 0px 4px 12px 0px",
+      "section#ask.card → rgba(0, 0, 0, 0.06) 0px 1px 2px 0px, rgba(0, 0, 0, 0.04) 0px 4px 12px 0px",
+      "div.card → rgba(0, 0, 0, 0.06) 0px 1px 2px 0px, rgba(0, 0, 0, 0.04) 0px 4px 12px 0px"
+     ],
+     "gradients": 0,
+     "scrims": 0,
+     "gradientSamples": [],
+     "gradientText": 0,
+     "hairlines": 3,
+     "hairlineSamples": [
+      "header.site 768px",
+      "div.tabs 736px",
+      "footer.site 768px"
+     ],
+     "outlinedBoxes": 6,
+     "dashed": 2,
+     "blurred": 1,
+     "roundedBoxes": 8,
+     "boxRadius": 12,
+     "squareMedia": 0,
+     "roundedMedia": 0,
+     "mediaRadius": 0,
+     "textShadow": 0,
+     "cardRows": []
+    },
+    "heroMedia": [],
+    "nav": {
+     "links": 1,
+     "fixed": true,
+     "height": 73,
+     "floatingPill": false,
+     "blur": true
+    },
+    "fontsLoaded": [
+     "inter"
+    ]
+   },
+   "layout": {
+    "viewport": {
+     "w": 768,
+     "h": 1024
+    },
+    "pageH": 3020,
+    "margins": {
+     "left": 16,
+     "right": 33
+    },
+    "sections": [
+     {
+      "sel": "div.stack",
+      "tag": "div",
+      "top": 262,
+      "height": 148,
+      "words": 26,
+      "media": 0,
+      "middle": 46,
+      "heading": null,
+      "left": 33,
+      "right": 33,
+      "textLeft": 33,
+      "textRight": 85,
+      "fullBleed": false,
+      "footer": false,
+      "hero": true,
+      "continues": true,
+      "pinned": false
+     },
+     {
+      "sel": "section.card",
+      "tag": "section",
+      "top": 434,
+      "height": 321,
+      "words": 52,
+      "media": 0,
+      "middle": 0,
+      "heading": {
+       "text": "Play the day",
+       "size": 18,
+       "tag": "h2"
+      },
+      "left": 41,
+      "right": 45,
+      "textLeft": 41,
+      "textRight": 70,
+      "fullBleed": false,
+      "footer": false,
+      "hero": true,
+      "continues": true,
+      "pinned": false
+     },
+     {
+      "sel": "section#ask.card",
+      "tag": "section",
+      "top": 778,
+      "height": 1546,
+      "words": 373,
+      "media": 0,
+      "middle": 0,
+      "heading": {
+       "text": "Ask Tally what the rules say",
+       "size": 18,
+       "tag": "h2"
+      },
+      "left": 41,
+      "right": 41,
+      "textLeft": 41,
+      "textRight": 58,
+      "fullBleed": false,
+      "footer": false,
+      "hero": false,
+      "continues": true,
+      "pinned": false
+     },
+     {
+      "sel": "div#panel-today",
+      "tag": "div",
+      "top": 2397,
+      "height": 363,
+      "words": 63,
+      "media": 0,
+      "middle": 0,
+      "heading": {
+       "text": "Nothing logged yet",
+       "size": 20,
+       "tag": "h3"
+      },
+      "left": 16,
+      "right": 65,
+      "textLeft": 16,
+      "textRight": 65,
+      "fullBleed": false,
+      "footer": false,
+      "hero": false,
+      "continues": true,
+      "pinned": false
+     },
+     {
+      "sel": "footer.site",
+      "tag": "footer",
+      "top": 2824,
+      "height": 196,
+      "words": 24,
+      "media": 0,
+      "middle": 0,
+      "heading": null,
+      "left": 16,
+      "right": 37,
+      "textLeft": 16,
+      "textRight": 37,
+      "fullBleed": false,
+      "footer": true,
+      "hero": false,
+      "continues": false,
+      "pinned": false
+     }
+    ],
+    "gaps": [],
+    "h1s": [],
+    "edgeText": [],
+    "edges": [
+     {
+      "x": 41,
+      "n": 7
+     },
+     {
+      "x": 58,
+      "n": 4
+     },
+     {
+      "x": 16,
+      "n": 2
+     },
+     {
+      "x": 70,
+      "n": 2
+     }
+    ],
+    "leftBlocks": 15,
+    "bodySize": 15,
+    "stage": false,
+    "explains": true,
+    "slivers": [],
+    "voidShare": 0,
+    "voidBox": null
+   },
+   "app": {
+    "viewport": {
+     "w": 768,
+     "h": 1024
+    },
+    "dark": false,
+    "ground": "#fafaf8",
+    "sidebar": null,
+    "topbar": {
+     "h": 73
+    },
+    "canvas": {
+     "left": 16,
+     "right": 33
+    },
+    "hero": {
+     "text": "0 here. Nothing logged yet.",
+     "words": 5,
+     "chars": 27,
+     "lines": 1,
+     "size": 20,
+     "vw": 2.6,
+     "font": "Inter",
+     "weight": 650,
+     "tracking": 0,
+     "leading": 1.35,
+     "top": 262,
+     "tag": "div",
+     "kind": "heading",
+     "align": "left",
+     "position": "left"
+    },
+    "charts": 0,
+    "layout": {
+     "panels": 4,
+     "firstScreen": 3,
+     "ragged": [],
+     "voids": []
+    },
+    "tiles": 0,
+    "panels": {
+     "count": 8,
+     "radii": [
+      [
+       12,
+       6
+      ],
+      [
+       6,
+       2
+      ]
+     ],
+     "heavyBorders": 1,
+     "borderSamples": [
+      "#175cd3 on #e8f0fe (5.22:1)"
+     ],
+     "heavyShadows": 0,
+     "softShadows": 6,
+     "shadowSamples": [],
+     "glass": 0
+    },
+    "chips": {
+     "count": 0,
+     "hues": 0,
+     "samples": []
+    },
+    "numbers": {
+     "cells": 0,
+     "leftAligned": 0,
+     "figures": 0,
+     "tabularShare": null,
+     "kpiMax": null
+    },
+    "rows": null,
+    "chartHues": 0,
+    "placeholders": [],
+    "type": {
+     "under13": 0.04,
+     "tiny": 0,
+     "tinySamples": [],
+     "sizes": [
+      12,
+      13,
+      14,
+      15,
+      16,
+      18,
+      20
+     ]
+    },
+    "title": null,
+    "colourShare": 0.019
+   },
+   "consoleErrors": []
+  },
+  {
+   "width": 390,
+   "height": 844,
+   "load": "load",
+   "screens": 6,
+   "filled": [
+    0.61,
+    0.92,
+    0.92,
+    0.92,
+    0.76,
+    0.54
+   ],
+   "motion": {
+    "elements": 0,
+    "css": 0,
+    "transitions": 0,
+    "scripted": 0,
+    "videos": 0,
+    "playingVideos": 0
+   },
+   "metrics": {
+    "viewport": {
+     "w": 390,
+     "h": 844
+    },
+    "page": {
+     "height": 4444,
+     "screens": 5.3,
+     "words": 624,
+     "img": 0,
+     "video": 0,
+     "canvas": 0,
+     "svg": 1,
+     "sections": 2,
+     "horizontalOverflow": 0,
+     "overflowCulprits": [],
+     "uiFragments": 0,
+     "uiAbuse": false,
+     "realPictures": 0,
+     "videoCount": 0,
+     "uiPictures": 0,
+     "pictureSamples": [],
+     "blendText": 0,
+     "sideScrollers": 1,
+     "brokenImages": [],
+     "emoji": [],
+     "videosNoPoster": 0
+    },
+    "hero": {
+     "text": "0 here. Nothing logged yet.",
+     "words": 5,
+     "chars": 27,
+     "lines": 1,
+     "size": 20,
+     "vw": 5.1,
+     "font": "Inter",
+     "weight": 650,
+     "tracking": 0,
+     "leading": 1.35,
+     "top": 329,
+     "tag": "div",
+     "kind": "heading",
+     "align": "left",
+     "position": "left"
+    },
+    "h1": null,
+    "headings": [],
+    "headingSummary": {
+     "count": 0,
+     "maxLines": 0,
+     "over2Lines": 0,
+     "statements": 0,
+     "centered": 0,
+     "medianWords": null,
+     "mixedFontHeadings": 0
+    },
+    "type": {
+     "families": [
+      {
+       "family": "Inter",
+       "share": 1,
+       "mono": false
+      },
+      {
+       "family": "Arial",
+       "share": 0,
+       "mono": false
+      }
+     ],
+     "familyCount": 2,
+     "sizes": [
+      10,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      20
+     ],
+     "sizeCount": 9,
+     "notLoaded": [],
+     "body": {
+      "font": "Inter",
+      "size": 15,
+      "leading": 1.5,
+      "weight": 400,
+      "tracking": 0,
+      "contrast": 15.2
+     },
+     "measureChars": 34,
+     "max": {
+      "size": 20,
+      "vw": 5.1,
+      "font": "Inter",
+      "text": "0 here. Nothing logged yet."
+     },
+     "monoShare": 0,
+     "monoProseShare": 0,
+     "monoFamilies": [],
+     "monoSamples": [],
+     "microLabels": 0,
+     "microLabelShare": 0,
+     "microSamples": [],
+     "upperShare": 0.01,
+     "centerShare": 0.07,
+     "smallText": 2
+    },
+    "eyebrows": [],
+    "numbered": [],
+    "color": {
+     "bodyBg": "#fafaf8",
+     "bodyBgHsl": {
+      "h": 60,
+      "s": 0.17,
+      "l": 0.98
+     },
+     "dark": false,
+     "sectionBgs": [
+      {
+       "color": "#ffffff",
+       "top": 584,
+       "hsl": {
+        "h": 0,
+        "s": 0,
+        "l": 1
+       }
+      }
+     ],
+     "textColors": [
+      {
+       "color": "#5c5c57",
+       "share": 0.5
+      },
+      {
+       "color": "#1a1a1a",
+       "share": 0.46
+      },
+      {
+       "color": "#0f6e56",
+       "share": 0.02
+      },
+      {
+       "color": "#b42318",
+       "share": 0.01
+      },
+      {
+       "color": "#ffffff",
+       "share": 0.01
+      }
+     ],
+     "button": {
+      "bg": "#ffffff",
+      "hsl": {
+       "h": 0,
+       "s": 0,
+       "l": 1
+      },
+      "fg": "#1a1a1a"
+     },
+     "lowContrast": []
+    },
+    "buttons": {
+     "count": 16,
+     "inHero": 7,
+     "radius": 6,
+     "height": 53,
+     "withShadow": 0,
+     "withGradient": 0,
+     "mono": 0,
+     "upper": 0,
+     "heroLabels": [
+      "Skip to content",
+      "Reset",
+      "Say who is here",
+      "Mateo arrives",
+      "Breakfast"
+     ]
+    },
+    "surfaces": {
+     "shadowStatic": 3,
+     "shadowOverlay": 0,
+     "shadowSamples": [
+      "section.card → rgba(0, 0, 0, 0.06) 0px 1px 2px 0px, rgba(0, 0, 0, 0.04) 0px 4px 12px 0px",
+      "section#ask.card → rgba(0, 0, 0, 0.06) 0px 1px 2px 0px, rgba(0, 0, 0, 0.04) 0px 4px 12px 0px",
+      "div.card → rgba(0, 0, 0, 0.06) 0px 1px 2px 0px, rgba(0, 0, 0, 0.04) 0px 4px 12px 0px"
+     ],
+     "gradients": 0,
+     "scrims": 0,
+     "gradientSamples": [],
+     "gradientText": 0,
+     "hairlines": 3,
+     "hairlineSamples": [
+      "header.site 390px",
+      "div.tabs 358px",
+      "footer.site 390px"
+     ],
+     "outlinedBoxes": 9,
+     "dashed": 2,
+     "blurred": 1,
+     "roundedBoxes": 11,
+     "boxRadius": 12,
+     "squareMedia": 0,
+     "roundedMedia": 0,
+     "mediaRadius": 0,
+     "textShadow": 0,
+     "cardRows": []
+    },
+    "heroMedia": [],
+    "nav": {
+     "links": 1,
+     "fixed": true,
+     "height": 73,
+     "floatingPill": false,
+     "blur": true
+    },
+    "fontsLoaded": [
+     "inter"
+    ]
+   },
+   "layout": {
+    "viewport": {
+     "w": 390,
+     "h": 844
+    },
+    "pageH": 4444,
+    "margins": {
+     "left": 16,
+     "right": 25
+    },
+    "sections": [
+     {
+      "sel": "div.notice",
+      "tag": "div",
+      "top": 157,
+      "height": 148,
+      "words": 36,
+      "media": 0,
+      "middle": 0,
+      "heading": null,
+      "left": 33,
+      "right": 43,
+      "textLeft": 33,
+      "textRight": 43,
+      "fullBleed": false,
+      "footer": false,
+      "hero": true,
+      "continues": true,
+      "pinned": false
+     },
+     {
+      "sel": "div.stack",
+      "tag": "div",
+      "top": 329,
+      "height": 231,
+      "words": 26,
+      "media": 0,
+      "middle": 24,
+      "heading": null,
+      "left": 33,
+      "right": 33,
+      "textLeft": 33,
+      "textRight": 81,
+      "fullBleed": false,
+      "footer": false,
+      "hero": true,
+      "continues": true,
+      "pinned": false
+     },
+     {
+      "sel": "section.card",
+      "tag": "section",
+      "top": 584,
+      "height": 688,
+      "words": 52,
+      "media": 0,
+      "middle": 0,
+      "heading": {
+       "text": "Play the day",
+       "size": 18,
+       "tag": "h2"
+      },
+      "left": 41,
+      "right": 47,
+      "textLeft": 41,
+      "textRight": 58,
+      "fullBleed": false,
+      "footer": false,
+      "hero": false,
+      "continues": true,
+      "pinned": false
+     },
+     {
+      "sel": "form#ask-form.ask-form",
+      "tag": "form",
+      "top": 1436,
+      "height": 361,
+      "words": 27,
+      "media": 0,
+      "middle": 0,
+      "heading": null,
+      "left": 41,
+      "right": 41,
+      "textLeft": 41,
+      "textRight": 70,
+      "fullBleed": false,
+      "footer": false,
+      "hero": false,
+      "continues": true,
+      "pinned": false
+     },
+     {
+      "sel": "div#proofs.stack",
+      "tag": "div",
+      "top": 1813,
+      "height": 1816,
+      "words": 316,
+      "media": 0,
+      "middle": 0,
+      "heading": {
+       "text": "2 checks today",
+       "size": 16,
+       "tag": "h3"
+      },
+      "left": 41,
+      "right": 58,
+      "textLeft": 41,
+      "textRight": 58,
+      "fullBleed": false,
+      "footer": false,
+      "hero": false,
+      "continues": true,
+      "pinned": false
+     },
+     {
+      "sel": "div#panel-today",
+      "tag": "div",
+      "top": 3727,
+      "height": 435,
+      "words": 63,
+      "media": 0,
+      "middle": 0,
+      "heading": {
+       "text": "Nothing logged yet",
+       "size": 20,
+       "tag": "h3"
+      },
+      "left": 16,
+      "right": 18,
+      "textLeft": 16,
+      "textRight": 18,
+      "fullBleed": false,
+      "footer": false,
+      "hero": false,
+      "continues": true,
+      "pinned": false
+     },
+     {
+      "sel": "footer.site",
+      "tag": "footer",
+      "top": 4226,
+      "height": 219,
+      "words": 24,
+      "media": 0,
+      "middle": 0,
+      "heading": null,
+      "left": 16,
+      "right": 29,
+      "textLeft": 16,
+      "textRight": 29,
+      "fullBleed": false,
+      "footer": true,
+      "hero": false,
+      "continues": false,
+      "pinned": false
+     }
+    ],
+    "gaps": [],
+    "h1s": [],
+    "edgeText": [],
+    "edges": [
+     {
+      "x": 41,
+      "n": 7
+     },
+     {
+      "x": 58,
+      "n": 4
+     },
+     {
+      "x": 16,
+      "n": 2
+     },
+     {
+      "x": 70,
+      "n": 2
+     }
+    ],
+    "leftBlocks": 15,
+    "bodySize": 15,
+    "stage": false,
+    "explains": false,
+    "slivers": [],
+    "voidShare": 0,
+    "voidBox": null
+   },
+   "app": {
+    "viewport": {
+     "w": 390,
+     "h": 844
+    },
+    "dark": false,
+    "ground": "#fafaf8",
+    "sidebar": null,
+    "topbar": {
+     "h": 73
+    },
+    "canvas": {
+     "left": 16,
+     "right": 12
+    },
+    "hero": {
+     "text": "0 here. Nothing logged yet.",
+     "words": 5,
+     "chars": 27,
+     "lines": 1,
+     "size": 20,
+     "vw": 5.1,
+     "font": "Inter",
+     "weight": 650,
+     "tracking": 0,
+     "leading": 1.35,
+     "top": 329,
+     "tag": "div",
+     "kind": "heading",
+     "align": "left",
+     "position": "left"
+    },
+    "charts": 0,
+    "layout": {
+     "panels": 5,
+     "firstScreen": 2,
+     "ragged": [],
+     "voids": []
+    },
+    "tiles": 0,
+    "panels": {
+     "count": 11,
+     "radii": [
+      [
+       12,
+       7
+      ],
+      [
+       6,
+       2
+      ],
+      [
+       999,
+       2
+      ]
+     ],
+     "heavyBorders": 2,
+     "borderSamples": [
+      "#175cd3 on #e8f0fe (5.22:1)",
+      "#b42318 on #fbe9e7 (5.61:1)"
+     ],
+     "heavyShadows": 0,
+     "softShadows": 6,
+     "shadowSamples": [],
+     "glass": 0
+    },
+    "chips": {
+     "count": 0,
+     "hues": 0,
+     "samples": []
+    },
+    "numbers": {
+     "cells": 0,
+     "leftAligned": 0,
+     "figures": 0,
+     "tabularShare": null,
+     "kpiMax": null
+    },
+    "rows": null,
+    "chartHues": 0,
+    "placeholders": [],
+    "type": {
+     "under13": 0.04,
+     "tiny": 0,
+     "tinySamples": [],
+     "sizes": [
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      20
+     ]
+    },
+    "title": null,
+    "colourShare": 0.028
+   },
+   "consoleErrors": []
+  }
+ ],
+ "findings": [
+  {
+   "level": "WARN",
+   "id": "palette-cream",
+   "width": 1440,
+   "message": "Yellow-cream background (page background #fafaf8).",
+   "fix": "Use the drawn palette. If you want warmth, take a low-chroma stone or bone, not a yellow cream.",
+   "alsoAt": [
+    768,
+    390
+   ]
+  },
+  {
+   "level": "FAIL",
+   "id": "no-title",
+   "width": 1440,
+   "message": "The screen has no h1.",
+   "fix": "Name the screen in an h1 at the top of the canvas (18–28px): \"Overview\", \"Payouts\", the project's name.",
+   "alsoAt": [
+    768,
+    390
+   ]
+  }
+ ],
+ "images": [
+  {
+   "viewport": "desktop",
+   "width": 1440,
+   "fold": "C:\\Hackathons\\Agents for Humans Hackathon\\tally\\.taste-skill\\app-after\\desktop-fold.jpg",
+   "pages": [
+    "C:\\Hackathons\\Agents for Humans Hackathon\\tally\\.taste-skill\\app-after\\desktop-page-01.jpg"
+   ],
+   "film": []
+  },
+  {
+   "viewport": "tablet",
+   "width": 768,
+   "fold": "C:\\Hackathons\\Agents for Humans Hackathon\\tally\\.taste-skill\\app-after\\tablet-fold.jpg",
+   "pages": [
+    "C:\\Hackathons\\Agents for Humans Hackathon\\tally\\.taste-skill\\app-after\\tablet-page-01.jpg"
+   ],
+   "film": []
+  },
+  {
+   "viewport": "mobile",
+   "width": 390,
+   "fold": "C:\\Hackathons\\Agents for Humans Hackathon\\tally\\.taste-skill\\app-after\\mobile-fold.jpg",
+   "pages": [
+    "C:\\Hackathons\\Agents for Humans Hackathon\\tally\\.taste-skill\\app-after\\mobile-page-01.jpg"
+   ],
+   "film": []
+  }
+ ]
+}

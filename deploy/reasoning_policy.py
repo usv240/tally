@@ -155,15 +155,35 @@ def report(state: dict) -> dict:
 # turned every off-topic question into SATISFIABLE ("is this question about ratios?") instead of
 # NO_TRANSLATIONS, which is the honest answer for a question the rulebook has nothing to say about.
 PRUNE_VARIABLES = {"topicCoveredByTheseRules", "questionIsAboutPortionSizeRatioRateOrTiering",
-                   "mealTypeIsNotOther"}
+                   "mealTypeIsNotOther",
+                   # "Milk must be served as a beverage or on cereal" is about the manner of service,
+                   # which no provider question turns on, and the translator read "fat-free milk ...
+                   # as long as it is unflavored" as a manner of service, contradicting a correct
+                   # answer. The rule is in the regulation; it is not a creditability decision.
+                   "milkService"}
+PRUNE_TYPES = {"MilkService"}
+
+# The build's wording of a variable decides how the translator fills it. "Replaced the grains this
+# week" read as including the breakfast being asked about, so "already three times, is a fourth
+# okay" came back as three, within the limit. Counted before this occasion, the rules below hold.
+VARIABLE_NOTES = {
+    "meatReplacedGrainsAtBreakfastThisWeek":
+        "The number of times a meat or meat alternate has already replaced the grains component at "
+        "breakfast earlier this week, before the breakfast being asked about. If it has happened "
+        "three times already, the next one would be the fourth.",
+}
 
 
 def prune(state: dict) -> dict:
     d = json.loads(DEFINITION.read_text())
     before = (len(d["variables"]), len(d["rules"]))
     d["variables"] = [v for v in d["variables"] if v["name"] not in PRUNE_VARIABLES]
+    d["types"] = [t for t in d.get("types", []) if t["name"] not in PRUNE_TYPES]
     d["rules"] = [r for r in d["rules"]
                   if not any(name in r["expression"] for name in PRUNE_VARIABLES)]
+    for v in d["variables"]:
+        if v["name"] in VARIABLE_NOTES:
+            v["description"] = VARIABLE_NOTES[v["name"]]
     DEFINITION.write_text(json.dumps(d, indent=2, default=str) + "\n")
     print(f"  variables {before[0]} -> {len(d['variables'])}, rules {before[1]} -> {len(d['rules'])}")
     return state
@@ -199,6 +219,21 @@ PATCH_RULES = [
     ("TALLYG7MEASU", "(= cerealSugarLimitMeasure SugarFigureType_ADDED)",
      "The breakfast cereal sugar limit is measured in added sugars, not total sugars; the former total "
      "sugars limit no longer applies."),
+    # Rules B2 and B3, rebuilt on the count of earlier replacements this week (see VARIABLE_NOTES).
+    # The build's versions were consistent with each other and wrong about the fourth time.
+    ("V4HO1LHK7WFI", "(=> isMeatReplacingGrainsAtBreakfastAllowed (<= meatReplacedGrainsAtBreakfastThisWeek 2))",
+     "A meat or meat alternate may replace the grains at breakfast only if it has done so at most "
+     "twice earlier this week, so that this is at most the third time."),
+    ("ECNI3CCSZQLS", "(=> (>= meatReplacedGrainsAtBreakfastThisWeek 3) (not isMeatReplacingGrainsAtBreakfastAllowed))",
+     "If a meat or meat alternate has already replaced the grains at breakfast three times this week, "
+     "it may not do so again this week."),
+    ("JIIKTAC3TJ4E", "(=> (and (= mealType MealType_BREAKFAST) (>= meatReplacedGrainsAtBreakfastThisWeek 3)) "
+                     "(not isMeatReplacingGrainsAtBreakfastAllowed))",
+     "At breakfast, after three replacements earlier in the week, a meat or meat alternate does not "
+     "meet the grains requirement."),
+    ("TALLYB2SUFFI", "(=> (<= meatReplacedGrainsAtBreakfastThisWeek 2) isMeatReplacingGrainsAtBreakfastAllowed)",
+     "A meat or meat alternate may replace the entire grains component at breakfast when it has done "
+     "so at most twice earlier this week."),
 ]
 
 

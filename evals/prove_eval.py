@@ -66,16 +66,20 @@ def run_solver(cases: dict) -> dict:
         print(f"  {c['id']:<32} off-topic {ch.verdict}")
 
     n = len(rows)
+    # IMPOSSIBLE means the situation in the question already breaks a rule, whatever the draft says.
+    # The tool tells her the rule and stops. For a wrong "yes" that is a catch; for a correct "no" it
+    # is agreement, not a block. It is counted on its own below so the reader can see it.
     caught = sum(1 for r in rows if r["wrong"]["verdict"] in ("INVALID", "IMPOSSIBLE"))
     wrong_served = sum(1 for r in rows if r["wrong"]["verdict"] == "VALID")
-    blocked = sum(1 for r in rows if r["correct"]["verdict"] in ("INVALID", "IMPOSSIBLE"))
+    blocked = sum(1 for r in rows if r["correct"]["verdict"] == "INVALID")
+    forbidden = sum(1 for r in rows if r["correct"]["verdict"] == "IMPOSSIBLE")
     proved = sum(1 for r in rows if r["correct"]["verdict"] == "VALID")
     undecided = sum(1 for r in rows if r["correct"]["verdict"] in ("SATISFIABLE", "AMBIGUOUS"))
     off_proved = sum(1 for o in off if o["verdict"] == "VALID")
     lat = sorted(r[s]["latency_ms"] for r in rows for s in ("correct", "wrong"))
     return {
-        "n": n, "caught": caught, "wrong_served": wrong_served, "blocked": blocked, "proved": proved,
-        "undecided": undecided, "off_topic_n": len(off), "off_topic_proved": off_proved,
+        "n": n, "caught": caught, "wrong_served": wrong_served, "blocked": blocked, "forbidden": forbidden,
+        "proved": proved, "undecided": undecided, "off_topic_n": len(off), "off_topic_proved": off_proved,
         "latency_median_ms": lat[len(lat) // 2], "latency_p90_ms": lat[int(len(lat) * 0.9)],
         "rows": rows, "off_topic": off,
     }
@@ -120,6 +124,11 @@ def run_agents(cases: dict, conditions: tuple[str, ...] = ("no_tool", "debate", 
             # with the case's facts. The judge never sees which condition produced it.
             asked = _is_question(answer)
             verdict = "ASKED" if asked else prove.prove(c["question"], answer, c["facts"]).verdict
+            if verdict == "IMPOSSIBLE":
+                # The facts forbid the situation. A final answer that says no agrees with the rules; one
+                # that says yes was served wrong. Decide by the answer's first word, which is how the
+                # provider hears it.
+                verdict = "VALID" if answer.strip().lower().startswith(("no", "not ")) else "INVALID"
             row[cond] = {"answer": answer, "verdict": verdict, "checks": checks, "seconds": round(secs, 1)}
             print(f"  {c['id']:<32} {cond:<8} {verdict:<12} {secs:5.1f}s  {answer[:70]}")
         rows.append(row)
@@ -153,10 +162,14 @@ def render(solver: dict | None, agents: dict | None) -> str:
             f"**The tool alone, on {s['n']} questions: {s['caught']} of {s['n']} wrong answers "
             f"contradicted, {s['blocked']} of {s['n']} correct answers wrongly blocked, "
             f"{s['off_topic_proved']} of {s['off_topic_n']} off-topic answers wrongly proved.**", "",
-            f"Of the {s['n']} correct answers, {s['proved']} were proved outright and "
+            f"Of the {s['n']} correct answers, {s['proved']} were proved outright, "
             f"{s['undecided']} came back undecided, which is the tool asking for a fact rather than "
-            f"refusing. {s['wrong_served']} wrong answers were proved. Median check "
-            f"{s['latency_median_ms'] / 1000:.1f} s, 90th percentile {s['latency_p90_ms'] / 1000:.1f} s.", "",
+            f"refusing, and {s['forbidden']} came back IMPOSSIBLE, which means the situation in the "
+            f"question itself breaks a rule and the tool tells her the rule, which agrees with a correct "
+            f"\"no\". {s['wrong_served']} wrong answers were proved. Median check "
+            f"{s['latency_median_ms'] / 1000:.1f} s, 90th percentile {s['latency_p90_ms'] / 1000:.1f} s. "
+            "The translation step is not fully deterministic, so a rerun can move a case between VALID "
+            "and undecided; the contradicted and blocked counts have been stable across runs.", "",
             "| Case | Source | USDA's answer | The wrong answer |", "|---|---|---|---|"]
         for r in s["rows"]:
             lines.append(f"| {r['id']} | {r['source']} | {r['correct']['verdict']} | {r['wrong']['verdict']} |")

@@ -228,3 +228,57 @@ A limit stated too loosely is not a contradiction but a weaker truth, so each nu
 | SATISFIABLE | `web/try.html` | Cereal must be under 6g of sugar per dry ounce. |  |
 
 <!-- audit:end -->
+
+<!-- prove:start -->
+## Proved against the regulation
+
+Generated 2026-10-24 13:29 UTC by `python -m evals.prove_eval`.
+
+The questions are a provider's; the answers are USDA's, from 7 CFR 226.20 and memo CACFP 06-2025, cited per case in `evals/cases/prove_cases.json`. We wrote none of the answers. The judge for every number below is the same: Amazon Bedrock Automated Reasoning checks against the regulation held as formal logic.
+
+**The tool alone, on 30 questions: 24 of 30 wrong answers contradicted, 4 of 30 correct answers wrongly blocked, 0 of 4 off-topic answers wrongly proved.**
+
+Of the 30 correct answers, 13 were proved outright and 13 came back undecided, which is the tool asking for a fact rather than refusing. 0 wrong answers were proved. Median check 5.6 s, 90th percentile 6.6 s.
+
+| Case | Source | USDA's answer | The wrong answer |
+|---|---|---|---|
+| yogurt_sugar_17 | 7 CFR 226.20(a)(5)(iii)(B); CACFP 06-2025 Q12 | VALID | INVALID |
+| yogurt_sugar_9 | 7 CFR 226.20(a)(5)(iii)(B) | SATISFIABLE | INVALID |
+| yogurt_old_limit | 7 CFR 226.20(a)(5)(iii)(B); the 23 g total sugars limit expired September 30, 2025 | SATISFIABLE | IMPOSSIBLE |
+| yogurt_frozen | 7 CFR 226.20(a)(5)(iii)(C) | SATISFIABLE | INVALID |
+| cereal_sugar_8 | 7 CFR 226.20(a)(4)(ii); CACFP 06-2025 Q18 | SATISFIABLE | INVALID |
+| cereal_sugar_4 | 7 CFR 226.20(a)(4)(i)-(ii) | SATISFIABLE | INVALID |
+| cereal_old_limit | 7 CFR 226.20(a)(4)(ii); the total sugars limit expired September 30, 2025 | SATISFIABLE | INVALID |
+| snack_milk_juice | 7 CFR 226.20(c)(3), table 4 footnote 1 | VALID | INVALID |
+| snack_crackers_cheese | 7 CFR 226.20(c)(3) | VALID | INVALID |
+| snack_one_component | 7 CFR 226.20(c)(3) | SATISFIABLE | INVALID |
+| milk_flavored_4yo | 7 CFR 226.20(a)(1)(ii) | IMPOSSIBLE | IMPOSSIBLE |
+| milk_flavored_7yo | 7 CFR 226.20(a)(1)(iii) | SATISFIABLE | SATISFIABLE |
+| milk_whole_1yo | 7 CFR 226.20(a)(1)(i) | VALID | INVALID |
+| milk_skim_3yo | 7 CFR 226.20(a)(1)(ii) | INVALID | SATISFIABLE |
+| milk_yogurt_substitute_child | 7 CFR 226.20(a)(1)(iv), (c) footnote 6 (adults only) | IMPOSSIBLE | IMPOSSIBLE |
+| juice_twice | 7 CFR 226.20(a)(3)(i) | VALID | INVALID |
+| juice_once | 7 CFR 226.20(a)(3)(i) | SATISFIABLE | SATISFIABLE |
+| wgr_not_met | 7 CFR 226.20(a)(4)(i)(A) | VALID | INVALID |
+| wgr_met | 7 CFR 226.20(a)(4)(i)(A) | VALID | INVALID |
+| grain_dessert | 7 CFR 226.20(a)(4)(iii) | VALID | INVALID |
+| breakfast_meat_for_grain_4th | 7 CFR 226.20(c)(1) | INVALID | SATISFIABLE |
+| breakfast_meat_for_grain_2nd | 7 CFR 226.20(c)(1) | SATISFIABLE | SATISFIABLE |
+| lunch_missing_vegetable | 7 CFR 226.20(c)(2) | VALID | INVALID |
+| lunch_two_vegetables | 7 CFR 226.20(a)(3)(ii) | SATISFIABLE | INVALID |
+| deep_fried | 7 CFR 226.20(d); CACFP 06-2025 Q15 | VALID | INVALID |
+| infant_juice | 7 CFR 226.20(b)(4)(ii) | SATISFIABLE | SATISFIABLE |
+| infant_wgr | CACFP 06-2025 Q16 | VALID | INVALID |
+| infant_rice | CACFP 06-2025 Q14 | VALID | INVALID |
+| infant_cheese_spread | CACFP 06-2025, Meats and Meat Alternates, p. 13 | VALID | INVALID |
+| infant_cereal_iron | 7 CFR 226.20(b)(5) footnote 2; CACFP 06-2025 Q19 | SATISFIABLE | INVALID |
+
+| Off-topic question | Verdict |
+|---|---|
+| ratio_tx | UNVERIFIED |
+| rate_tier1 | UNVERIFIED |
+| portion_size | UNVERIFIED |
+| nap_time | UNVERIFIED |
+
+Rerun with `python -m evals.prove_eval --solver --agents --out docs/EVAL.md`. Both halves call AWS; the solver half costs about a dollar, the agents half about three.
+<!-- prove:end -->

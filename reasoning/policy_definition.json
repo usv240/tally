@@ -20,28 +20,6 @@
       ]
     },
     {
-      "name": "MilkService",
-      "description": "How fluid milk is served to a child: as a beverage, on cereal, or a combination of both.",
-      "values": [
-        {
-          "value": "MilkService_BEVERAGE",
-          "description": "Fluid milk served as a beverage."
-        },
-        {
-          "value": "MilkService_ON_CEREAL",
-          "description": "Fluid milk served on cereal."
-        },
-        {
-          "value": "MilkService_COMBINATION",
-          "description": "Fluid milk served as a combination of beverage and on cereal."
-        },
-        {
-          "value": "MilkService_OTHER",
-          "description": "A manner of serving fluid milk not permitted."
-        }
-      ]
-    },
-    {
       "name": "MilkFatType",
       "description": "The fat content type of fluid milk served.",
       "values": [
@@ -121,11 +99,6 @@
     }
   ],
   "rules": [
-    {
-      "id": "C3SGHAMLQT30",
-      "expression": "(not (= milkService\n        MilkService_OTHER))",
-      "alternateExpression": "Fluid milk must be served as a beverage, on cereal, or a combination of both; no other manner of service is permitted."
-    },
     {
       "id": "I9UPBW7JOG2J",
       "expression": "(=> (>= childAgeYears 6)\n    (or (= milkFatType\n           MilkFatType_WHOLE)\n        (= milkFatType\n           MilkFatType_REDUCED_FAT)\n        (= milkFatType\n           MilkFatType_LOW_FAT)\n        (= milkFatType\n           MilkFatType_FAT_FREE)))",
@@ -268,8 +241,8 @@
     },
     {
       "id": "JIIKTAC3TJ4E",
-      "expression": "(=> (and (= mealType\n            MealType_BREAKFAST)\n         (>= meatReplacedGrainsAtBreakfastThisWeek\n             4))\n    (not containsGrains))",
-      "alternateExpression": "If a meat or meat alternate replaces the grains component at breakfast a fourth time (or more) in the same week, that breakfast does not meet the grains requirement."
+      "expression": "(=> (and (= mealType MealType_BREAKFAST) (>= meatReplacedGrainsAtBreakfastThisWeek 3)) (not isMeatReplacingGrainsAtBreakfastAllowed))",
+      "alternateExpression": "At breakfast, after three replacements earlier in the week, a meat or meat alternate does not meet the grains requirement."
     },
     {
       "id": "QHGQ2D6R2HK4",
@@ -353,13 +326,13 @@
     },
     {
       "id": "V4HO1LHK7WFI",
-      "expression": "(=> isMeatReplacingGrainsAtBreakfastAllowed\n    (<= meatReplacedGrainsAtBreakfastThisWeek\n        3))",
-      "alternateExpression": "if isMeatReplacingGrainsAtBreakfastAllowed is true, then meatReplacedGrainsAtBreakfastThisWeek is no more than 3"
+      "expression": "(=> isMeatReplacingGrainsAtBreakfastAllowed (<= meatReplacedGrainsAtBreakfastThisWeek 2))",
+      "alternateExpression": "A meat or meat alternate may replace the grains at breakfast only if it has done so at most twice earlier this week, so that this is at most the third time."
     },
     {
       "id": "ECNI3CCSZQLS",
-      "expression": "(=> (not isMeatReplacingGrainsAtBreakfastAllowed)\n    (not (<= meatReplacedGrainsAtBreakfastThisWeek\n             3)))",
-      "alternateExpression": "if isMeatReplacingGrainsAtBreakfastAllowed is false, then meatReplacedGrainsAtBreakfastThisWeek is greater than 3"
+      "expression": "(=> (>= meatReplacedGrainsAtBreakfastThisWeek 3) (not isMeatReplacingGrainsAtBreakfastAllowed))",
+      "alternateExpression": "If a meat or meat alternate has already replaced the grains at breakfast three times this week, it may not do so again this week."
     },
     {
       "id": "GL6CH4S9FV7P",
@@ -560,6 +533,11 @@
       "id": "TALLYG7MEASU",
       "expression": "(= cerealSugarLimitMeasure SugarFigureType_ADDED)",
       "alternateExpression": "The breakfast cereal sugar limit is measured in added sugars, not total sugars; the former total sugars limit no longer applies."
+    },
+    {
+      "id": "TALLYB2SUFFI",
+      "expression": "(=> (<= meatReplacedGrainsAtBreakfastThisWeek 2) isMeatReplacingGrainsAtBreakfastAllowed)",
+      "alternateExpression": "A meat or meat alternate may replace the entire grains component at breakfast when it has done so at most twice earlier this week."
     }
   ],
   "variables": [
@@ -626,7 +604,7 @@
     {
       "name": "meatReplacedGrainsAtBreakfastThisWeek",
       "type": "INT",
-      "description": "The number of times a meat or meat alternate has replaced the grains component at breakfast during the current week."
+      "description": "The number of times a meat or meat alternate has already replaced the grains component at breakfast earlier this week, before the breakfast being asked about. If it has happened three times already, the next one would be the fourth."
     },
     {
       "name": "isMeatReplacingGrainsAtBreakfastAllowed",
@@ -662,11 +640,6 @@
       "name": "snackOnlyItemsAreMilkAndJuice",
       "type": "BOOL",
       "description": "True if the only two items in the snack are fluid milk and juice (fruit or vegetable juice)."
-    },
-    {
-      "name": "milkService",
-      "type": "MilkService",
-      "description": "The manner in which fluid milk is served to the child."
     },
     {
       "name": "milkFatType",

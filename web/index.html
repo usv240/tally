@@ -40,7 +40,7 @@
   <div class="bar">
     <a class="brand" href="index.html"><span class="mark" aria-hidden="true"></span> Tally</a>
     <nav aria-label="Main">
-      <a href="#problem">The problem</a>
+      <a href="#proof">New: proofs</a>
       <a href="#how">How it works</a>
       <a href="try.html">Try it yourself</a>
       <a href="#judges">For judges</a>
@@ -72,6 +72,46 @@
       <span>Paperwork is the barrier state agencies name most<button class="info" data-tip="cacfp" data-label="the food program"></button></span>
       <span>Claims computed in AgentCore Code Interpreter<button class="info" data-tip="where_it_runs" data-label="where it runs"></button></span>
     </p>
+  </div>
+</section>
+
+<section class="band" id="proof">
+  <div class="wrap stack">
+    <h2>New in October: ask it what the rules say, and get a proof, not a guess.</h2>
+    <p class="section-lede">
+      Everything else on this page shipped in September. One tool was added for the AWS
+      <em>Give your Agent a Tool</em> challenge. Before it, a question about the rules went to a model
+      answering from memory, and memory is where last year's rule lives. Now the draft answer is
+      checked by Amazon Bedrock Automated Reasoning against the regulation held as formal logic<button class="info" data-tip="prove_answer" data-label="proved answers"></button>.
+    </p>
+
+    <div class="grid cols-2">
+      <div class="card">
+        <h3>Before</h3>
+        <p class="quote" style="margin:0 0 var(--s3)">"Can I serve the strawberry yogurt cups as the meat alternate at snack? The label says 17 grams."</p>
+        <p style="margin:0"><span class="badge critical"><span class="shape" aria-hidden="true">&#x2B23;</span><span>wrong since October 2025</span></span></p>
+        <p class="muted" style="margin:var(--s2) 0 0">"Yes. Yogurt credits as a meat alternate and 17 grams is under the 23 gram limit." Confident, and the meal is disallowed at review.</p>
+      </div>
+      <div class="card">
+        <h3>After, same agent, same question</h3>
+        <p style="margin:0 0 var(--s2)"><span class="badge critical"><span class="shape" aria-hidden="true">&#x2B23;</span><span>contradicts a rule</span></span>
+          <span class="small muted"> Yogurt is creditable as a meat alternate only if it contains no more than 12 grams of added sugars per 6 ounces.</span></p>
+        <p style="margin:0 0 var(--s2)">It rewrites, then asks the one fact the rule turns on: "Is the 17 grams added sugars or total sugars?"</p>
+        <p style="margin:0"><span class="badge covered"><span class="shape" aria-hidden="true">&#x25A0;</span><span>proved</span></span>
+          <span class="small muted"> She reads 9 g added. The receipt is filed with the meal for the sponsor.</span></p>
+      </div>
+    </div>
+
+    <p>
+      The first thing the tool caught was us: pointed at Tally's own rulebook, it found the yogurt
+      limit in <code>rules/cacfp_rules.json</code> had expired a year earlier. Measurements against
+      questions USDA answered, and the audit, are in
+      <a href="https://github.com/usv240/tally/blob/prove/docs/EVAL.md">docs/EVAL.md</a>.
+    </p>
+    <div class="btn-row">
+      <a class="btn primary" href="app.html#ask">Ask Tally a rule question</a>
+      <a class="btn" href="#api">Call the tool from your own agent</a>
+    </div>
   </div>
 </section>
 

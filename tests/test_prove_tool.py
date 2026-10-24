@@ -45,6 +45,15 @@ def test_satisfiable_asks_for_the_missing_fact(rt, monkeypatch):
     assert "Ask her" in out["next_step"] and "added sugars exceed 12 g" in out["next_step"]
 
 
+def test_impossible_tells_her_the_rule_and_stops(rt, monkeypatch):
+    """Flavored milk for a 4 year old: the situation breaks the rule, so there is nothing to rewrite."""
+    monkeypatch.setenv("TALLY_PROVE", "on")
+    monkeypatch.setattr(prove, "prove", fake("IMPOSSIBLE", rules=["Flavored milk is not allowed for 1 to 5"]))
+    out = prove_answer("Can the 4 year olds have chocolate milk?", "Yes, that is fine.")
+    assert out["verdict"] == "IMPOSSIBLE"
+    assert "not allowed" in out["next_step"] and "Do not call prove_answer again" in out["next_step"]
+
+
 def test_the_loop_is_capped(rt, monkeypatch):
     monkeypatch.setenv("TALLY_PROVE", "on")
     calls = []
