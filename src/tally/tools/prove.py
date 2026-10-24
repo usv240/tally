@@ -67,6 +67,12 @@ def _next_step(p: Proof) -> str:
                 f"Then call prove_answer again with her answer in `facts`.")
     if p.verdict == "SKIPPED":
         return "Proving is switched off. Answer as you would have, and say it is unchecked."
+    if p.missing_facts and p.attempt < MAX_ATTEMPTS:
+        # The checker read one fact two ways, usually because the draft put the rule's number next
+        # to her number. Not her problem to settle; the agent restates and proves again.
+        return ("Could not be checked: the checker read one fact two ways ("
+                + " versus ".join(p.missing_facts[:2]) + "). Keep the limit out of the facts; put what "
+                "she said in facts and your decision in the answer, and call prove_answer again.")
     if p.attempt < MAX_ATTEMPTS:
         return ("Could not be checked: the draft did not state a decision the rules speak to. Rewrite "
                 "it as one plain statement, whether the food is creditable or the meal is reimbursable, "

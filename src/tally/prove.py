@@ -14,6 +14,7 @@ from __future__ import annotations
 
 import json
 import os
+import re
 import time
 from dataclasses import dataclass, field
 from pathlib import Path
@@ -166,7 +167,36 @@ def interpret(response: dict, definition: dict | None = None) -> Checked:
     if out.verdict == "VALID" and not [c for c in out.claims if c.strip().lower() != "true"]:
         out.verdict = "UNVERIFIED"
         out.rules = []
+    # An IMPOSSIBLE whose premises give one variable two values is the translator contradicting
+    # itself, not the situation breaking a rule: "the limit is 12 g" read as a fact about a yogurt
+    # that was said to have 17 g. The rule attached to such a finding is arbitrary. Report the
+    # clash and let the agent restate, instead of quoting a milk rule under a yogurt question.
+    if out.verdict == "IMPOSSIBLE":
+        clash = _self_contradiction(out.premises + out.claims)
+        if clash:
+            out.verdict = "UNVERIFIED"
+            out.rules = []
+            out.missing_facts = clash
     return out
+
+
+_EQ = re.compile(r"^\s*([A-Za-z][A-Za-z0-9_]*) is equal to (.+?)\s*$")
+
+
+def _self_contradiction(statements: list[str]) -> list[str]:
+    """Statements that give the same variable two different values, if any."""
+    seen: dict[str, str] = {}
+    clash: list[str] = []
+    for s in statements:
+        for part in s.split(" and "):
+            m = _EQ.match(part)
+            if not m:
+                continue
+            var, val = m.group(1), m.group(2)
+            if var in seen and seen[var] != val:
+                clash += [f"{var} is equal to {seen[var]}", part.strip()]
+            seen.setdefault(var, val)
+    return list(dict.fromkeys(clash))
 
 
 def prove(question: str, answer: str, facts: str = "", client=None, cfg: dict | None = None) -> Checked:

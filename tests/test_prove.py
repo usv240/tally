@@ -110,6 +110,21 @@ def test_a_vacuous_valid_is_unverified_not_proved():
     assert prove.interpret(r2, DEFINITION).verdict == "VALID"
 
 
+def test_an_impossible_from_two_values_for_one_fact_is_unverified_not_a_broken_rule():
+    """The translator read the 12 g limit as a second value for a yogurt said to have 17 g."""
+    r = response({"impossible": {
+        "translation": translation(premises=["yogurtAddedSugarsPer6Ounces is equal to 17.0",
+                                             "yogurtAddedSugarsPer6Ounces is equal to 12.0 and sugarFigureType is equal to ADDED"],
+                                   claims=["isYogurtCreditable is false"]),
+        "contradictingRules": [{"identifier": "R_S3"}]}})
+    c = prove.interpret(r, DEFINITION)
+    assert c.verdict == "UNVERIFIED" and c.rules == []
+    assert c.missing_facts == ["yogurtAddedSugarsPer6Ounces is equal to 17.0", "yogurtAddedSugarsPer6Ounces is equal to 12.0"]
+    r2 = response({"impossible": {"translation": translation(premises=["milkIsFlavored is true", "childAgeYears is equal to 4"]),
+                                  "contradictingRules": [{"identifier": "R_S3"}]}})
+    assert prove.interpret(r2, DEFINITION).verdict == "IMPOSSIBLE"
+
+
 def test_unknown_rule_id_falls_back_to_the_id():
     assert prove.rule_text("R_NOPE", DEFINITION) == "R_NOPE"
 
