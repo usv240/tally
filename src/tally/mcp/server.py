@@ -5,7 +5,7 @@ right thing and it is not enough. The organisation that actually questions a cla
 agency, and increasingly what reviews a claim on their side is an agent, not a person with a browser.
 
 So the same rulebook is served over the Model Context Protocol. A sponsor's agent, or a state
-reviewer's, can ask what a lunch requires for a three year old under version 2026-09, get a
+reviewer's, can ask what a lunch requires for a three year old under version 2026-10, get a
 structured answer, and reach its own verdict. It never has to take Tally's word for anything, which
 is the whole reason the rules were versioned data rather than Python in the first place.
 

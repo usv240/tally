@@ -1,5 +1,5 @@
 {
-  "version": "2026-09",
+  "version": "2026-10",
   "effective": "2026-07-01",
   "source": "USDA Food and Nutrition Administration, CACFP meal patterns for children and infants. https://www.fna.usda.gov/cacfp/nutrition-standards",
   "note": "Component requirements only. Tally deliberately does not model portion sizes, because a photograph cannot establish them and because reimbursement turns on which components were served.",
@@ -76,13 +76,13 @@
     {
       "id": "cereal_sugar",
       "applies_to": ["breakfast_cereal"],
-      "description": "Breakfast cereal must contain no more than 6 grams of sugar per dry ounce.",
+      "description": "Breakfast cereal must contain no more than 6 grams of added sugars per dry ounce.",
       "note": "A photograph cannot establish sugar content, so this is raised as a label check for the provider rather than decided by the agent. Added sugars, not total: the total sugars limit expired 2025-09-30 (7 CFR 226.20(a)(4)(ii))."
     },
     {
       "id": "yogurt_sugar",
       "applies_to": ["yogurt"],
-      "description": "Yogurt must contain no more than 23 grams of sugar per 6 ounces.",
+      "description": "Yogurt must contain no more than 12 grams of added sugars per 6 ounces.",
       "note": "Raised as a label check, never decided from a photograph. Was 23 grams of total sugars until 2025-09-30; the added sugars limit is 7 CFR 226.20(a)(5)(iii)(B), found stale by evals/rulebook_audit.py on 2026-10-24."
     }
   ],

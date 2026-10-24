@@ -194,8 +194,8 @@
       (m.label_checks || []).forEach(function (c) {
         body.appendChild(window.h("p", { class: "small", style: "margin:var(--s2) 0 0" }, [
           window.levelBadge("elevated", "check the label"), " ",
-          c === "yogurt_sugar" ? "Yoghurt must be under 23g of sugar per 6oz. A photograph cannot show that."
-            : "Cereal must be under 6g of sugar per dry ounce. A photograph cannot show that.",
+          c === "yogurt_sugar" ? "Yoghurt must be under 12g of added sugars per 6oz. A photograph cannot show that."
+            : "Cereal must be under 6g of added sugars per dry ounce. A photograph cannot show that.",
           window.infoBtn("label_check", "label checks")
         ]));
       });
