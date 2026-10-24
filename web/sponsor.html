@@ -276,6 +276,18 @@
       body.appendChild(h("p", { class: "small muted", style: "margin:var(--s2) 0 0",
         text: "A substitution was recorded, so one child's record differs from the plate." }));
     }
+    (m.proofs || []).forEach(function (p) {
+      // A proof receipt attached to the meal: the question, the verdict, the rule. This is what a
+      // reviewer reads a year later to see why the agent said what it said.
+      var bad = p.verdict === "INVALID" || p.verdict === "IMPOSSIBLE";
+      body.appendChild(h("p", { class: "small", style: "margin:var(--s2) 0 0" }, [
+        h("span", { class: "badge " + (p.verdict === "VALID" ? "covered" : bad ? "critical" : "elevated") }, [
+          h("span", { class: "shape", "aria-hidden": "true",
+            text: p.verdict === "VALID" ? window.SHAPES.covered : bad ? window.SHAPES.critical : window.SHAPES.elevated }),
+          h("span", { text: p.verdict === "VALID" ? "proved" : bad ? "contradicted" : p.verdict.toLowerCase() })]),
+        " " + p.question + (p.rules && p.rules.length ? " Rule: " + p.rules[0] : "")
+      ]));
+    });
     body.appendChild(h("p", { class: "stamp", style: "margin:var(--s3) 0 0",
       text: m.children_served.length + " children, rulebook "
         + (m.rule_version || "unversioned") }));

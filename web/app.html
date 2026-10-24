@@ -85,6 +85,29 @@
     <p class="small muted" id="step-detail" style="margin-top:var(--s3);margin-bottom:0"></p>
   </section>
 
+  <section class="card" style="margin-bottom:var(--s5)" aria-labelledby="ask-h">
+    <h2 id="ask-h" style="font-size:1.125rem">Ask Tally what the rules say
+      <button class="info" data-tip="prove_answer" data-label="proved answers"></button></h2>
+    <p class="small muted" style="margin:var(--s1) 0 var(--s4)">Type a question a provider would ask
+      at the table. With proving on, the answer is checked against the regulation before you hear it.</p>
+    <form id="ask-form" class="ask-form">
+      <label for="ask-text" class="small" style="font-weight:550">Your question</label>
+      <div class="ask-row">
+        <input id="ask-text" name="text" type="text" autocomplete="off" required
+               placeholder="Can I serve the strawberry yogurt cups as the meat alternate at snack? The label says 17 grams of sugar." />
+        <button class="btn primary" type="submit" id="ask-go">Ask</button>
+      </div>
+      <div class="ask-options">
+        <label class="check"><input type="checkbox" id="ask-prove" checked>
+          Prove the answer against the regulation first</label>
+        <span class="small muted" id="ask-mode">On: the agent has the prove_answer tool.</span>
+      </div>
+      <div class="btn-row" id="ask-examples" aria-label="Example questions"></div>
+    </form>
+    <div id="ask-answer" class="ask-answer" role="status" aria-live="polite" hidden></div>
+    <div class="stack" id="proofs" style="margin-top:var(--s4)"></div>
+  </section>
+
   <div class="tabs" role="tablist" aria-label="Sections">
     <button role="tab" id="tab-today" aria-selected="true" aria-controls="panel-today">Today</button>
     <button role="tab" id="tab-children" aria-selected="false" aria-controls="panel-children">Children</button>

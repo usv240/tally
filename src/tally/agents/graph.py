@@ -19,7 +19,6 @@ from strands.multiagent import GraphBuilder
 
 from tally import prove, runtime
 from tally.agents.models import fast_model, reasoning_model
-from tally.tools.prove import prove_answer
 from tally.tools.day import (
     answer_open_question,
     log_plate,
@@ -36,6 +35,7 @@ from tally.tools.nightly import (
     rates_in_force,
     reconcile_subsidy,
 )
+from tally.tools.prove import prove_answer
 
 NL2 = chr(10) * 2
 
@@ -75,11 +75,18 @@ Never decide reimbursability yourself. The tool does that, against versioned rul
 # Appended to DAY only when prove_answer is in the tool list. With TALLY_PROVE=off the agent runs
 # word for word as it did before the tool existed, which is what makes the before-and-after honest.
 DAY_PROVE = """When she asks what the rules say, about a food, a meal, milk, juice, sugar limits, whole
-grains, snacks or infants, do not answer from memory. Draft the answer as one plain statement with the
-numbers in it, then call prove_answer with her question, your draft, and any facts she has given you.
+grains, snacks or infants, do not answer from memory and do not deflect. Draft the answer as one plain
+decision with the numbers in it: whether the food is creditable, or whether the meal is reimbursable,
+and why. Then call prove_answer with her question, your draft, and the facts she has given you, each
+as a short plain sentence ("The meal is a snack. The children are 3 to 5. The label says 17 grams of
+sugar, not stated whether added or total."). Keep a number exactly as she said it; if she did not say
+added or total sugars, say so in the facts rather than deciding.
+
 Do exactly what next_step says: say a proved answer; rewrite a contradicted one so it agrees with the
 rule quoted and prove it again; if it cannot be decided, ask her the one short question that settles
-it and stop there. Never give her a rule answer that was not proved unless you say it is unverified."""
+it, drawn from the missing fact, and stop there. Never ask about things the rules do not turn on, such
+as brand or cup size. Never give her a rule answer that was not proved unless you say it is
+unverified."""
 
 LEDGER ="""You close out the day's meals.
 
@@ -121,6 +128,15 @@ def day_agent(with_prove: bool | None = None) -> Agent:
                  model=reasoning_model(), system_prompt=prompt, tools=tools, callback_handler=None)
 
 
+# One conversation per mode, kept across asks so "it says 9 g added sugars" lands on the question
+# it answers. A Strands Agent holds its own messages, so keeping the instance is keeping the thread.
+_conversations: dict[bool, Agent] = {}
+
+
+def reset_conversations() -> None:
+    _conversations.clear()
+
+
 def ask(text: str, with_prove: bool | None = None) -> dict:
     """Put one question to the Day agent and report what it said and what it proved.
 
@@ -129,8 +145,10 @@ def ask(text: str, with_prove: bool | None = None) -> dict:
     """
     r = runtime.get()
     before = {p.id for p in r.store.list_proofs()}
-    agent = day_agent(with_prove)
-    enabled = prove_answer in agent.tool_names if hasattr(agent, "tool_names") else bool(with_prove)
+    enabled = prove.enabled() if with_prove is None else with_prove
+    agent = _conversations.get(enabled)
+    if agent is None:
+        agent = _conversations[enabled] = day_agent(enabled)
     r.emit("asked", text=text, prove=enabled)
     result = agent(text)
     answer = str(result).strip()

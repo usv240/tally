@@ -78,3 +78,12 @@ def test_everything_spoken_to_her_is_cleaned():
     rt.say(f"Lunch is short two components {EM} start with milk.")
     assert EM not in rt.spoken[-1]["text"]
     assert rt.spoken[-1]["text"].endswith("short two components, start with milk.")
+
+
+def test_markdown_emphasis_is_read_as_words():
+    from tally.house import plain
+
+    assert plain("The limit is **12 grams of added sugars per 6 oz**, not 23.") == \
+        "The limit is 12 grams of added sugars per 6 oz, not 23."
+    assert plain("Is it *added* or _total_ sugars?") == "Is it added or total sugars?"
+    assert plain("snake_case_name stays") == "snake_case_name stays"

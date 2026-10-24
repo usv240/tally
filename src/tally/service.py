@@ -48,6 +48,9 @@ class DemoService:
     # lifecycle ---------------------------------------------------------------
     def reset(self) -> dict:
         with self.lock:
+            from tally.agents.graph import reset_conversations
+
+            reset_conversations()
             self.rt, self.sc = setup(self.scenario)
             self.done: list[str] = []
             self.meal_ids: dict[str, str] = {}

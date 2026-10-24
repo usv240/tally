@@ -350,6 +350,23 @@
         <a href="/api/rules">/api/rules</a>, so a sponsor can check them against the USDA tables.</p>
       </div>
       <div class="card">
+        <h3>Prove an answer</h3>
+        <pre class="formula">curl -X POST http://localhost:8001/api/prove \
+  -H "x-api-key: YOUR_KEY" \
+  -H "content-type: application/json" \
+  -d '{"question": "Can I serve this yogurt as the meat alternate?",
+       "facts": "The label says 17 g of added sugars per 6 oz.",
+       "answer": "Yes, 17 g is under the 23 g limit."}'
+
+# -> verdict: INVALID
+#    rules: ["Yogurt is creditable as a meat alternate only
+#             if it contains no more than 12 grams of added
+#             sugars per 6 ounces."]</pre>
+        <p class="muted small">Put it in front of your own agent's rule answers. The reply is a proof
+        by Amazon Bedrock Automated Reasoning against 7 CFR 226.20, not a second model's opinion.
+        The same tool is on the MCP server as <code>prove_answer</code>.</p>
+      </div>
+      <div class="card">
         <h3>Or run the whole thing yourself</h3>
         <pre class="formula">git clone &lt;repo&gt; &amp;&amp; cd tally
 uv venv &amp;&amp; uv pip install -e ".[dev]"
@@ -372,6 +389,8 @@ uvicorn tally.api:app --port 8001</pre>
           <tr><td><code>GET /api/month</code></td><td>The claim: lines, total, and what the unpaid meals would have paid.</td></tr>
           <tr><td><code>GET /api/trace</code></td><td>Every agent step, including the decision whether to ask.</td></tr>
           <tr><td><code>POST /api/answer</code></td><td>Answer a question Tally asked.</td></tr>
+          <tr><td><code>POST /api/prove</code></td><td>Prove an answer about the meal pattern against the regulation. The one tool added in October 2026, over HTTP.</td></tr>
+          <tr><td><code>POST /api/ask</code></td><td>Ask the Day agent a rule question, with the tool on or off.</td></tr>
         </tbody>
       </table>
     </div>

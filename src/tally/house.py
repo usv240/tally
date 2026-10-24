@@ -84,6 +84,10 @@ def plain(text: str) -> str:
     # A dash replaced by a comma can leave " , " behind, and a stripped emoji can leave a double
     # space. Neither is worth showing a person.
     s = "".join(out)
+    # Markdown emphasis. The Day agent, asked to be plain, still bolds the number it cares about,
+    # and "**12 grams**" was read out loud on the deployed service, asterisks and all.
+    s = re.sub(r"\*{1,2}([^*\n]+?)\*{1,2}", r"\1", s)
+    s = re.sub(r"(?<!\w)_{1,2}([^_\n]+?)_{1,2}(?!\w)", r"\1", s)
     s = re.sub(r"\s+,", ",", s)
     s = re.sub(r",\s*,+", ",", s)
     s = re.sub(r"[ \t]{2,}", " ", s)

@@ -17,6 +17,8 @@
     document.querySelectorAll("#steps .btn").forEach(function (b) { b.disabled = on; });
     var reset = document.getElementById("reset");
     if (reset) reset.disabled = on;
+    var go = document.getElementById("ask-go");
+    if (go) go.disabled = on;
     if (on && label) {
       var s = document.getElementById("status");
       s.className = "status-line";
@@ -412,8 +414,117 @@
     // The two AgentCore Memory events. Without these the trace printed the raw keys
     // answer_remembered and question_not_repeated, which is the one place the recall story is
     // visible and the one place it read like debug output.
-    answer_remembered: "Answer remembered", question_not_repeated: "Question not repeated"
+    answer_remembered: "Answer remembered", question_not_repeated: "Question not repeated",
+    // The prove_answer tool, added October 2026.
+    asked: "Question asked", answer_drafted: "Answer drafted", answer_proved: "Answer checked",
+    proof_limit: "Proof limit reached", proof_error: "Proof service unavailable"
   };
+
+  /* Ask Tally -------------------------------------------------------------
+     The one tool added for the Give your Agent a Tool challenge. The agent drafts, the solver
+     proves or contradicts, and the receipt is kept. The page shows what was actually checked,
+     read back off the store, never what the model says it checked. */
+
+  var lastAsk = null;
+
+  var VERDICT = {
+    VALID: ["covered", "proved"],
+    INVALID: ["critical", "contradicts a rule"], IMPOSSIBLE: ["critical", "contradicts a rule"],
+    SATISFIABLE: ["high", "needs one fact"], AMBIGUOUS: ["high", "needs one fact"],
+    UNVERIFIED: ["neutral", "outside the rulebook"],
+    SKIPPED: ["low", "not checked"], UNCHECKED: ["low", "not checked"]
+  };
+
+  var EXAMPLES = [
+    "Can I serve the strawberry yogurt cups as the meat alternate at snack for the 3 to 5s? The label says 17 grams of sugar.",
+    "Is milk and apple juice okay for afternoon snack?",
+    "Can the 4 year olds have chocolate milk at lunch?",
+    "Do I need a whole grain today? Breakfast was white toast and lunch is rice."
+  ];
+
+  function proofCard(p) {
+    var v = VERDICT[p.verdict] || VERDICT.UNVERIFIED;
+    var bad = p.verdict === "INVALID" || p.verdict === "IMPOSSIBLE";
+    var open = p.verdict === "SATISFIABLE" || p.verdict === "AMBIGUOUS";
+    var head = window.h("div", { class: "proof-head" }, [
+      window.levelBadge(v[0], v[1]),
+      window.h("span", { class: "small muted" }, [
+        "Check " + p.attempt + " of 3", window.infoBtn("attempt", "the three checks")]),
+      window.h("span", { class: "when", text: window.fmtTime(p.at) + (p.latency_ms ? " · " + (p.latency_ms / 1000).toFixed(1) + " s" : "") })
+    ]);
+    var card = window.h("div", { class: "proof" }, [
+      head,
+      window.h("p", { class: "proof-q", text: "She asked: " + p.question }),
+      window.h("p", { class: "proof-a" + (bad ? " struck" : ""), text: "Draft: " + p.answer })
+    ]);
+    if (p.rules && p.rules.length) {
+      card.appendChild(window.h("blockquote", { class: "rule " + (bad ? "breaks" : "holds") }, [
+        window.h("strong", { text: bad ? "The rule it breaks" : "The rule it rests on" }),
+        window.h("span", { text: p.rules[0] })
+      ]));
+    }
+    if (open && p.missing_facts && p.missing_facts.length) {
+      card.appendChild(window.h("blockquote", { class: "rule missing" }, [
+        window.h("strong", { text: "What would settle it" }),
+        window.h("span", { text: p.missing_facts.slice(0, 2).join("; ") })
+      ]));
+    }
+    if (p.verdict === "UNVERIFIED") {
+      card.appendChild(window.h("blockquote", { class: "rule" }, [
+        window.h("strong", { text: "Why it could not be checked" }),
+        window.h("span", { text: (p.untranslated && p.untranslated.length)
+          ? "The logic has no rule about: " + p.untranslated.slice(0, 2).join("; ")
+          : "Nothing in the answer maps onto the meal pattern rules." })
+      ]));
+    }
+    if (p.premises && p.premises.length) {
+      card.appendChild(window.h("div", { class: "facts" }, p.premises.slice(0, 5).map(function (f) {
+        return window.h("span", { class: "chip", text: f });
+      })));
+    }
+    var policy = (p.policy_version || "").split("/").pop();
+    card.appendChild(window.h("p", { class: "stamp" }, [
+      (p.verdict === "SKIPPED" ? "Proving was off. " : "Automated Reasoning policy " + (policy || "unversioned")
+        + ", guardrail version " + (p.guardrail_version || "?") + ". "),
+      window.infoBtn("proof_receipt", "the proof receipt")
+    ]));
+    return card;
+  }
+
+  function renderAsk() {
+    var ex = document.getElementById("ask-examples");
+    if (ex && !ex.children.length) {
+      EXAMPLES.forEach(function (q, i) {
+        ex.appendChild(window.h("button", { class: "btn small", type: "button",
+          title: q, onclick: function () {
+            document.getElementById("ask-text").value = q;
+            document.getElementById("ask-text").focus();
+          } }, [["The yogurt question", "Milk and juice", "Chocolate milk", "Whole grains"][i]]));
+      });
+    }
+    var box = document.getElementById("ask-answer");
+    if (lastAsk) {
+      var tone = { VALID: "ok", INVALID: "alert", IMPOSSIBLE: "alert", SATISFIABLE: "ask", AMBIGUOUS: "ask" }[lastAsk.verdict] || "";
+      box.hidden = false;
+      box.className = "ask-answer " + tone;
+      box.innerHTML = "";
+      box.appendChild(window.h("span", { class: "who",
+        text: lastAsk.prove ? "Tally, after proving" : "Tally, without the tool" }));
+      box.appendChild(window.h("span", { text: lastAsk.answer }));
+    }
+    var host = document.getElementById("proofs");
+    host.innerHTML = "";
+    var proofs = (state.proofs || []).slice().reverse();
+    if (!proofs.length) {
+      host.appendChild(window.h("p", { class: "muted small", style: "margin:0",
+        text: "No answers checked yet. Ask something above, or press an example." }));
+      return;
+    }
+    host.appendChild(window.h("h3", { style: "font-size:1rem;margin:0" },
+      [proofs.length + (proofs.length === 1 ? " check today" : " checks today")]));
+    proofs.forEach(function (p) { host.appendChild(proofCard(p)); });
+    window.MountInfo();
+  }
 
   function renderTrace() {
     var host = document.getElementById("trace");
@@ -438,6 +549,7 @@
     renderSteps();
     renderMeals();
     renderSaid();
+    renderAsk();
     var active = document.querySelector('[role="tab"][aria-selected="true"]').id;
     if (active === "tab-children") renderChildren();
     if (active === "tab-evening") renderEvening();
@@ -553,7 +665,18 @@
       body: JSON.stringify({ question_id: qid, answer: text }) }).then(after).catch(fail);
   }
 
+  function askTally(text, prove) {
+    if (busy || !text.trim()) return;
+    // Honest about time: a proof is a few seconds on top of the model call.
+    setBusy(true, prove ? "Asking Tally. Proving the answer takes about ten seconds."
+                        : "Asking Tally without the tool, as it was before.");
+    api("/api/ask", { method: "POST", headers: { "content-type": "application/json" },
+      body: JSON.stringify({ text: text, prove: prove }) })
+      .then(function (s) { lastAsk = s.ask; return after(s); }).catch(fail);
+  }
+
   function reset() {
+    lastAsk = null;
     setBusy(true, "Resetting to Tuesday 07:38");
     api("/api/reset", { method: "POST" }).then(function (s) {
       traceEvents = []; traceCursor = 0;
@@ -579,6 +702,18 @@
       t.addEventListener("click", function () { selectTab(t.id); });
     });
     document.getElementById("reset").addEventListener("click", reset);
+    var form = document.getElementById("ask-form");
+    if (form) {
+      form.addEventListener("submit", function (ev) {
+        ev.preventDefault();
+        askTally(document.getElementById("ask-text").value, document.getElementById("ask-prove").checked);
+      });
+      document.getElementById("ask-prove").addEventListener("change", function (ev) {
+        document.getElementById("ask-mode").textContent = ev.target.checked
+          ? "On: the agent has the prove_answer tool."
+          : "Off: the agent exactly as it shipped in September, with no way to check.";
+      });
+    }
     api("/api/state").then(function (s) { state = s; return pullTrace(); }).then(function () {
       renderAll();
       var hash = (location.hash || "").replace("#", "");

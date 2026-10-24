@@ -26,11 +26,25 @@ REGISTRY = f"{ACCOUNT}.dkr.ecr.{REGION}.amazonaws.com"
 
 ar = boto3.client("apprunner", region_name=REGION)
 
+def _prove_env() -> dict:
+    """The guardrail the prove_answer tool calls, from the build's record. Absent, proving is off."""
+    import json
+    from pathlib import Path
+
+    f = Path(__file__).resolve().parent.parent / "reasoning" / "deployed.json"
+    if not f.exists():
+        return {"TALLY_PROVE": "off"}
+    d = json.loads(f.read_text())
+    return {"TALLY_PROVE": "on", "TALLY_GUARDRAIL_ID": d["guardrail_id"],
+            "TALLY_GUARDRAIL_VERSION": str(d["guardrail_version"])}
+
+
 SERVICES = {
     "tally": {
         "env": {"AWS_REGION": REGION, "TALLY_USE_AGENTCORE": "1",
                 "TALLY_VISION_MODEL": "us.anthropic.claude-sonnet-4-6",
-                "TALLY_FAST_MODEL": "us.anthropic.claude-haiku-4-5-20251001-v1:0"},
+                "TALLY_FAST_MODEL": "us.anthropic.claude-haiku-4-5-20251001-v1:0",
+                **_prove_env()},
         "cpu": "1 vCPU", "memory": "2 GB",
     },
 }

@@ -181,13 +181,24 @@ PATCH_RULES = [
     # is a contradiction (IMPOSSIBLE), which the tool treats as INVALID. A plain cup is proved.
     ("TALLYY9SUFFI", "(=> (<= yogurtAddedSugarsPer6Ounces 12) isYogurtCreditable)",
      "Yogurt with no more than 12 grams of added sugars per 6 ounces is creditable as a meat alternate."),
-    ("TALLYG5SUFFI", "(=> (and (<= cerealAddedSugarsPerDryOunce 6) grainMadeWithEnrichedOrWholeGrain) isBreakfastCerealCreditable)",
+    ("TALLYG5SUFFI", "(=> (and (<= cerealAddedSugarsPerDryOunce 6) grainMadeWithEnrichedOrWholeGrain) "
+                     "isBreakfastCerealCreditable)",
      "A breakfast cereal made with enriched or whole grain meal or flour, with no more than 6 grams of "
      "added sugars per dry ounce, is creditable as a grain."),
-    ("TALLYS1SUFFI", "(=> (and (= mealType MealType_SNACK) (>= snackComponentCount 2) (not snackOnlyItemsAreMilkAndJuice)) isMealReimbursable)",
+    ("TALLYS1SUFFI", "(=> (and (= mealType MealType_SNACK) (>= snackComponentCount 2) "
+                     "(not snackOnlyItemsAreMilkAndJuice)) isMealReimbursable)",
      "A snack with two or more of the five components, that is not only milk and juice, is reimbursable."),
     ("TALLYS2INVAL", "(=> (and (= mealType MealType_SNACK) snackOnlyItemsAreMilkAndJuice) (not isMealReimbursable))",
      "A snack whose only two items are fluid milk and juice is not reimbursable."),
+    # Rules Y5 and G7 of the rulebook, which the build read as descriptions rather than as rules: the
+    # limits are measured in added sugars. Without these, "the limit is 23 grams of total sugars"
+    # stated on its own, with no food in hand, could not be contradicted.
+    ("TALLYY5MEASU", "(= yogurtSugarLimitMeasure SugarFigureType_ADDED)",
+     "The yogurt sugar limit is measured in added sugars, not total sugars; the former total sugars "
+     "limit no longer applies."),
+    ("TALLYG7MEASU", "(= cerealSugarLimitMeasure SugarFigureType_ADDED)",
+     "The breakfast cereal sugar limit is measured in added sugars, not total sugars; the former total "
+     "sugars limit no longer applies."),
 ]
 
 
@@ -285,19 +296,23 @@ def guardrail(state: dict) -> dict:
 # translators from reading "snack" as "lunch".
 PROBES = [
     ("Can I serve the strawberry yogurt cups as the meat alternate at snack? The label says 17 grams.",
-     "The meal is a snack. The children are 3 to 5 years old. The yogurt has 17 grams of added sugars per 6 ounces.",
+     "The meal is a snack. The children are 3 to 5 years old. "
+     "The yogurt has 17 grams of added sugars per 6 ounces.",
      "Yes. Yogurt credits as a meat alternate and 17 grams is under the 23 gram limit.",
      "INVALID"),
     ("Can I serve the yogurt as the meat alternate at snack?",
-     "The meal is a snack. The children are 3 to 5 years old. The yogurt has 9 grams of added sugars per 6 ounces.",
-     "Yes. Yogurt is creditable as a meat alternate because 9 grams of added sugars per 6 ounces is within the 12 gram limit.",
+     "The meal is a snack. The children are 3 to 5 years old. "
+     "The yogurt has 9 grams of added sugars per 6 ounces.",
+     "Yes. Yogurt is creditable as a meat alternate because 9 grams of added sugars per 6 ounces "
+     "is within the 12 gram limit.",
      "VALID"),
     ("Can I serve strawberry yogurt as the meat alternate at snack?",
      "The meal is a snack. The children are 3 to 5 years old.",
      "Yes, the yogurt is creditable as a meat alternate.",
      "SATISFIABLE"),
     ("Is milk and apple juice an okay snack for the 3 to 5 year olds?",
-     "The meal is a snack. The children are 3 to 5 years old. The snack contains fluid milk and fruit juice and nothing else.",
+     "The meal is a snack. The children are 3 to 5 years old. "
+     "The snack contains fluid milk and fruit juice and nothing else.",
      "Yes, the snack is reimbursable because milk and juice are two components.",
      "INVALID"),
     ("What is the staff to child ratio for infants in Texas?",
@@ -310,7 +325,8 @@ PROBES = [
      "IMPOSSIBLE"),  # the situation itself breaks rule D99; the tool reads this as INVALID
     ("Do I need a whole grain today? Breakfast was white toast and lunch is rice.",
      "No whole grain-rich grain has been served today.",
-     "Yes. At least one grain serving each day must be whole grain-rich, so today's whole grain-rich requirement is not met yet.",
+     "Yes. At least one grain serving each day must be whole grain-rich, so today's whole grain-rich "
+     "requirement is not met yet.",
      "VALID"),
 ]
 

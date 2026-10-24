@@ -63,6 +63,11 @@ def _next_step(p: Proof) -> str:
                 f"Then call prove_answer again with her answer in `facts`.")
     if p.verdict == "SKIPPED":
         return "Proving is switched off. Answer as you would have, and say it is unchecked."
+    if p.attempt < MAX_ATTEMPTS:
+        return ("Could not be checked: the draft did not state a decision the rules speak to. Rewrite "
+                "it as one plain statement, whether the food is creditable or the meal is reimbursable, "
+                "with the numbers, and call prove_answer again. If it is still unverified, tell her this "
+                "is outside the meal pattern rules.")
     return ("Outside the rulebook, so it cannot be proved. Say plainly that this is not in the meal "
             "pattern rules, and answer only if you are sure, labelled as unverified.")
 
@@ -77,9 +82,11 @@ def prove_answer(question: str, answer: str, facts: str = "", meal_id: str = "")
 
     Args:
         question: her question, word for word.
-        answer: your draft answer, as a plain statement with the numbers in it.
-        facts: anything she has told you that bears on it, such as "the label says 9 g added sugars"
-            or "the children are 3 to 5". Add to this when she answers your question.
+        answer: your draft answer, as one plain decision with the numbers in it: whether the food is
+            creditable or the meal is reimbursable, and why.
+        facts: what she has told you, one short sentence each: "The meal is a snack. The children are
+            3 to 5. The label says 17 grams of sugar, not stated whether added or total." Keep her
+            numbers as she said them. Add to this when she answers your question.
         meal_id: the meal this is about, if there is one, so the receipt attaches to the record.
 
     Returns the verdict, the rules it rests on, and what to do next.

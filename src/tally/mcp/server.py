@@ -53,6 +53,32 @@ def rule_version() -> dict:
 
 
 @mcp.tool()
+def prove_answer(question: str, answer: str, facts: str = "") -> dict:
+    """Prove an answer about the CACFP meal pattern against the regulation, mathematically.
+
+    The one tool Tally gained in October 2026, offered to any other agent. Send a provider's question
+    and your draft answer; Amazon Bedrock Automated Reasoning checks it against 7 CFR 226.20 held as
+    formal logic. You get VALID with the rules that prove it, INVALID with the rule it breaks,
+    SATISFIABLE or AMBIGUOUS with the fact that would decide it, or UNVERIFIED when the question is
+    outside the meal pattern. It is a proof, not a second model's opinion.
+
+    Args:
+        question: the provider's question, word for word.
+        answer: the draft answer as one plain decision with the numbers in it.
+        facts: what is known, one short sentence each: "The meal is a snack. The label says 9 grams
+            of added sugars per 6 ounces."
+    """
+    from dataclasses import asdict
+
+    from tally import prove
+
+    checked = prove.prove(question, answer, facts)
+    out = asdict(checked)
+    out["summary"] = checked.summary()
+    return out
+
+
+@mcp.tool()
 def meal_pattern(meal_type: str, age_group: str = "3-5") -> dict:
     """What a meal must contain to be reimbursable, for one meal type and one age group.
 

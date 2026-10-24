@@ -1,0 +1,145 @@
+{
+ "n": 23,
+ "stale": 1,
+ "proved": 3,
+ "rows": [
+  {
+   "where": "rules/cacfp_rules.json label_checks.cereal_sugar",
+   "claim": "Breakfast cereal must contain no more than 6 grams of sugar per dry ounce.",
+   "verdict": "SATISFIABLE",
+   "rule": "A breakfast cereal is creditable as a grain only if it contains no more than 6 grams of added sugars per dry ounce."
+  },
+  {
+   "where": "rules/cacfp_rules.json label_checks.cereal_sugar (as applied)",
+   "claim": "A breakfast cereal whose label shows 6 grams of sugar per dry ounce passes the label check and is creditable as a grain.",
+   "verdict": "SATISFIABLE",
+   "rule": ""
+  },
+  {
+   "where": "rules/cacfp_rules.json label_checks.yogurt_sugar",
+   "claim": "Yogurt must contain no more than 23 grams of sugar per 6 ounces.",
+   "verdict": "SATISFIABLE",
+   "rule": ""
+  },
+  {
+   "where": "rules/cacfp_rules.json label_checks.yogurt_sugar (as applied)",
+   "claim": "A yogurt whose label shows 23 grams of sugar per 6 ounces passes the label check and is creditable as a meat alternate.",
+   "verdict": "INVALID",
+   "rule": "Yogurt is creditable as a meat alternate only if it contains no more than 12 grams of added sugars per 6 ounces."
+  },
+  {
+   "where": "rules/cacfp_rules.json daily_rules.whole_grain_rich",
+   "claim": "At least one grain served in a day must be whole grain-rich.",
+   "verdict": "SATISFIABLE",
+   "rule": "The daily whole grain-rich requirement is met if and only if at least one whole grain-rich grain was served that day."
+  },
+  {
+   "where": "rules/cacfp_rules.json daily_rules.juice_limit",
+   "claim": "Juice counts as a fruit or vegetable component only once a day.",
+   "verdict": "SATISFIABLE",
+   "rule": "Juice served at a second meal or snack in the same day does not credit toward the vegetable or fruit component."
+  },
+  {
+   "where": "rules/cacfp_rules.json milk_by_age.1-2",
+   "claim": "For children aged 1-2: Whole milk, unflavoured.",
+   "verdict": "SATISFIABLE",
+   "rule": ""
+  },
+  {
+   "where": "rules/cacfp_rules.json milk_by_age.3-5",
+   "claim": "For children aged 3-5: Low fat or fat free, unflavoured.",
+   "verdict": "SATISFIABLE",
+   "rule": ""
+  },
+  {
+   "where": "rules/cacfp_rules.json milk_by_age.3-5 (as applied)",
+   "claim": "Unflavored whole milk is not creditable as fluid milk for a child aged 3 to 5.",
+   "verdict": "SATISFIABLE",
+   "rule": ""
+  },
+  {
+   "where": "rules/cacfp_rules.json milk_by_age.6-12",
+   "claim": "For children aged 6-12: Low fat or fat free. Flavoured milk allowed for 6 and older.",
+   "verdict": "SATISFIABLE",
+   "rule": ""
+  },
+  {
+   "where": "rules/cacfp_rules.json milk_by_age.13-18",
+   "claim": "For children aged 13-18: Low fat or fat free. Flavoured milk allowed.",
+   "verdict": "SATISFIABLE",
+   "rule": ""
+  },
+  {
+   "where": "rules/cacfp_rules.json meals.breakfast.required",
+   "claim": "A reimbursable breakfast for a child must contain: milk, grain, fruit or vegetable.",
+   "verdict": "VALID",
+   "rule": "if mealType is equal to MealType_BREAKFAST and isMealReimbursable is true, then containsFluidMilk is true"
+  },
+  {
+   "where": "rules/cacfp_rules.json meals.breakfast.substitutions",
+   "claim": "A meat or meat alternate may replace the grain at breakfast up to three times a week.",
+   "verdict": "SATISFIABLE",
+   "rule": "if isMeatReplacingGrainsAtBreakfastAllowed is false, then meatReplacedGrainsAtBreakfastThisWeek is greater than 3"
+  },
+  {
+   "where": "rules/cacfp_rules.json meals.lunch.required",
+   "claim": "A reimbursable lunch for a child must contain: milk, fruit, vegetable, grain, meat alt.",
+   "verdict": "VALID",
+   "rule": "if mealType is equal to MealType_LUNCH and isMealReimbursable is true, then containsFluidMilk is true"
+  },
+  {
+   "where": "rules/cacfp_rules.json meals.lunch.substitutions",
+   "claim": "A second fruit may be served in place of the vegetable.",
+   "verdict": "SATISFIABLE",
+   "rule": ""
+  },
+  {
+   "where": "rules/cacfp_rules.json meals.supper.required",
+   "claim": "A reimbursable supper for a child must contain: milk, fruit, vegetable, grain, meat alt.",
+   "verdict": "VALID",
+   "rule": "if mealType is equal to MealType_SUPPER and isMealReimbursable is true, then containsFluidMilk is true"
+  },
+  {
+   "where": "rules/cacfp_rules.json meals.supper.substitutions",
+   "claim": "A second fruit may be served in place of the vegetable.",
+   "verdict": "SATISFIABLE",
+   "rule": ""
+  },
+  {
+   "where": "rules/cacfp_rules.json meals.snack",
+   "claim": "A reimbursable snack for a child must contain any 2 of the five components.",
+   "verdict": "SATISFIABLE",
+   "rule": ""
+  },
+  {
+   "where": "rules/cacfp_rules.json meals.snack.forbidden_pairs",
+   "claim": "Juice and milk cannot be the only two components at snack.",
+   "verdict": "SATISFIABLE",
+   "rule": ""
+  },
+  {
+   "where": "web/app.js",
+   "claim": "Yoghurt must be under 23g of sugar per 6oz.",
+   "verdict": "SATISFIABLE",
+   "rule": ""
+  },
+  {
+   "where": "web/app.js",
+   "claim": "Cereal must be under 6g of sugar per dry ounce.",
+   "verdict": "SATISFIABLE",
+   "rule": ""
+  },
+  {
+   "where": "web/try.html",
+   "claim": "Yoghurt must be under 23g of sugar per 6oz.",
+   "verdict": "SATISFIABLE",
+   "rule": ""
+  },
+  {
+   "where": "web/try.html",
+   "claim": "Cereal must be under 6g of sugar per dry ounce.",
+   "verdict": "SATISFIABLE",
+   "rule": ""
+  }
+ ]
+}

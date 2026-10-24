@@ -99,3 +99,38 @@ table.claim td.num, table.claim th.num { text-align: right; font-variant-numeric
 }
 .conn.gone { border-color: var(--danger); background: var(--danger-soft); }
 .conn button { flex: none; }
+
+/* Ask Tally: the question box and the proof receipts ------------------------ */
+.ask-form { display: grid; gap: var(--s3); }
+.ask-row { display: grid; grid-template-columns: 1fr auto; gap: var(--s3); }
+.ask-row input {
+  min-width: 0; min-height: 48px; padding: var(--s2) var(--s3); font: inherit; font-size: 1rem;
+  color: var(--text); background: var(--surface); border: 1px solid var(--border); border-radius: var(--r-sm);
+}
+.ask-row input:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-color: var(--accent); }
+.ask-options { display: flex; flex-wrap: wrap; align-items: center; gap: var(--s2) var(--s4); }
+.check { display: inline-flex; align-items: center; gap: var(--s2); min-height: 32px; cursor: pointer; }
+.check input { width: 20px; height: 20px; accent-color: var(--accent); }
+.ask-answer { padding: var(--s3) var(--s4); border-radius: var(--r-md); border: 1px solid var(--border);
+  background: var(--surface-2); font-size: 1.0625rem; line-height: 1.5; margin-top: var(--s4); }
+.ask-answer.ok { border-color: var(--success); background: var(--success-soft); }
+.ask-answer.alert { border-color: var(--danger); background: var(--danger-soft); }
+.ask-answer.ask { border-color: var(--info); background: var(--info-soft); }
+.ask-answer .who { display: block; font-size: .8125rem; color: var(--text-muted); margin-bottom: var(--s1); }
+
+.proof { padding: var(--s4); border-radius: var(--r-md); border: 1px solid var(--border); background: var(--surface); }
+.proof-head { display: flex; flex-wrap: wrap; align-items: center; gap: var(--s2) var(--s3); }
+.proof-head .when { color: var(--text-muted); font-size: .8125rem; font-variant-numeric: tabular-nums; margin-left: auto; }
+.proof-q { margin: var(--s3) 0 0; color: var(--text-muted); font-size: .9375rem; }
+.proof-a { margin: var(--s1) 0 0; font-size: 1rem; }
+.proof-a.struck { text-decoration: line-through; text-decoration-color: var(--danger); text-decoration-thickness: 2px; color: var(--text-muted); }
+.proof .rule { margin: var(--s3) 0 0; padding: var(--s2) var(--s3); border-radius: var(--r-sm);
+  background: var(--surface-2); font-size: .9375rem; }
+.proof .rule.breaks { background: var(--danger-soft); }
+.proof .rule.holds { background: var(--success-soft); }
+.proof .rule.missing { background: var(--warning-soft); }
+.proof .rule strong { display: block; font-size: .8125rem; margin-bottom: 2px; }
+.proof .facts { display: flex; flex-wrap: wrap; gap: var(--s2); margin: var(--s3) 0 0; }
+.proof .facts .chip { font-size: .8125rem; }
+.proof .stamp { margin: var(--s3) 0 0; color: var(--text-muted); font-size: .75rem; font-variant-numeric: tabular-nums; }
+@media (max-width: 640px) { .ask-row { grid-template-columns: 1fr; } }

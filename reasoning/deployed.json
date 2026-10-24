@@ -1,11 +1,11 @@
 {
   "policy_arn": "arn:aws:bedrock:us-east-1:957325809861:automated-reasoning-policy/99kmtaqh3ntb",
   "build_workflow_id": "9ca0f926-ae97-4993-829b-295b599c9187",
-  "policy_version": "5",
-  "policy_version_arn": "arn:aws:bedrock:us-east-1:957325809861:automated-reasoning-policy/99kmtaqh3ntb:5",
-  "definition_hash": "4bb9d1774abc00954d472adb72f8613588e9bf8a98689a1800b533678bbcf81ea0d9ac94d8a75a5695b531dd4f06258baa20a97458d8f09778571857c749547e",
+  "policy_version": "6",
+  "policy_version_arn": "arn:aws:bedrock:us-east-1:957325809861:automated-reasoning-policy/99kmtaqh3ntb:6",
+  "definition_hash": "af4c2f3456f223662ac88e90a9bdf25c2f0ee343d6597526572f088a9c5e05396fc1943280a1767e9769657ff7ec94924be5c8056e27fcc903d339c6c6c9d6df",
   "guardrail_id": "y90i1mw4ewvy",
   "guardrail_arn": "arn:aws:bedrock:us-east-1:957325809861:guardrail/y90i1mw4ewvy",
-  "guardrail_version": "6",
+  "guardrail_version": "7",
   "confidence": 0.3
 }

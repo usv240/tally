@@ -9,6 +9,7 @@
 
 import json
 import time
+from pathlib import Path
 
 import boto3
 
@@ -101,6 +102,19 @@ put_policy(INSTANCE_ROLE, "UseAgentCore", {
          "Action": ["bedrock-agentcore:ListMemories", "bedrock-agentcore:GetMemory"]},
     ],
 })
+
+# The prove_answer tool (October 2026). ApplyGuardrail on the one guardrail that carries the CACFP
+# Automated Reasoning policy, read from reasoning/deployed.json so the role and the app agree on
+# which one. Nothing here can create, change or delete a policy; that stays with the deploy user.
+_deployed = Path(__file__).resolve().parent.parent / "reasoning" / "deployed.json"
+if _deployed.exists():
+    guardrail_arn = json.loads(_deployed.read_text()).get("guardrail_arn")
+    if guardrail_arn:
+        put_policy(INSTANCE_ROLE, "ProveAnswers", {
+            "Version": "2012-10-17",
+            "Statement": [{"Sid": "ApplyTheProveGuardrail", "Effect": "Allow",
+                           "Action": ["bedrock:ApplyGuardrail"], "Resource": guardrail_arn}],
+        })
 
 print(f"\nACCESS_ROLE_ARN={access_arn}")
 print(f"INSTANCE_ROLE_ARN={instance_arn}")

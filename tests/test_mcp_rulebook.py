@@ -30,10 +30,11 @@ def call(client, name: str, **args) -> dict:
     return json.loads("".join(c.get("text", "") for c in r["content"]))
 
 
-def test_the_five_tools_are_discoverable(client):
+def test_the_six_tools_are_discoverable(client):
+    """Five from September, and prove_answer from October 2026."""
     names = {t.tool_name for t in client.list_tools_sync()}
     assert names == {"rule_version", "meal_pattern", "check_components",
-                     "payment_rate", "state_ratio"}
+                     "payment_rate", "state_ratio", "prove_answer"}
 
 
 def test_every_answer_carries_a_rule_version(client):

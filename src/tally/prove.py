@@ -132,7 +132,8 @@ def interpret(response: dict, definition: dict | None = None) -> Checked:
         tr = d.get("translation") or {}
         out.premises += _nl(tr.get("premises", []))
         out.claims += _nl(tr.get("claims", []))
-        out.untranslated += [u.get("text", "") for u in tr.get("untranslatedPremises", []) + tr.get("untranslatedClaims", [])]
+        untranslated = tr.get("untranslatedPremises", []) + tr.get("untranslatedClaims", [])
+        out.untranslated += [u.get("text", "") for u in untranslated]
         for rule in d.get("contradictingRules", []) + d.get("supportingRules", []):
             out.rules.append(rule_text(rule.get("identifier", ""), definition))
             if rule.get("policyVersionArn"):

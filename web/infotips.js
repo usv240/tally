@@ -16,6 +16,10 @@ window.INFOTIPS = {
   daily_maximum: "A home may claim at most two meals and one snack, or one meal and two snacks, per child per day. When more is served, Tally claims the most valuable allowed combination.",
   label_check: "Some rules turn on a number printed on the packet, such as sugar per ounce in cereal or yoghurt. A photograph cannot establish that, so Tally raises it for the provider to check rather than deciding it.",
 
+  prove_answer: "Before Tally tells you what the rules say, its draft answer is checked by Amazon Bedrock Automated Reasoning against 7 CFR 226.20 turned into formal logic. The reply is a proof, not a second opinion: proved, contradicted with the rule named, or the one fact that would decide it. Switch it off to see the agent as it was before the tool.",
+  proof_receipt: "One check of one answer, kept with the day's record. It names the verdict, the rule it rests on, the facts the logic read, and the policy version, so a sponsor can see a year later why the agent said what it said.",
+  attempt: "The agent gets three checks per question. A contradicted answer is rewritten and checked again; an undecided one waits for your answer to a question. After three it says it could not verify this rather than guessing.",
+
   /* Metrics and behaviour ----------------------------------------------- */
   confidence: "How sure the vision model is that it identified this food correctly. Below 0.75 the item is left out of the record and a question is asked instead, because guessing a component into compliance would create a false claim.",
   question_budget: "A hard limit on how many questions Tally may put to the provider in a day, outside safety and meal moments. Recovering focus after an interruption takes about 23 minutes (Gloria Mark, UC Irvine), and she is interrupted by children all day already.",

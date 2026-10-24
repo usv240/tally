@@ -1,0 +1,301 @@
+{
+  "about": "Questions a home child care provider asks about the CACFP meal pattern, with the answer USDA gives. Every ground-truth answer is taken from the regulation text (7 CFR 226.20 as of 2026-10-22) or from USDA policy memorandum CACFP 06-2025 (December 20, 2024), cited per case. Nothing here was written by Tally's authors as an answer; we wrote the question in a provider's words and copied USDA's answer. Each case carries the correct answer and a wrong answer with the opposite polarity, so the same set measures both wrong answers served and correct answers wrongly blocked. The off-topic cases are questions the regulation does not decide, where the only right verdict is 'cannot be proved'.",
+  "cases": [
+    {
+      "id": "yogurt_sugar_17",
+      "question": "Can I serve the strawberry yogurt cups as the meat alternate at snack? The label says 17 grams of added sugars per 6 ounces.",
+      "facts": "The meal is a snack. The children are 3 to 5 years old. The yogurt has 17 grams of added sugars per 6 ounces.",
+      "correct": "No. Yogurt is creditable as a meat alternate only if it has no more than 12 grams of added sugars per 6 ounces, and 17 grams is over the limit.",
+      "wrong": "Yes. Yogurt credits as a meat alternate and 17 grams is under the 23 gram limit.",
+      "source": "7 CFR 226.20(a)(5)(iii)(B); CACFP 06-2025 Q12",
+      "topic": "yogurt"
+    },
+    {
+      "id": "yogurt_sugar_9",
+      "question": "Can I serve the plain yogurt as the meat alternate at snack? The label says 9 grams of added sugars per 6 ounces.",
+      "facts": "The meal is a snack. The children are 3 to 5 years old. The yogurt has 9 grams of added sugars per 6 ounces.",
+      "correct": "Yes. Yogurt is creditable as a meat alternate because 9 grams of added sugars per 6 ounces is within the 12 gram limit.",
+      "wrong": "No. Yogurt is not creditable as a meat alternate because 9 grams of added sugars per 6 ounces is over the limit.",
+      "source": "7 CFR 226.20(a)(5)(iii)(B)",
+      "topic": "yogurt"
+    },
+    {
+      "id": "yogurt_old_limit",
+      "question": "What is the sugar limit for yogurt now?",
+      "facts": "",
+      "correct": "Yogurt must contain no more than 12 grams of added sugars per 6 ounces to be creditable.",
+      "wrong": "Yogurt must contain no more than 23 grams of total sugars per 6 ounces to be creditable.",
+      "source": "7 CFR 226.20(a)(5)(iii)(B); the 23 g total sugars limit expired September 30, 2025",
+      "topic": "yogurt"
+    },
+    {
+      "id": "yogurt_frozen",
+      "question": "The kids love frozen yogurt. Can it count as the meat alternate at snack?",
+      "facts": "The meal is a snack. The food is frozen yogurt.",
+      "correct": "No. Frozen yogurt is not creditable as yogurt, so it does not count as a meat alternate.",
+      "wrong": "Yes. Frozen yogurt is creditable as a meat alternate like any other yogurt.",
+      "source": "7 CFR 226.20(a)(5)(iii)(C)",
+      "topic": "yogurt"
+    },
+    {
+      "id": "cereal_sugar_8",
+      "question": "Is the frosted cereal okay for breakfast? The box says 8 grams of added sugars per ounce.",
+      "facts": "The meal is breakfast. The breakfast cereal has 8 grams of added sugars per dry ounce.",
+      "correct": "No. A breakfast cereal is creditable as a grain only if it has no more than 6 grams of added sugars per dry ounce, and 8 grams is over the limit.",
+      "wrong": "Yes. The cereal is creditable as a grain because 8 grams of added sugars per dry ounce is under the limit.",
+      "source": "7 CFR 226.20(a)(4)(ii); CACFP 06-2025 Q18",
+      "topic": "cereal"
+    },
+    {
+      "id": "cereal_sugar_4",
+      "question": "Is the oat cereal okay for breakfast? The box says 4 grams of added sugars per ounce and it is made with whole grain oats.",
+      "facts": "The meal is breakfast. The breakfast cereal has 4 grams of added sugars per dry ounce and is made with whole grain meal.",
+      "correct": "Yes. The breakfast cereal is creditable as a grain because 4 grams of added sugars per dry ounce is within the 6 gram limit and it is made with whole grain.",
+      "wrong": "No. The breakfast cereal is not creditable as a grain because 4 grams of added sugars per dry ounce is over the limit.",
+      "source": "7 CFR 226.20(a)(4)(i)-(ii)",
+      "topic": "cereal"
+    },
+    {
+      "id": "cereal_old_limit",
+      "question": "Is the cereal limit still 6 grams of total sugar?",
+      "facts": "",
+      "correct": "The breakfast cereal limit is 6 grams of added sugars per dry ounce, not total sugars.",
+      "wrong": "Yes, breakfast cereals must have no more than 6 grams of total sugars per dry ounce.",
+      "source": "7 CFR 226.20(a)(4)(ii); the total sugars limit expired September 30, 2025",
+      "topic": "cereal"
+    },
+    {
+      "id": "snack_milk_juice",
+      "question": "Is milk and apple juice okay for afternoon snack?",
+      "facts": "The meal is a snack. The children are 3 to 5 years old. The snack contains fluid milk and fruit juice and nothing else.",
+      "correct": "No. A snack whose only two items are fluid milk and juice is not reimbursable.",
+      "wrong": "Yes, the snack is reimbursable because milk and juice are two components.",
+      "source": "7 CFR 226.20(c)(3), table 4 footnote 1",
+      "topic": "snack"
+    },
+    {
+      "id": "snack_crackers_cheese",
+      "question": "Whole grain crackers and cheese for snack, is that enough?",
+      "facts": "The meal is a snack. The children are 3 to 5 years old. The snack contains grains and a meat alternate, two components, and is not only milk and juice.",
+      "correct": "Yes. A snack with two of the five components is reimbursable, and grains plus a meat alternate is two components.",
+      "wrong": "No. A snack needs milk to be reimbursable.",
+      "source": "7 CFR 226.20(c)(3)",
+      "topic": "snack"
+    },
+    {
+      "id": "snack_one_component",
+      "question": "Can I just give them apple slices for snack today?",
+      "facts": "The meal is a snack. The snack contains one component only, fruit.",
+      "correct": "No. A snack with only one component is not reimbursable; it needs two of the five components.",
+      "wrong": "Yes, fruit on its own is a reimbursable snack.",
+      "source": "7 CFR 226.20(c)(3)",
+      "topic": "snack"
+    },
+    {
+      "id": "milk_flavored_4yo",
+      "question": "Can the 4 year olds have chocolate milk at lunch?",
+      "facts": "The meal is lunch. The child is 4 years old. The milk is flavored.",
+      "correct": "No. Children aged 1 through 5 must be served unflavored milk, so flavored milk is not allowed for a 4 year old.",
+      "wrong": "Yes, flavored milk is fine at lunch for a 4 year old.",
+      "source": "7 CFR 226.20(a)(1)(ii)",
+      "topic": "milk"
+    },
+    {
+      "id": "milk_flavored_7yo",
+      "question": "The school-age kids want chocolate milk at snack. Can the 7 year olds have it?",
+      "facts": "The meal is a snack. The child is 7 years old. The milk is flavored low-fat milk.",
+      "correct": "Yes. Children 6 years old and older may be served flavored milk.",
+      "wrong": "No. Flavored milk is not allowed for any child in the program.",
+      "source": "7 CFR 226.20(a)(1)(iii)",
+      "topic": "milk"
+    },
+    {
+      "id": "milk_whole_1yo",
+      "question": "Maya just turned one. What milk does she get?",
+      "facts": "The child is 1 year old.",
+      "correct": "A child who is 1 year old must be served unflavored whole milk.",
+      "wrong": "A child who is 1 year old may be served low-fat milk.",
+      "source": "7 CFR 226.20(a)(1)(i)",
+      "topic": "milk"
+    },
+    {
+      "id": "milk_skim_3yo",
+      "question": "Is skim milk okay for the 3 year olds?",
+      "facts": "The child is 3 years old. The milk is unflavored fat-free milk.",
+      "correct": "Yes. Children 2 through 5 years old may be served whole, reduced-fat, low-fat or fat-free milk as long as it is unflavored.",
+      "wrong": "No. Children 2 through 5 must be served whole milk only.",
+      "source": "7 CFR 226.20(a)(1)(ii)",
+      "topic": "milk"
+    },
+    {
+      "id": "milk_yogurt_substitute_child",
+      "question": "We are out of milk. Can I give the 3 year olds yogurt instead of milk at lunch?",
+      "facts": "The meal is lunch. The child is 3 years old. Yogurt is being served in place of fluid milk.",
+      "correct": "No. For children, yogurt does not count as fluid milk and may not be served in place of it.",
+      "wrong": "Yes, 6 ounces of yogurt can replace the milk for a child once a day.",
+      "source": "7 CFR 226.20(a)(1)(iv), (c) footnote 6 (adults only)",
+      "topic": "milk"
+    },
+    {
+      "id": "juice_twice",
+      "question": "They had orange juice at breakfast. Can apple juice be the fruit at lunch too?",
+      "facts": "Fruit juice was already served to meet the fruit requirement at breakfast today. The meal is lunch.",
+      "correct": "No. Juice may be served to meet the fruit or vegetable requirement at only one meal or snack per day, so juice at lunch does not credit.",
+      "wrong": "Yes, juice can be the fruit at both breakfast and lunch.",
+      "source": "7 CFR 226.20(a)(3)(i)",
+      "topic": "juice"
+    },
+    {
+      "id": "juice_once",
+      "question": "Can pasteurized orange juice be the fruit at breakfast?",
+      "facts": "The meal is breakfast. The juice is pasteurized full-strength fruit juice. No juice has been served yet today.",
+      "correct": "Yes. Pasteurized full-strength fruit juice may be used to meet the fruit requirement at one meal or snack per day.",
+      "wrong": "No, juice never counts as a fruit in the program.",
+      "source": "7 CFR 226.20(a)(3)(i)",
+      "topic": "juice"
+    },
+    {
+      "id": "wgr_not_met",
+      "question": "Do I need a whole grain today? Breakfast was white toast and lunch is white rice.",
+      "facts": "No whole grain-rich grain has been served today.",
+      "correct": "Yes. At least one grain serving each day must be whole grain-rich, so the whole grain-rich requirement is not met yet today.",
+      "wrong": "No. The whole grain-rich requirement is met today.",
+      "source": "7 CFR 226.20(a)(4)(i)(A)",
+      "topic": "grains"
+    },
+    {
+      "id": "wgr_met",
+      "question": "Breakfast was whole wheat toast. Does that cover the whole grain rule for today?",
+      "facts": "A whole grain-rich grain was served today at breakfast.",
+      "correct": "Yes. One whole grain-rich serving across the day meets the daily whole grain-rich requirement.",
+      "wrong": "No. Every grain served in the day must be whole grain-rich.",
+      "source": "7 CFR 226.20(a)(4)(i)(A)",
+      "topic": "grains"
+    },
+    {
+      "id": "grain_dessert",
+      "question": "Can the oatmeal cookies be the grain at snack?",
+      "facts": "The meal is a snack. The food is a cookie, a grain-based dessert.",
+      "correct": "No. Grain-based desserts such as cookies do not count toward the grains requirement.",
+      "wrong": "Yes, oatmeal cookies count as a grain because they are made with oats.",
+      "source": "7 CFR 226.20(a)(4)(iii)",
+      "topic": "grains"
+    },
+    {
+      "id": "breakfast_meat_for_grain_4th",
+      "question": "Can I serve eggs instead of toast at breakfast again? That would be the fourth time this week.",
+      "facts": "The meal is breakfast. A meat or meat alternate has already replaced the grains component 3 times this week.",
+      "correct": "No. A meat or meat alternate may replace the grains at breakfast at most 3 times per week, so a fourth time does not meet the grains requirement.",
+      "wrong": "Yes, eggs can replace the grain at breakfast any day of the week.",
+      "source": "7 CFR 226.20(c)(1)",
+      "topic": "breakfast"
+    },
+    {
+      "id": "breakfast_meat_for_grain_2nd",
+      "question": "Can I serve eggs instead of toast at breakfast? It would be the second time this week.",
+      "facts": "The meal is breakfast. A meat or meat alternate has replaced the grains component once this week so far.",
+      "correct": "Yes. A meat or meat alternate may replace the entire grains component at breakfast up to 3 times per week.",
+      "wrong": "No. A meat or meat alternate may never replace the grain at breakfast.",
+      "source": "7 CFR 226.20(c)(1)",
+      "topic": "breakfast"
+    },
+    {
+      "id": "lunch_missing_vegetable",
+      "question": "Lunch is milk, chicken, rice and pear. Is that a full lunch?",
+      "facts": "The meal is lunch. The meal contains fluid milk, a meat, a grain and a fruit, and no vegetable.",
+      "correct": "No. A reimbursable lunch must contain all five components, and this lunch has no vegetable.",
+      "wrong": "Yes, four components is enough for a reimbursable lunch.",
+      "source": "7 CFR 226.20(c)(2)",
+      "topic": "lunch"
+    },
+    {
+      "id": "lunch_two_vegetables",
+      "question": "I have no fruit today. Can I serve carrots and green beans at lunch instead of a fruit?",
+      "facts": "The meal is lunch. A vegetable is served to meet the fruit requirement, and the two vegetables are two different kinds.",
+      "correct": "Yes. At lunch a vegetable may be served to meet the entire fruit requirement, provided the two vegetables are different kinds.",
+      "wrong": "No. A fruit must always be served at lunch and a vegetable cannot replace it.",
+      "source": "7 CFR 226.20(a)(3)(ii)",
+      "topic": "lunch"
+    },
+    {
+      "id": "deep_fried",
+      "question": "Can I deep fry the chicken nuggets for lunch?",
+      "facts": "The meal is lunch. The food is deep-fat fried on site.",
+      "correct": "No. Deep-fat fried foods prepared on site cannot be part of a reimbursable meal.",
+      "wrong": "Yes, how the chicken is cooked does not affect whether the meal is reimbursable.",
+      "source": "7 CFR 226.20(d); CACFP 06-2025 Q15",
+      "topic": "preparation"
+    },
+    {
+      "id": "infant_juice",
+      "question": "Can the 9 month old have a little apple juice at snack?",
+      "facts": "The participant is an infant aged 9 months. Fruit juice is served.",
+      "correct": "No. Fruit juice and vegetable juice must not be served to infants, and an infant meal that includes juice is not reimbursable.",
+      "wrong": "Yes, a small amount of juice is fine for an infant at snack.",
+      "source": "7 CFR 226.20(b)(4)(ii)",
+      "topic": "infants"
+    },
+    {
+      "id": "infant_wgr",
+      "question": "Does the whole grain rule apply to the 10 month old?",
+      "facts": "The participant is an infant aged 10 months.",
+      "correct": "No. The whole grain-rich requirement does not apply to infants; it applies only to the child and adult meal patterns.",
+      "wrong": "Yes, every participant including infants must have one whole grain-rich serving a day.",
+      "source": "CACFP 06-2025 Q16",
+      "topic": "infants"
+    },
+    {
+      "id": "infant_rice",
+      "question": "Can I give the 11 month old some cooked rice as her grain?",
+      "facts": "The participant is an infant aged 11 months. The food is cooked rice.",
+      "correct": "No. Cooked grains such as rice, quinoa and pasta are not creditable in the infant meal pattern.",
+      "wrong": "Yes, cooked rice is a creditable grain for infants.",
+      "source": "CACFP 06-2025 Q14",
+      "topic": "infants"
+    },
+    {
+      "id": "infant_cheese_spread",
+      "question": "Can cheese spread be the meat alternate for the 8 month old?",
+      "facts": "The participant is an infant aged 8 months. The food is cheese spread.",
+      "correct": "No. Cheese food and cheese spread are not creditable as a meat alternate for infants.",
+      "wrong": "Yes, cheese spread credits as a meat alternate for infants like any cheese.",
+      "source": "CACFP 06-2025, Meats and Meat Alternates, p. 13",
+      "topic": "infants"
+    },
+    {
+      "id": "infant_cereal_iron",
+      "question": "Does the baby cereal have to be iron fortified?",
+      "facts": "The participant is an infant. The infant cereal is not iron-fortified.",
+      "correct": "Yes. Infant cereal must be iron-fortified to be creditable.",
+      "wrong": "No, any infant cereal is creditable whether or not it has iron.",
+      "source": "7 CFR 226.20(b)(5) footnote 2; CACFP 06-2025 Q19",
+      "topic": "infants"
+    }
+  ],
+  "off_topic": [
+    {
+      "id": "ratio_tx",
+      "question": "What is the staff to child ratio for infants in Texas?",
+      "answer": "One adult for every four infants.",
+      "why": "State licensing ratios are not in 7 CFR 226.20."
+    },
+    {
+      "id": "rate_tier1",
+      "question": "How much do I get paid for a lunch at tier 1?",
+      "answer": "The tier 1 lunch rate is 3.31 dollars.",
+      "why": "Reimbursement rates are published separately each July, not in the meal pattern."
+    },
+    {
+      "id": "portion_size",
+      "question": "How much chicken does a 4 year old need at lunch?",
+      "answer": "One and a half ounces.",
+      "why": "Tally's rulebook deliberately leaves portion sizes out; the tool must not claim to prove them."
+    },
+    {
+      "id": "nap_time",
+      "question": "How long should nap time be for the 2 year olds?",
+      "answer": "About two hours after lunch.",
+      "why": "Not a food program question at all."
+    }
+  ]
+}

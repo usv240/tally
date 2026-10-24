@@ -77,13 +77,13 @@
       "id": "cereal_sugar",
       "applies_to": ["breakfast_cereal"],
       "description": "Breakfast cereal must contain no more than 6 grams of sugar per dry ounce.",
-      "note": "A photograph cannot establish sugar content, so this is raised as a label check for the provider rather than decided by the agent."
+      "note": "A photograph cannot establish sugar content, so this is raised as a label check for the provider rather than decided by the agent. Added sugars, not total: the total sugars limit expired 2025-09-30 (7 CFR 226.20(a)(4)(ii))."
     },
     {
       "id": "yogurt_sugar",
       "applies_to": ["yogurt"],
       "description": "Yogurt must contain no more than 23 grams of sugar per 6 ounces.",
-      "note": "Raised as a label check, never decided from a photograph."
+      "note": "Raised as a label check, never decided from a photograph. Was 23 grams of total sugars until 2025-09-30; the added sugars limit is 7 CFR 226.20(a)(5)(iii)(B), found stale by evals/rulebook_audit.py on 2026-10-24."
     }
   ],
 

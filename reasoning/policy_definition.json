@@ -550,6 +550,16 @@
       "id": "TALLYS2INVAL",
       "expression": "(=> (and (= mealType MealType_SNACK) snackOnlyItemsAreMilkAndJuice) (not isMealReimbursable))",
       "alternateExpression": "A snack whose only two items are fluid milk and juice is not reimbursable."
+    },
+    {
+      "id": "TALLYY5MEASU",
+      "expression": "(= yogurtSugarLimitMeasure SugarFigureType_ADDED)",
+      "alternateExpression": "The yogurt sugar limit is measured in added sugars, not total sugars; the former total sugars limit no longer applies."
+    },
+    {
+      "id": "TALLYG7MEASU",
+      "expression": "(= cerealSugarLimitMeasure SugarFigureType_ADDED)",
+      "alternateExpression": "The breakfast cereal sugar limit is measured in added sugars, not total sugars; the former total sugars limit no longer applies."
     }
   ],
   "variables": [

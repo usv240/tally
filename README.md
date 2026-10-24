@@ -105,6 +105,56 @@ This is deliberately a different Strands shape from [Turnout](https://github.com
 other submission, which uses a conditional `Graph` and the Agent to Agent protocol. Two problems, two
 shapes.
 
+### One new tool, October 2026: `prove_answer`
+
+Built for the AWS Builder Center weekend challenge *Give your Agent a Tool*. Everything above is the
+agent as it shipped in September. What it could not do: answer a provider's question about the rules.
+Ask it whether a 17 g yogurt counts at snack and the model answered from memory, and memory is where
+last year's rule lives. We found out by pointing the new tool at Tally's own rulebook: the yogurt
+sugar limit in `rules/cacfp_rules.json` expired on 1 October 2025.
+
+The tool sends the Day agent's draft answer to **Amazon Bedrock Guardrails Automated Reasoning
+checks**, which hold 7 CFR 226.20 as formal logic, and returns a verdict the agent must act on:
+
+| Verdict | What it means | What the agent does |
+|---|---|---|
+| `VALID` | the rules prove the answer | says it; the receipt is saved with the record |
+| `INVALID` | the rules contradict it; the rule is quoted | rewrites to agree with the rule, proves again |
+| `SATISFIABLE` / `AMBIGUOUS` | true under some facts, false under others | asks her the one fact that settles it |
+| `UNVERIFIED` | outside the regulation | says so instead of guessing |
+
+It is a proof, not a second model's opinion. Three checks per question, then an honest "I could not
+verify this". The rulebook is `reasoning/cacfp_meal_pattern.txt` (sources in
+`reasoning/SOURCES.md`); `python -m deploy.reasoning_policy all` builds the policy and the guardrail.
+`TALLY_PROVE=off` runs the agent exactly as it was, which is how the before and after was filmed.
+
+The same tool is reachable three ways: inside the agent (`src/tally/tools/prove.py`), over MCP
+(`prove_answer` on `tally.mcp.server`), and over HTTP (`POST /api/prove`, with the sandbox key).
+Measurements are in [docs/EVAL.md](docs/EVAL.md), under "Proved against the regulation".
+
+**Reuse the pattern** in your own Strands agent, in about twenty lines:
+
+```python
+import boto3
+from strands import Agent, tool
+
+rt = boto3.client("bedrock-runtime", region_name="us-east-1")
+
+@tool
+def prove_answer(question: str, answer: str, facts: str = "") -> dict:
+    """Check a draft answer against the policy before saying it."""
+    r = rt.apply_guardrail(
+        guardrailIdentifier=GUARDRAIL_ID, guardrailVersion="1", source="OUTPUT", outputScope="FULL",
+        content=[{"text": {"text": question, "qualifiers": ["query"]}},
+                 {"text": {"text": facts, "qualifiers": ["query"]}},
+                 {"text": {"text": answer, "qualifiers": ["guard_content"]}}])
+    findings = [f for a in r["assessments"] for f in a["automatedReasoningPolicy"]["findings"]]
+    kinds = [next(iter(f)) for f in findings]           # valid, invalid, satisfiable, ...
+    return {"verdict": kinds, "findings": findings}      # see src/tally/prove.py for the full reading
+
+agent = Agent(tools=[prove_answer], system_prompt="Draft, prove, then do what the verdict says.")
+```
+
 ### Where the intelligence is, and is not
 
 | Concern | How it is done | Why |
@@ -114,6 +164,7 @@ shapes.
 | The smallest fix | Computed, not generated | It has to name a food she actually has |
 | Claim arithmetic, the daily maximum, ratio limits | Plain Python, unit tested | Money and licensing |
 | Whether to interrupt her | Code, not a prompt | A rule a prompt can talk its way around is not a rule |
+| What the rules say, when she asks | The model drafts, a solver proves it against the regulation | A confident wrong rule answer is the famous failure of government chatbots; a proof is the only reply that is not an opinion |
 
 Rules and rates live in `rules/*.json` and are published at `/api/rules`, so a sponsor can check them
 against the USDA tables instead of trusting the agent. Every verdict records the rule version it was
