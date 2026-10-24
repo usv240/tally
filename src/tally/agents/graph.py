@@ -150,8 +150,10 @@ def ask(text: str, with_prove: bool | None = None) -> dict:
     if agent is None:
         agent = _conversations[enabled] = day_agent(enabled)
     r.emit("asked", text=text, prove=enabled)
+    from tally.house import plain
+
     result = agent(text)
-    answer = str(result).strip()
+    answer = plain(str(result).strip())
     proofs = [p for p in r.store.list_proofs() if p.id not in before]
     verdict = proofs[-1].verdict if proofs else ("UNCHECKED" if enabled else "SKIPPED")
     tone = {"VALID": "ok", "INVALID": "alert"}.get(verdict, "info")
