@@ -130,11 +130,18 @@ def interpret(response: dict, definition: dict | None = None) -> Checked:
         kind = next(iter(f))
         d = f[kind] or {}
         tr = d.get("translation") or {}
+        claims = _nl(tr.get("claims", []))
         out.premises += _nl(tr.get("premises", []))
-        out.claims += _nl(tr.get("claims", []))
+        out.claims += claims
         untranslated = tr.get("untranslatedPremises", []) + tr.get("untranslatedClaims", [])
         out.untranslated += [u.get("text", "") for u in untranslated]
-        for rule in d.get("contradictingRules", []) + d.get("supportingRules", []):
+        # Rules come only from the findings that decided the verdict. A side finding that proved the
+        # claim "true" lists the entire policy as its support, and on the first live deploy that put
+        # 87 rules on a receipt whose answer broke one.
+        decisive = kind == worst_kind and any(c.strip().lower() != "true" for c in claims)
+        for rule in d.get("contradictingRules", []) + (d.get("supportingRules", []) if decisive else []):
+            if kind != worst_kind:
+                continue
             out.rules.append(rule_text(rule.get("identifier", ""), definition))
             if rule.get("policyVersionArn"):
                 out.policy_version = rule["policyVersionArn"]

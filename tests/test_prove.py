@@ -73,12 +73,23 @@ def test_the_other_kinds(kind, verdict):
     assert c.verdict == verdict
 
 
-def test_worst_finding_wins():
-    r = response({"valid": {"supportingRules": [{"identifier": "R_Y3"}]}},
-                 {"invalid": {"contradictingRules": [{"identifier": "R_S3"}]}})
+def test_worst_finding_wins_and_only_its_rules_are_quoted():
+    r = response({"valid": {"translation": translation(claims=["true"]),
+                            "supportingRules": [{"identifier": "R_Y3"}, {"identifier": "R_S3"}]}},
+                 {"invalid": {"translation": translation(claims=["isYogurtCreditable is true"]),
+                              "contradictingRules": [{"identifier": "R_Y3"}]}})
     c = prove.interpret(r, DEFINITION)
     assert c.verdict == "INVALID"
-    assert len(c.rules) == 2
+    assert c.rules == ["Yogurt must contain no more than 12 grams of added sugars per 6 ounces."]
+
+
+def test_a_trivial_valid_finding_does_not_quote_the_whole_policy():
+    r = response({"valid": {"translation": translation(claims=["true"]),
+                            "supportingRules": [{"identifier": "R_Y3"}, {"identifier": "R_S3"}]}},
+                 {"valid": {"translation": translation(claims=["isYogurtCreditable is true"]),
+                            "supportingRules": [{"identifier": "R_Y3"}]}})
+    c = prove.interpret(r, DEFINITION)
+    assert c.verdict == "VALID" and c.rules == ["Yogurt must contain no more than 12 grams of added sugars per 6 ounces."]
 
 
 def test_zero_units_means_the_check_did_not_run():
