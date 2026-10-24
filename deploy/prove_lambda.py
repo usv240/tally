@@ -1,6 +1,6 @@
 """Deploy prove_answer as a Lambda Function URL, idempotently.
 
-    python -m deploy.lambda         build the bundle, sam deploy, probe the URL, record it
+    python -m deploy.prove_lambda         build the bundle, sam deploy, probe the URL, record it
 
 The bundle is only what the proof needs: tally/prove.py, the exported policy definition so rule ids
 become sentences, and the handler. boto3 comes with the runtime. SAM runs through uvx so nothing

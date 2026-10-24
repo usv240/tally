@@ -22,6 +22,12 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[2]
 DEPLOYED = ROOT / "reasoning" / "deployed.json"
 DEFINITION = ROOT / "reasoning" / "policy_definition.json"
+if not DEFINITION.exists():
+    # In the Lambda bundle this file sits one level down (task/tally/prove.py), so the definition
+    # is beside the package rather than two levels up. Without it a receipt quotes a rule id.
+    _alt = Path(__file__).resolve().parents[1] / "reasoning" / "policy_definition.json"
+    if _alt.exists():
+        DEFINITION = _alt
 
 # Worst first. One check can return several findings; the verdict is the worst of them, which is
 # the order the Bedrock documentation gives.

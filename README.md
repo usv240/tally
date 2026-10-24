@@ -130,8 +130,8 @@ verify this". The rulebook is `reasoning/cacfp_meal_pattern.txt` (sources in
 
 The same tool is reachable four ways: inside the agent (`src/tally/tools/prove.py`), over MCP
 (`prove_answer` on `tally.mcp.server`), over HTTP (`POST /api/prove`, with the sandbox key), and as
-a standalone AWS Lambda Function URL (`lambda/`, deployed by `python -m deploy.lambda`) that needs
-no Tally at all. Measurements are in [docs/EVAL.md](docs/EVAL.md), under "Proved against the
+a standalone AWS Lambda Function URL (`lambda/`, deployed by `python -m deploy.prove_lambda`) that needs
+no Tally at all: `POST https://c67dxiivpxxdgwmvgugptpbxqa0vvkuz.lambda-url.us-east-1.on.aws/` with the same JSON body. Measurements are in [docs/EVAL.md](docs/EVAL.md), under "Proved against the
 regulation".
 
 **Every receipt is filed in Amazon S3 with Object Lock** (`src/tally/ledger.py`, bucket from

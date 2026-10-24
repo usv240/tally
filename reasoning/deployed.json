@@ -8,5 +8,6 @@
   "guardrail_arn": "arn:aws:bedrock:us-east-1:957325809861:guardrail/y90i1mw4ewvy",
   "guardrail_version": "8",
   "confidence": 0.3,
-  "ledger_bucket": "tally-proof-ledger-957325809861"
+  "ledger_bucket": "tally-proof-ledger-957325809861",
+  "prove_lambda_url": "https://c67dxiivpxxdgwmvgugptpbxqa0vvkuz.lambda-url.us-east-1.on.aws/"
 }
