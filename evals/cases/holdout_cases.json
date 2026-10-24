@@ -1,0 +1,107 @@
+{
+  "about": "Written on 2026-10-24 AFTER the policy was last changed (guardrail version 8), run once, and reported as they came out. Nothing in the policy, the tool or the prompt was adjusted after seeing these results; the git history shows the order. Same shape as prove_cases.json: a provider's question, USDA's answer with its source, and a wrong answer of the opposite polarity. The second list is inputs that are not rule questions at all, which the Day agent must handle without calling prove_answer.",
+  "cases": [
+    {
+      "id": "h_yogurt_12_exact",
+      "question": "The vanilla yogurt says 12 grams of added sugars per 6 ounces, right on the line. Does it still count?",
+      "facts": "The meal is a snack. The yogurt has 12 grams of added sugars per 6 ounces.",
+      "correct": "Yes. Yogurt is creditable as a meat alternate when it has no more than 12 grams of added sugars per 6 ounces, and 12 is not more than 12.",
+      "wrong": "No. At 12 grams of added sugars per 6 ounces the yogurt is over the limit and is not creditable.",
+      "source": "7 CFR 226.20(a)(5)(iii)(B)",
+      "topic": "yogurt"
+    },
+    {
+      "id": "h_drinkable_yogurt",
+      "question": "The kids like the little drinkable yogurt bottles. Can those be the meat alternate at snack?",
+      "facts": "The meal is a snack. The food is a drinkable yogurt product.",
+      "correct": "No. Drinkable yogurt products are not creditable as yogurt, so they do not count as a meat alternate.",
+      "wrong": "Yes. A drinkable yogurt counts as a meat alternate the same as any yogurt.",
+      "source": "7 CFR 226.20(a)(5)(iii)(C)",
+      "topic": "yogurt"
+    },
+    {
+      "id": "h_cereal_6_exact",
+      "question": "This cereal has exactly 6 grams of added sugars per ounce and is whole grain. Okay for breakfast?",
+      "facts": "The meal is breakfast. The breakfast cereal has 6 grams of added sugars per dry ounce and is made with whole grain meal.",
+      "correct": "Yes. A whole grain breakfast cereal with no more than 6 grams of added sugars per dry ounce is creditable as a grain, and 6 is not more than 6.",
+      "wrong": "No. A cereal with 6 grams of added sugars per dry ounce is over the limit and does not count as a grain.",
+      "source": "7 CFR 226.20(a)(4)(ii)",
+      "topic": "cereal"
+    },
+    {
+      "id": "h_snack_veg_fruit",
+      "question": "Carrot sticks and apple slices for snack, nothing else. Is that a snack I can claim?",
+      "facts": "The meal is a snack. The snack contains a vegetable and a fruit, two components, and is not only milk and juice.",
+      "correct": "Yes. A snack with two of the five components is reimbursable, and a vegetable plus a fruit is two components.",
+      "wrong": "No. A snack has to include milk or a grain to be reimbursable.",
+      "source": "7 CFR 226.20(c)(3)",
+      "topic": "snack"
+    },
+    {
+      "id": "h_milk_2yo_whole",
+      "question": "Leo turned two last week. Can he keep having whole milk?",
+      "facts": "The child is 2 years old. The milk is unflavored whole milk.",
+      "correct": "Yes. Children 2 through 5 may be served whole, reduced-fat, low-fat or fat-free milk as long as it is unflavored.",
+      "wrong": "No. Once a child turns two the milk must be low-fat or fat-free.",
+      "source": "7 CFR 226.20(a)(1)(ii)",
+      "topic": "milk"
+    },
+    {
+      "id": "h_milk_flavored_5yo",
+      "question": "Strawberry milk for the 5 year olds at breakfast?",
+      "facts": "The meal is breakfast. The child is 5 years old. The milk is flavored.",
+      "correct": "No. Children 1 through 5 must be served unflavored milk, so flavored milk is not allowed for a 5 year old.",
+      "wrong": "Yes. Flavored milk is fine for children once they are 5.",
+      "source": "7 CFR 226.20(a)(1)(ii)",
+      "topic": "milk"
+    },
+    {
+      "id": "h_juice_snack_after_breakfast",
+      "question": "They had juice with breakfast. Can juice be one of the two snack components this afternoon?",
+      "facts": "Fruit juice was already served to meet the fruit requirement at breakfast today. The meal is a snack.",
+      "correct": "No. Juice may meet the fruit or vegetable requirement at only one meal or snack per day, so juice at snack does not credit today.",
+      "wrong": "Yes. Juice can count as a component at both breakfast and snack on the same day.",
+      "source": "7 CFR 226.20(a)(3)(i)",
+      "topic": "juice"
+    },
+    {
+      "id": "h_granola_bar",
+      "question": "Can a granola bar be the grain at snack?",
+      "facts": "The meal is a snack. The food is a granola bar, a grain-based dessert.",
+      "correct": "No. Granola bars are grain-based desserts and do not count toward the grains requirement.",
+      "wrong": "Yes. A granola bar is made of oats, so it credits as a grain.",
+      "source": "7 CFR 226.20(a)(4)(iii)",
+      "topic": "grains"
+    },
+    {
+      "id": "h_supper_missing_milk",
+      "question": "Supper is chicken, rice, peas and peaches but we are out of milk. Can I still claim it?",
+      "facts": "The meal is supper. The meal contains a meat, a grain, a vegetable and a fruit, and no fluid milk.",
+      "correct": "No. A reimbursable supper must contain all five components, and this supper has no fluid milk.",
+      "wrong": "Yes. Four of the five components is enough for a reimbursable supper.",
+      "source": "7 CFR 226.20(c)(2)",
+      "topic": "supper"
+    },
+    {
+      "id": "h_infant_cheese",
+      "question": "Can the 10 month old have little cubes of cheddar as her meat alternate?",
+      "facts": "The participant is an infant aged 10 months. The food is natural cheese.",
+      "correct": "Yes. Natural or processed cheese is creditable as a meat alternate for infants.",
+      "wrong": "No. Cheese is not creditable in the infant meal pattern.",
+      "source": "CACFP 06-2025, Meats and Meat Alternates, p. 13",
+      "topic": "infants"
+    }
+  ],
+  "not_rule_questions": [
+    {"id": "n_roll", "text": "Maya's here, Leo's here, Ava's mom said she's sick."},
+    {"id": "n_arrive", "text": "Mateo just walked in."},
+    {"id": "n_thanks", "text": "Thanks, that's all for now."},
+    {"id": "n_weather", "text": "Is it going to rain this afternoon?"},
+    {"id": "n_how_many", "text": "How many kids are here right now?"},
+    {"id": "n_substitute", "text": "Leo had sunflower butter instead of the peanut butter."},
+    {"id": "n_photo", "text": "I'll send you the plate photo in a sec."},
+    {"id": "n_nap", "text": "They're all down for nap."},
+    {"id": "n_answer", "text": "Yes, Leo was here on Tuesday."},
+    {"id": "n_greeting", "text": "Morning Tally."}
+  ]
+}
