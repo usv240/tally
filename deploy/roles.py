@@ -114,7 +114,9 @@ if _deployed.exists():
         # The guardrail carries a cross-Region profile (us.guardrail.v1:0), which Automated Reasoning
         # checks require, and the call is authorised against the profile as well as the guardrail.
         # The first live deploy had only the guardrail and every proof came back AccessDenied.
-        resources = [guardrail_arn,
+        # The profile routes the call to another US Region, where the same guardrail id is
+        # authorised under that Region's ARN, so the guardrail is allowed in every Region too.
+        resources = [guardrail_arn, guardrail_arn.replace(f":{REGION}:", ":*:"),
                      f"arn:aws:bedrock:{REGION}:{ACCOUNT}:guardrail-profile/us.guardrail.v1:0",
                      f"arn:aws:bedrock:*:{ACCOUNT}:guardrail-profile/us.guardrail.v1:0",
                      "arn:aws:bedrock:*::guardrail-profile/us.guardrail.v1:0"]

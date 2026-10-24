@@ -111,7 +111,7 @@ def prove_answer(question: str, answer: str, facts: str = "", meal_id: str = "")
         try:
             checked = prove.prove(question, answer, facts)
         except Exception as exc:  # the service having a bad minute must not take the agent down
-            error = f"{type(exc).__name__}: {str(exc)[:200]}"
+            error = f"{type(exc).__name__}: {str(exc)[:600]}"
             r.emit("proof_error", question=question, error=error)
             checked = prove.Checked(verdict="SKIPPED")
     p = _record(question, answer, facts, checked, attempt, meal_id or None)
