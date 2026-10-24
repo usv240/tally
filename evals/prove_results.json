@@ -1,35 +1,39 @@
 {
  "solver": {
   "n": 30,
-  "caught": 24,
+  "caught": 26,
   "wrong_served": 0,
-  "blocked": 4,
-  "proved": 13,
-  "undecided": 13,
+  "blocked": 0,
+  "forbidden": 2,
+  "proved": 14,
+  "undecided": 14,
   "off_topic_n": 4,
   "off_topic_proved": 0,
-  "latency_median_ms": 5617,
-  "latency_p90_ms": 6629,
+  "latency_median_ms": 5788,
+  "latency_p90_ms": 7609,
   "rows": [
    {
     "id": "yogurt_sugar_17",
     "topic": "yogurt",
     "source": "7 CFR 226.20(a)(5)(iii)(B); CACFP 06-2025 Q12",
     "correct": {
-     "verdict": "VALID",
+     "verdict": "SATISFIABLE",
      "rules": [
       "Yogurt is creditable as a meat alternate only if it contains no more than 12 grams of added sugars per 6 ounces."
      ],
-     "missing": [],
-     "latency_ms": 8065
+     "missing": [
+      "yogurtAddedSugarsPer6Ounces is equal to 13",
+      "isYogurtCreditable is false"
+     ],
+     "latency_ms": 10205
     },
     "wrong": {
      "verdict": "INVALID",
      "rules": [
-      "Yogurt is creditable as a meat alternate only if it contains no more than 12 grams of added sugars per 6 ounces."
+      "Children who are 6 years old and older may be served whole, reduced-fat, low-fat, or fat-free milk, and the milk may be flavored or unflavored."
      ],
      "missing": [],
-     "latency_ms": 7691
+     "latency_ms": 6733
     }
    },
    {
@@ -42,10 +46,10 @@
       "Yogurt with no more than 12 grams of added sugars per 6 ounces is creditable as a meat alternate."
      ],
      "missing": [
-      "yogurtSugarLimitMeasure is equal to SugarFigureType_ADDED",
-      "yogurtAddedSugarsPer6Ounces is equal to 13"
+      "yogurtAddedSugarsPer6Ounces is equal to 13",
+      "isYogurtCreditable is false"
      ],
-     "latency_ms": 5564
+     "latency_ms": 5724
     },
     "wrong": {
      "verdict": "INVALID",
@@ -53,7 +57,7 @@
       "Yogurt with no more than 12 grams of added sugars per 6 ounces is creditable as a meat alternate."
      ],
      "missing": [],
-     "latency_ms": 6262
+     "latency_ms": 5986
     }
    },
    {
@@ -61,23 +65,23 @@
     "topic": "yogurt",
     "source": "7 CFR 226.20(a)(5)(iii)(B); the 23 g total sugars limit expired September 30, 2025",
     "correct": {
-     "verdict": "SATISFIABLE",
+     "verdict": "VALID",
      "rules": [
       "Yogurt with no more than 12 grams of added sugars per 6 ounces is creditable as a meat alternate."
      ],
-     "missing": [
-      "isYogurtCreditable is false",
-      "yogurtAddedSugarsPer6Ounces is equal to 13"
-     ],
-     "latency_ms": 6113
+     "missing": [],
+     "latency_ms": 5005
     },
     "wrong": {
      "verdict": "IMPOSSIBLE",
      "rules": [
       "The yogurt sugar limit is measured in added sugars, not total sugars; the former total sugars limit no longer applies."
      ],
-     "missing": [],
-     "latency_ms": 5749
+     "missing": [
+      "isYogurtCreditable is false",
+      "sugarFigureType is equal to SugarFigureType_TOTAL"
+     ],
+     "latency_ms": 6019
     }
    },
    {
@@ -91,9 +95,9 @@
      ],
      "missing": [
       "isMeatAlternateCreditable is true",
-      "isNonCreditableYogurtProduct is true"
+      "isYogurtCreditable is false"
      ],
-     "latency_ms": 5973
+     "latency_ms": 6965
     },
     "wrong": {
      "verdict": "INVALID",
@@ -101,10 +105,10 @@
       "Frozen yogurt, drinkable yogurt, homemade yogurt, yogurt flavored products, yogurt bars, yogurt covered fruits or nuts, and similar products are not creditable as yogurt."
      ],
      "missing": [
-      "isMeatAlternateCreditable is false",
-      "isNonCreditableYogurtProduct is true"
+      "isNonCreditableYogurtProduct is true",
+      "isMeatAlternateCreditable is false"
      ],
-     "latency_ms": 5276
+     "latency_ms": 5096
     }
    },
    {
@@ -118,9 +122,9 @@
      ],
      "missing": [
       "isBreakfastCerealCreditable is false",
-      "cerealAddedSugarsPerDryOunce is equal to 6"
+      "cerealSugarLimitMeasure is equal to SugarFigureType_ADDED"
      ],
-     "latency_ms": 6954
+     "latency_ms": 6894
     },
     "wrong": {
      "verdict": "INVALID",
@@ -128,7 +132,7 @@
       "A breakfast cereal is creditable as a grain only if it contains no more than 6 grams of added sugars per dry ounce."
      ],
      "missing": [],
-     "latency_ms": 5872
+     "latency_ms": 5108
     }
    },
    {
@@ -138,13 +142,13 @@
     "correct": {
      "verdict": "SATISFIABLE",
      "rules": [
-      "A breakfast cereal made with enriched or whole grain meal or flour, with no more than 6 grams of added sugars per dry ounce, is creditable as a grain."
+      "Children who are 6 years old and older may be served whole, reduced-fat, low-fat, or fat-free milk, and the milk may be flavored or unflavored."
      ],
      "missing": [
       "cerealAddedSugarsPerDryOunce is equal to 7",
       "cerealSugarLimitMeasure is equal to SugarFigureType_ADDED"
      ],
-     "latency_ms": 6474
+     "latency_ms": 7048
     },
     "wrong": {
      "verdict": "INVALID",
@@ -155,7 +159,7 @@
       "cerealAddedSugarsPerDryOunce is equal to 4",
       "isBreakfastCerealCreditable is true"
      ],
-     "latency_ms": 6374
+     "latency_ms": 5665
     }
    },
    {
@@ -169,7 +173,7 @@
       "cerealAddedSugarsPerDryOunce is equal to 7",
       "cerealSugarLimitMeasure is equal to SugarFigureType_ADDED"
      ],
-     "latency_ms": 5108
+     "latency_ms": 4997
     },
     "wrong": {
      "verdict": "INVALID",
@@ -177,10 +181,10 @@
       "The breakfast cereal sugar limit is measured in added sugars, not total sugars; the former total sugars limit no longer applies."
      ],
      "missing": [
-      "sugarFigureType is equal to SugarFigureType_ADDED",
-      "cerealAddedSugarsPerDryOunce is equal to 7"
+      "cerealAddedSugarsPerDryOunce is equal to 7",
+      "sugarFigureType is equal to SugarFigureType_ADDED"
      ],
-     "latency_ms": 5568
+     "latency_ms": 5427
     }
    },
    {
@@ -193,7 +197,7 @@
       "A snack whose only two items are fluid milk and juice is not reimbursable."
      ],
      "missing": [],
-     "latency_ms": 5388
+     "latency_ms": 5395
     },
     "wrong": {
      "verdict": "INVALID",
@@ -201,7 +205,7 @@
       "A snack whose only two items are fluid milk and juice is not reimbursable."
      ],
      "missing": [],
-     "latency_ms": 5847
+     "latency_ms": 6119
     }
    },
    {
@@ -214,18 +218,15 @@
       "A snack with two or more of the five components, that is not only milk and juice, is reimbursable."
      ],
      "missing": [],
-     "latency_ms": 5982
+     "latency_ms": 6206
     },
     "wrong": {
      "verdict": "INVALID",
      "rules": [
       "A snack with two or more of the five components, that is not only milk and juice, is reimbursable."
      ],
-     "missing": [
-      "snackOnlyItemsAreMilkAndJuice is false",
-      "containsMeatsMeatAlternates is true"
-     ],
-     "latency_ms": 6345
+     "missing": [],
+     "latency_ms": 6215
     }
    },
    {
@@ -238,10 +239,10 @@
       "A reimbursable snack for a child must contain at least two of the five components."
      ],
      "missing": [
-      "mealType is equal to MealType_SNACK",
-      "snackComponentCount is equal to 1"
+      "snackComponentCount is equal to 1",
+      "mealType is equal to MealType_SNACK"
      ],
-     "latency_ms": 6181
+     "latency_ms": 5127
     },
     "wrong": {
      "verdict": "INVALID",
@@ -249,7 +250,7 @@
       "A reimbursable snack for a child must contain at least two of the five components."
      ],
      "missing": [],
-     "latency_ms": 5266
+     "latency_ms": 4543
     }
    },
    {
@@ -262,7 +263,7 @@
       "Flavored milk is not allowed for children aged 1 through 5 years."
      ],
      "missing": [],
-     "latency_ms": 5911
+     "latency_ms": 5012
     },
     "wrong": {
      "verdict": "IMPOSSIBLE",
@@ -270,7 +271,7 @@
       "Flavored milk is not allowed for children aged 1 through 5 years."
      ],
      "missing": [],
-     "latency_ms": 7093
+     "latency_ms": 5651
     }
    },
    {
@@ -281,19 +282,19 @@
      "verdict": "SATISFIABLE",
      "rules": [],
      "missing": [
-      "milkIsFlavored is false",
-      "childAgeYears is equal to 6"
+      "isMilkCreditableAsFluidMilk is false",
+      "milkIsFlavored is true"
      ],
-     "latency_ms": 5240
+     "latency_ms": 7232
     },
     "wrong": {
      "verdict": "SATISFIABLE",
      "rules": [],
      "missing": [
-      "childAgeYears is equal to 7",
-      "milkFatType is equal to MilkFatType_LOW_FAT"
+      "milkIsFlavored is true",
+      "milkMeetsFatAndFlavorForAge is true"
      ],
-     "latency_ms": 7473
+     "latency_ms": 7672
     }
    },
    {
@@ -306,7 +307,7 @@
       "if childAgeYears is equal to 1, then milkFatType is equal to MilkFatType_WHOLE"
      ],
      "missing": [],
-     "latency_ms": 5617
+     "latency_ms": 6716
     },
     "wrong": {
      "verdict": "INVALID",
@@ -314,7 +315,7 @@
       "if childAgeYears is equal to 1, then milkFatType is equal to MilkFatType_WHOLE"
      ],
      "missing": [],
-     "latency_ms": 4785
+     "latency_ms": 4783
     }
    },
    {
@@ -322,21 +323,24 @@
     "topic": "milk",
     "source": "7 CFR 226.20(a)(1)(ii)",
     "correct": {
-     "verdict": "INVALID",
+     "verdict": "SATISFIABLE",
      "rules": [
-      "Fluid milk must be served as a beverage, on cereal, or a combination of both; no other manner of service is permitted."
+      "Flavored milk is not allowed for children aged 1 through 5 years."
      ],
-     "missing": [],
-     "latency_ms": 6048
+     "missing": [
+      "isMilkCreditableAsFluidMilk is false",
+      "milkIsFlavored is false"
+     ],
+     "latency_ms": 7663
     },
     "wrong": {
      "verdict": "SATISFIABLE",
      "rules": [],
      "missing": [
-      "childAgeYears is equal to 2",
-      "milkFatType is equal to MilkFatType_REDUCED_FAT"
+      "milkFatType is equal to MilkFatType_REDUCED_FAT",
+      "childAgeYears is equal to 2"
      ],
-     "latency_ms": 6575
+     "latency_ms": 7808
     }
    },
    {
@@ -349,7 +353,7 @@
       "For children, yogurt does not count as fluid milk and may not be served in place of fluid milk."
      ],
      "missing": [],
-     "latency_ms": 5835
+     "latency_ms": 5840
     },
     "wrong": {
      "verdict": "IMPOSSIBLE",
@@ -357,7 +361,7 @@
       "For children, yogurt does not count as fluid milk and may not be served in place of fluid milk."
      ],
      "missing": [],
-     "latency_ms": 5720
+     "latency_ms": 6522
     }
    },
    {
@@ -370,7 +374,7 @@
       "Juice served at a second meal or snack in the same day does not credit toward the vegetable or fruit component."
      ],
      "missing": [],
-     "latency_ms": 5166
+     "latency_ms": 5391
     },
     "wrong": {
      "verdict": "INVALID",
@@ -378,7 +382,7 @@
       "Juice served at a second meal or snack in the same day does not credit toward the vegetable or fruit component."
      ],
      "missing": [],
-     "latency_ms": 4916
+     "latency_ms": 6199
     }
    },
    {
@@ -389,19 +393,19 @@
      "verdict": "SATISFIABLE",
      "rules": [],
      "missing": [
-      "juiceAlreadyServedToday is false",
-      "mealType is equal to MealType_BREAKFAST"
+      "juiceCreditsThisOccasion is false",
+      "juiceAlreadyServedToday is false"
      ],
-     "latency_ms": 5844
+     "latency_ms": 5460
     },
     "wrong": {
      "verdict": "SATISFIABLE",
      "rules": [],
      "missing": [
-      "juiceIsPasteurized is true",
-      "mealType is equal to MealType_BREAKFAST"
+      "isJuiceCreditable is true",
+      "juiceIsPasteurized is true"
      ],
-     "latency_ms": 5470
+     "latency_ms": 4812
     }
    },
    {
@@ -414,7 +418,7 @@
       "The daily whole grain-rich requirement is met if and only if at least one whole grain-rich grain was served that day."
      ],
      "missing": [],
-     "latency_ms": 5181
+     "latency_ms": 4146
     },
     "wrong": {
      "verdict": "INVALID",
@@ -422,7 +426,7 @@
       "The daily whole grain-rich requirement is met if and only if at least one whole grain-rich grain was served that day."
      ],
      "missing": [],
-     "latency_ms": 4481
+     "latency_ms": 7609
     }
    },
    {
@@ -435,7 +439,7 @@
       "The daily whole grain-rich requirement is met if and only if at least one whole grain-rich grain was served that day."
      ],
      "missing": [],
-     "latency_ms": 5627
+     "latency_ms": 6187
     },
     "wrong": {
      "verdict": "INVALID",
@@ -443,7 +447,7 @@
       "The daily whole grain-rich requirement is met if and only if at least one whole grain-rich grain was served that day."
      ],
      "missing": [],
-     "latency_ms": 5686
+     "latency_ms": 5473
     }
    },
    {
@@ -456,7 +460,7 @@
       "Grain-based desserts are not creditable as grains."
      ],
      "missing": [],
-     "latency_ms": 5301
+     "latency_ms": 4794
     },
     "wrong": {
      "verdict": "INVALID",
@@ -464,7 +468,7 @@
       "Grain-based desserts are not creditable as grains."
      ],
      "missing": [],
-     "latency_ms": 5089
+     "latency_ms": 4954
     }
    },
    {
@@ -472,26 +476,20 @@
     "topic": "breakfast",
     "source": "7 CFR 226.20(c)(1)",
     "correct": {
-     "verdict": "INVALID",
+     "verdict": "VALID",
      "rules": [
-      "if isMeatReplacingGrainsAtBreakfastAllowed is false, then meatReplacedGrainsAtBreakfastThisWeek is greater than 3"
+      "A meat or meat alternate may replace the grains at breakfast only if it has done so at most twice earlier this week, so that this is at most the third time."
      ],
-     "missing": [
-      "meatReplacedGrainsAtBreakfastThisWeek is equal to 4",
-      "isMeatReplacingGrainsAtBreakfastAllowed is false"
-     ],
-     "latency_ms": 6245
+     "missing": [],
+     "latency_ms": 6260
     },
     "wrong": {
-     "verdict": "SATISFIABLE",
+     "verdict": "INVALID",
      "rules": [
-      "if isMeatReplacingGrainsAtBreakfastAllowed is false, then meatReplacedGrainsAtBreakfastThisWeek is greater than 3"
+      "A meat or meat alternate may replace the grains at breakfast only if it has done so at most twice earlier this week, so that this is at most the third time."
      ],
-     "missing": [
-      "mealType is equal to MealType_BREAKFAST",
-      "isMeatReplacingGrainsAtBreakfastAllowed is false"
-     ],
-     "latency_ms": 4971
+     "missing": [],
+     "latency_ms": 6171
     }
    },
    {
@@ -501,22 +499,23 @@
     "correct": {
      "verdict": "SATISFIABLE",
      "rules": [
-      "if isMeatReplacingGrainsAtBreakfastAllowed is false, then meatReplacedGrainsAtBreakfastThisWeek is greater than 3"
+      "A meat or meat alternate may replace the entire grains component at breakfast when it has done so at most twice earlier this week."
      ],
      "missing": [
-      "meatReplacedGrainsAtBreakfastThisWeek is equal to 4",
-      "isMeatReplacingGrainsAtBreakfastAllowed is false"
+      "meatReplacedGrainsAtBreakfastThisWeek is equal to 4"
      ],
-     "latency_ms": 5888
+     "latency_ms": 6614
     },
     "wrong": {
-     "verdict": "SATISFIABLE",
-     "rules": [],
+     "verdict": "INVALID",
+     "rules": [
+      "A meat or meat alternate may replace the entire grains component at breakfast when it has done so at most twice earlier this week."
+     ],
      "missing": [
       "isMeatReplacingGrainsAtBreakfastAllowed is true",
-      "meatReplacedGrainsAtBreakfastThisWeek is equal to 3"
+      "mealType is equal to MealType_BREAKFAST"
      ],
-     "latency_ms": 4586
+     "latency_ms": 6445
     }
    },
    {
@@ -529,7 +528,7 @@
       "if mealType is equal to MealType_LUNCH and isMealReimbursable is true, then containsVegetables is true"
      ],
      "missing": [],
-     "latency_ms": 6629
+     "latency_ms": 6150
     },
     "wrong": {
      "verdict": "INVALID",
@@ -537,7 +536,7 @@
       "if mealType is equal to MealType_LUNCH and isMealReimbursable is true, then containsVegetables is true"
      ],
      "missing": [],
-     "latency_ms": 5398
+     "latency_ms": 4659
     }
    },
    {
@@ -548,16 +547,19 @@
      "verdict": "SATISFIABLE",
      "rules": [],
      "missing": [
-      "isMealReimbursable is false",
+      "twoVegetablesAreDifferentKinds is true",
       "mealType is equal to MealType_LUNCH"
      ],
-     "latency_ms": 5368
+     "latency_ms": 6903
     },
     "wrong": {
      "verdict": "INVALID",
      "rules": [],
-     "missing": [],
-     "latency_ms": 5950
+     "missing": [
+      "vegetableServedToMeetFruitRequirement is true",
+      "containsFruits is false"
+     ],
+     "latency_ms": 6134
     }
    },
    {
@@ -570,7 +572,7 @@
       "Deep-fat fried foods prepared on-site cannot be part of a reimbursable meal."
      ],
      "missing": [],
-     "latency_ms": 5085
+     "latency_ms": 4969
     },
     "wrong": {
      "verdict": "INVALID",
@@ -578,7 +580,7 @@
       "Deep-fat fried foods prepared on-site cannot be part of a reimbursable meal."
      ],
      "missing": [],
-     "latency_ms": 5397
+     "latency_ms": 5788
     }
    },
    {
@@ -591,19 +593,19 @@
       "An infant meal that includes fruit juice or vegetable juice is not reimbursable."
      ],
      "missing": [
-      "juiceServed is true",
+      "isJuiceCreditable is true",
       "isInfant is true"
      ],
-     "latency_ms": 5184
+     "latency_ms": 5125
     },
     "wrong": {
      "verdict": "SATISFIABLE",
      "rules": [],
      "missing": [
-      "mealType is equal to MealType_SNACK",
+      "isJuiceCreditable is false",
       "isInfant is true"
      ],
-     "latency_ms": 6261
+     "latency_ms": 8252
     }
    },
    {
@@ -616,7 +618,7 @@
       "The whole grain-rich requirement does not apply to infants."
      ],
      "missing": [],
-     "latency_ms": 4381
+     "latency_ms": 5603
     },
     "wrong": {
      "verdict": "INVALID",
@@ -624,7 +626,7 @@
       "The whole grain-rich requirement does not apply to infants."
      ],
      "missing": [],
-     "latency_ms": 5353
+     "latency_ms": 4758
     }
    },
    {
@@ -637,7 +639,7 @@
       "Cooked grains such as rice, quinoa, and pasta are not creditable in the infant meal pattern."
      ],
      "missing": [],
-     "latency_ms": 5439
+     "latency_ms": 6086
     },
     "wrong": {
      "verdict": "INVALID",
@@ -645,7 +647,7 @@
       "Cooked grains such as rice, quinoa, and pasta are not creditable in the infant meal pattern."
      ],
      "missing": [],
-     "latency_ms": 4796
+     "latency_ms": 4420
     }
    },
    {
@@ -658,7 +660,7 @@
       "For infants, cheese food and cheese spread are not creditable as a meat alternate."
      ],
      "missing": [],
-     "latency_ms": 4997
+     "latency_ms": 4172
     },
     "wrong": {
      "verdict": "INVALID",
@@ -666,7 +668,7 @@
       "For infants, cheese food and cheese spread are not creditable as a meat alternate."
      ],
      "missing": [],
-     "latency_ms": 4680
+     "latency_ms": 4711
     }
    },
    {
@@ -679,18 +681,21 @@
       "Infant cereal is creditable only if it is iron-fortified."
      ],
      "missing": [
-      "infantCerealIsIronFortified is true",
-      "isInfantCerealCreditable is false"
+      "isInfantCerealCreditable is false",
+      "infantCerealIsIronFortified is true"
      ],
-     "latency_ms": 5270
+     "latency_ms": 5426
     },
     "wrong": {
      "verdict": "INVALID",
      "rules": [
       "Infant cereal is creditable only if it is iron-fortified."
      ],
-     "missing": [],
-     "latency_ms": 5378
+     "missing": [
+      "isInfant is true",
+      "isInfantCerealCreditable is false"
+     ],
+     "latency_ms": 4386
     }
    }
   ],

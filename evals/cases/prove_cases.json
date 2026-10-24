@@ -122,7 +122,7 @@
       "id": "milk_skim_3yo",
       "question": "Is skim milk okay for the 3 year olds?",
       "facts": "The child is 3 years old. The milk is unflavored fat-free milk.",
-      "correct": "Yes. Children 2 through 5 years old may be served whole, reduced-fat, low-fat or fat-free milk as long as it is unflavored.",
+      "correct": "Yes. Unflavored fat-free milk is creditable as fluid milk for a 3 year old; children 2 through 5 must have unflavored milk.",
       "wrong": "No. Children 2 through 5 must be served whole milk only.",
       "source": "7 CFR 226.20(a)(1)(ii)",
       "topic": "milk"
