@@ -130,10 +130,12 @@ if _deployed.exists():
                                "Action": ["bedrock:InvokeAutomatedReasoningPolicy"],
                                "Resource": [_d["policy_arn"], _d["policy_arn"] + ":*"]})
         if _d.get("ledger_bucket"):
-            # Write receipts and read them back. No delete and no lock changes: with compliance
-            # mode there is nothing to grant, which is the point of the ledger.
+            # Write receipts and read them back. PutObjectRetention is what lets a write set its own
+            # lock date; it cannot shorten one in compliance mode. No delete: with compliance mode
+            # there is nothing to grant, which is the point of the ledger.
             statements.append({"Sid": "FileProofReceipts", "Effect": "Allow",
-                               "Action": ["s3:PutObject", "s3:GetObject", "s3:GetObjectRetention"],
+                               "Action": ["s3:PutObject", "s3:PutObjectRetention", "s3:GetObject",
+                                          "s3:GetObjectRetention"],
                                "Resource": f"arn:aws:s3:::{_d['ledger_bucket']}/proofs/*"})
         put_policy(INSTANCE_ROLE, "ProveAnswers", {"Version": "2012-10-17", "Statement": statements})
 
